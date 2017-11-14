@@ -1,0 +1,49 @@
+[user]
+	name = pawciobiel
+	email = pawciobiel@gmail.com
+
+[color]
+	ui = auto
+
+[alias]
+	brs = branch -avv
+	co = checkout
+	info = remote show origin
+	tree = log --graph --decorate --color --pretty=oneline --abbrev-commit --all
+	glog = log --graph --decorate --color --name-status --abbrev-commit
+	gloga = log --graph --decorate --color --name-status --abbrev-commit --all
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+	# list local commits since last pull
+	llc = log ORIG_HEAD.. --stat --no-merges
+	st = status -s -b
+	ci = commit
+	cdiff = diff --color -C -U5
+	tags = for-each-ref --format '%(objectname:short) %(refname) %(taggerdate)' --sort=-taggerdate refs/tags
+	#git format-patch --no-prefix --stdout trunk > patch_name.patch
+	#git diff --no-prefix trunk your_branch > patch_name.patch
+	
+	#getting a diff between branch A and a branch B since A was forked of B
+	forkdiff = !bash -c 'git diff $(git merge-base "$1" "$2") "$2" "${@: 3}" ' -
+
+    # first commit (empty tree)
+	empty-tree-sha1 = hash-object -t tree /dev/null
+
+	#  git graphviz HEAD~100..HEAD~60 | dotty /dev/stdin
+	#  git graphviz --first-parent master | dotty /dev/stdin
+	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+
+	whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+	whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+
+	serve = daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	unstage = reset HEAD --
+
+
+[core]
+	excludesfile = ~/.gitignore
+
+[push]
+	default = current # simple
+
