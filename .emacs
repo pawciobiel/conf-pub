@@ -7,7 +7,13 @@
  ;; If there is more than one, they won't work right.
  '(ac-ispell-fuzzy-limit 4)
  '(ac-ispell-requires 4)
- '(ac-trigger-key "\\C-\\t")
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes nil)
+ '(js-enabled-frameworks (quote (javascript)))
+ '(js-indent-level 2)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
@@ -15,15 +21,18 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (go-autocomplete go-mode neotree dired-narrow ac-php sql-indent php-mode ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc paradox nose nginx-mode magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell flycheck-pyflakes epic)))
+    (flycheck yaml-mode handlebars-mode mmm-jinja2 mmm-mako mmm-mode mustache pyimpsort go-autocomplete go-mode neotree dired-narrow ac-php sql-indent php-mode ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc paradox nose nginx-mode magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell flycheck-pyflakes epic)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
-
+ '(font-lock-comment-delimiter-face ((t (:foreground "dim gray"))))
+ '(font-lock-comment-face ((t (:foreground "dim gray"))))
+ '(font-lock-doc-face ((t (:foreground "green"))))
+ '(font-lock-string-face ((t (:foreground "green"))))
+ '(font-lock-variable-name-face ((t (:foreground "white" :weight light)))))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -45,9 +54,22 @@
 (setq fci-rule-column 79)
 (setq fci-rule-color "darkblue")
 
-(global-linum-mode 1)
-;(setq linum-format "%d ")
 (setq linum-format "%4d \u2502 ")
+(when (eq window-system 'x)
+  ;(color-theme-robin-hood)
+  (load-theme 'manoj-dark t)
+  ;(load-theme 'solarized-dark t)
+  (setq linum-format "%d")
+)
+  
+(cond ((featurep 'xemacs)
+       ;; Code for XEmacs
+       ;;(color-theme-robin-hood))
+   )
+   (t
+       ;; Code for Emacs
+))
+(global-linum-mode 1)
 
 (setq column-number-mode t)
 
@@ -72,6 +94,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (setq ac-auto-start nil)
+
 
 (require 'auto-complete-nxml)
 ;(setq auto-complete-nxml-automatic-p nil)
@@ -145,6 +168,11 @@
             ; ...
   )
   )
+
+(require 'pyimpsort)
+(eval-after-load 'python
+  '(define-key python-mode-map "\C-c\C-i" #'pyimpsort-buffer))
+
 (setq ispell-list-command "--list")  ; aspel uzywa --list
 (defun fd-switch-dictionary()
       (interactive)
@@ -159,7 +187,7 @@
 
 (defun js-custom ()
   "js-mode-hook"
-  (setq js-indent-level 4))
+  (setq js-indent-level 2))
 (add-hook 'js-mode-hook 'js-custom)
 
 (setq-default indent-tabs-mode nil)
@@ -199,7 +227,15 @@
 (global-set-key (kbd "C-.") 'jedi:goto-definition)
 (global-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-c d") 'jedi:show-doc)
-(global-set-key (kbd "C-<tab>") 'jedi:complete)
+;(setq ac-trigger-key "C-/")
+;(global-auto-complete-mode t)
+;(define-key ac-completing-map (kbd "C-/") 'ac-complete)
+(define-key ac-completing-map (kbd "C-/") 'jedi:complete)
+(global-set-key (kbd "C-_") 'nil)
+(global-set-key (kbd "C-_") 'jedi:complete)
+(global-set-key (kbd "C-/") 'jedi:complete)
+
+(global-set-key (kbd "C-<tab>") nil)
 (global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
 
 (setq helm-boring-buffer-regexp-list
