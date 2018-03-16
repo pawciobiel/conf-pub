@@ -36,6 +36,12 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+; js autocompletion
+; http://ternjs.net/doc/manual.html#emacs
+(add-to-list 'load-path "~/.emacs.d/tern/")
+(autoload 'tern-mode "tern.el" nil t)
+
+
 ;(load-file "~/.emacs.d/lisp/pdb-current.el")
 (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
 
@@ -149,9 +155,8 @@
 (helm-projectile-on)
 
 
-;;;;;;;;;;;; spell check
-;; Completion words longer than 4 characters
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; modes
 
 (eval-after-load "auto-complete"
      '(progn
@@ -162,16 +167,42 @@
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 
+
 (add-hook 'python-mode-hook
   (lambda ()
     (flyspell-prog-mode)
-            ; ...
+; TODO:
+;(eval-after-load 'python
+;  '(define-key python-mode-map (kbd "C-.") 'jedi:goto-definition)
+;  '(define-key python-mode-map (kbd "C-,") 'jedi:goto-definition-pop-marker)
+;  '(define-key python-mode-map (kbd "C-/") 'jedi:complete)
+;)
+  ; ...
   )
-  )
+)
 
 (require 'pyimpsort)
 (eval-after-load 'python
-  '(define-key python-mode-map "\C-c\C-i" #'pyimpsort-buffer))
+  '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer)
+)
+
+
+(defun js-custom ()
+  "js-mode-hook"
+  (setq js-indent-level 2)
+  (local-set-key (kbd "C-c /") 'completion-at-point)
+  (local-set-key (kbd "C-c .") 'js-find-symbol)
+  (tern-mode t))
+(add-hook 'js-mode-hook 'js-custom)
+
+; js autocomplete via tern + ac - czy to działa?
+;(eval-after-load 'tern
+;   '(progn
+;      (require 'tern-auto-complete)
+;      (tern-ac-setup)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq ispell-list-command "--list")  ; aspel uzywa --list
 (defun fd-switch-dictionary()
@@ -183,14 +214,12 @@
         ))
     
       (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun js-custom ()
-  "js-mode-hook"
-  (setq js-indent-level 2))
-(add-hook 'js-mode-hook 'js-custom)
-
 (setq-default indent-tabs-mode nil)
+(setq-default auto-compression-mode nil)
+(setq-default auto-encryption-mode nil)
 (setq-default tab-width 4)
 
 ;;;;;;;;; keys
@@ -221,19 +250,23 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
+; C-x C-u  upcase-region
+; C-x C-l  downcase-region
+
 ; zamiast key-binda jest ibuffer modede hook
 ;(global-set-key (kbd "C-x C-b") 'ibuffer-list-buffers)
 ;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit) to coś nie działa
-(global-set-key (kbd "C-.") 'jedi:goto-definition)
-(global-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
+
+(global-set-key (kbd "C-c .") 'jedi:goto-definition)
+(global-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-c d") 'jedi:show-doc)
-;(setq ac-trigger-key "C-/")
+;(setq ac-trigger-key "C-c /")
 ;(global-auto-complete-mode t)
-;(define-key ac-completing-map (kbd "C-/") 'ac-complete)
-(define-key ac-completing-map (kbd "C-/") 'jedi:complete)
+;(define-key ac-completing-map (kbd "C-c /") 'ac-complete)
+(define-key ac-completing-map (kbd "C-c /") 'jedi:complete)
 (global-set-key (kbd "C-_") 'nil)
-(global-set-key (kbd "C-_") 'jedi:complete)
-(global-set-key (kbd "C-/") 'jedi:complete)
+(global-set-key (kbd "C-c _") 'jedi:complete)
+(global-set-key (kbd "C-c /") 'jedi:complete)
 
 (global-set-key (kbd "C-<tab>") nil)
 (global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
