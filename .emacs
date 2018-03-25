@@ -1,4 +1,6 @@
-;;; pgb emacs file :-)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -16,8 +18,11 @@
  '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") 
                             ("marmalade" . "https://marmalade-repo.org/packages/") 
                             ("melpa" . "https://melpa.org/packages/")))) 
- '(package-selected-packages (quote (pyvenv tern rainbow-delimiters web-mode restclient elisp-format
-                                            flycheck yaml-mode handlebars-mode mmm-jinja2 mmm-mako
+ '(package-selected-packages (quote (imenu-list dired dired-single pyvenv tern rainbow-delimiters
+                                            use-package fish-mode
+                                            web-mode restclient elisp-format restclient
+                                            flycheck yaml-mode handlebars-mode
+                                            jinja2-mode mmm-jinja2 mmm-mako
                                             mmm-mode mustache pyimpsort go-autocomplete go-mode
                                             neotree dired-narrow ac-php sql-indent php-mode
                                             ac-ispell sphinx-doc sphinx-mode markdown-mode
@@ -55,90 +60,45 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-                                        ; js autocompletion
-                                        ; http://ternjs.net/doc/manual.html#emacs
+;; js autocompletion
+;; http://ternjs.net/doc/manual.html#emacs
 (add-to-list 'load-path "~/.emacs.d/tern/")
 (autoload 'tern-mode "tern.el" nil t)
 
-
-                                        ;(load-file "~/.emacs.d/lisp/pdb-current.el")
+;;(load-file "~/.emacs.d/lisp/pdb-current.el")
 (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
 
-(defun kill-other-buffers () 
+;; hideshowvis nie działa bo emacs compiled bez png/gtk...?
+;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
+
+;;(recentf-mode 1)
+;;(setq-default recent-save-file "~/.emacs.d/recentf")
+;; zamiast recentf-mode mam desktop save
+(desktop-save-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; my defuns
+
+(defun kill-other-buffers()
   "Kill all other buffers." 
   (interactive) 
   (mapc 'kill-buffer (delq (current-buffer) 
                            (buffer-list))))
 
-                                        ;(recentf-mode 1)
-                                        ;(setq-default recent-save-file "~/.emacs.d/recentf")
+(defun my-kill-current-buffer()
+  "Kill current buffer"
+  (interactive) 
+  (kill-buffer (current-buffer)))
 
-(require 'fill-column-indicator)
-(define-globalized-minor-mode global-fci-mode fci-mode 
-  (lambda () 
-    (fci-mode 1)))
-(global-fci-mode 1)
-(setq fci-rule-width 1)
-(setq fci-rule-column 79)
-(setq fci-rule-color "darkblue")
-
-(setq linum-format "%4d \u2502 ")
-(when (eq window-system 'x)
-                                        ;(color-theme-robin-hood)
-  (load-theme 'manoj-dark t)
-                                        ;(load-theme 'solarized-dark t)
-  (setq linum-format "%d"))
-
-(cond 
- ((featurep 
-   'xemacs)
-  ;; Code for XEmacs
-  ;;(color-theme-robin-hood))
-  ) 
- (t
-  ;; Code for Emacs
-  ))
-(global-linum-mode 1)
-
-(setq column-number-mode t)
-
-(desktop-save-mode 1)
-
-(setq scroll-step            1 scroll-conservatively  10000)
-
-(which-function-mode 1)
-
-
-
-(require 'package)
-(package-initialize)
-(unless package-archive-contents (package-refresh-contents))
-(package-install-selected-packages)
-
-(require 'projectile)
-(projectile-global-mode)
-
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-auto-start nil)
-
-
-(require 'auto-complete-nxml)
-                                        ;(setq auto-complete-nxml-automatic-p nil)
-
-(require 'jedi)
-(add-to-list 'ac-sources 'ac-source-jedi-direct)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot nil)
-
-                                        ; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
-                                        ;(require 'popwin)
-                                        ;(popwin-mode 1)
-                                        ;(setq display-buffer-function 'popwin:display-buffer)
-                                        ;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-                                        ;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
-
-(windmove-default-keybindings 'shift)
+(defun duplicate-line()
+  "Duplicate line"
+  (interactive) 
+  (move-beginning-of-line 1) 
+  (kill-line) 
+  (yank) 
+  (open-line 1) 
+  (next-line 1) 
+  (yank))
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name) 
@@ -155,10 +115,179 @@
                (set-visited-file-name new-name) 
                (set-buffer-modified-p nil))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(load-file "~/.emacs.d/lisp/fill-column-indicator.el")
+(require 'fill-column-indicator)
+(define-globalized-minor-mode global-fci-mode fci-mode 
+  (lambda () 
+    (fci-mode 1)))
+(global-fci-mode 1)
+(setq fci-rule-width 1)
+(setq fci-rule-column 79)
+(setq fci-rule-color "darkblue")
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
+(global-linum-mode 0)  ;; poszczegolne mody włączają linum
+;;(setq linum-format "%d ")
+(setq linum-format "%4d \u2502 ")
+
+;; if we run xemacs load some related modes and thames
+(when (eq window-system 'x)
+  ;;(color-theme-robin-hood)
+  (load-theme 'manoj-dark t)
+  ;;(load-theme 'solarized-dark t)
+  (setq linum-format "%d"))
+(cond 
+ ((featurep 
+   'xemacs)
+  ;; Code for XEmacs
+  ;;(color-theme-robin-hood))
+  ) 
+ (t
+  ;; Code for Emacs
+  ))
+
+(setq column-number-mode t)
+(setq scroll-step            1 scroll-conservatively  10000)
+(which-function-mode 1)
+
+;; when searching place highlited text in the middle of the screen - recenter
+;;(add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
+;;(defadvice
+;;  isearch-repeat-forward
+;;  (after isearch-repeat-forward-recenter activate)
+;;  (recenter-top-bottom))
+;;
+;;(defadvice
+;;  isearch-repeat-backward
+;;  (after isearch-repeat-backward-recenter activate)
+;;  (recenter-top-bottom))
+;;
+;;(ad-activate 'isearch-repeat-forward)
+;;(ad-activate 'isearch-repeat-backward)
+
+(setq dired-use-ls-dired nil)
+;;(require 'dired-single)  ??? nie działa
+;;(put 'dired-find-alternate-file 'disabled nil)
+;;(defadvice dired-advertised-find-file (around dired-subst-directory activate)
+;;  "Replace current buffer if file is a directory."
+;;  (interactive)
+;;  (let ((orig (current-buffer))
+;;        (filename (dired-get-filename))) ad-do-it (when (and (file-directory-p filename)
+;;                                                             (not (eq (current-buffer) orig)))
+;;                                                    (kill-buffer orig))))
+;;
+;;(eval-after-load "dired"
+;;  ;; don't remove `other-window', the caller expects it to be there
+;;  '(defun dired-up-directory
+;;       (&optional
+;;        other-window)
+;;     "Run Dired on parent directory of current directory."
+;;     (interactive "P")
+;;     (let* ((dir (dired-current-directory))
+;;            (orig (current-buffer))
+;;            (up (file-name-directory (directory-file-name dir))))
+;;       (or (dired-goto-file (directory-file-name dir))
+;;     	   ;; Only try dired-goto-subdir if buffer has more than one dir.
+;;     	   (and (cdr dired-subdir-alist)
+;;                (dired-goto-subdir up))
+;;           (progn (kill-buffer orig)
+;;                  (dired up)
+;;                  (dired-goto-file dir))))))
+
+;;(setq-default ibuffer-saved-filter-groups `(("Default"
+;;                                             ;; I create a group call Dired, which contains all buffer in dired-mode
+;;                                             ("Dired" (mode . dired-mode))
+;;                                             ("Dired" (mode . "\*Dired\*"))
+;;                                             ("Temporary" (name . "\*.*\*")))))
+
+(require 'package)
+(package-initialize)
+(unless package-archive-contents (package-refresh-contents))
+(package-install-selected-packages)
+
+(require 'projectile)
+(projectile-global-mode)
+
+(require 'helm-projectile)
+(helm-projectile-on)
+
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-auto-start nil)
+
+(require 'helm)
+(setq helm-boring-buffer-regexp-list (quote (  "\\Minibuf.+\\*" "\\` " "\\*.+\\*")))
+
+;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
+;;(require 'popwin)
+;;(popwin-mode 1)
+;;(setq display-buffer-function 'popwin:display-buffer)
+;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
+
+(use-package 
+  auto-complete-nxml 
+  :ensure t 
+  :config (setq auto-complete-nxml-automatic-p nil))
+
+(use-package 
+  jinja2-mode 
+  :ensure t)
+
+(use-package 
+  fish-mode 
+  :ensure t)
+
+(use-package 
+  markdown-mode 
+  :ensure t)
+
+(use-package 
+  yaml-mode 
+  :ensure t)
+
+;;(use-package web-mode :ensure t)
+
+(use-package 
+  magit 
+  :ensure t 
+  :bind (("C-x g" . magit-status) ;; Display the main magit popup
+         ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
+
+;;(require 'jedi)
+;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
+;;(add-hook 'python-mode-hook 'jedi:setup)
+;;(setq jedi:complete-on-dot nil)
+(use-package 
+  jedi 
+  :ensure t 
+  :config (add-hook 'python-mode-hook 'jedi:setup) 
+  (add-to-list 'ac-sources 'ac-source-jedi-direct)
+  ;;(setq-default jedi:setup-keys t)
+  (setq-default jedi:complete-on-dot nil))
+
+;; ispell/aspel
+(setq ispell-list-command "--list")     ;; aspel uzywa --list
+(defun fd-switch-dictionary() 
+  (interactive) 
+  (let* ((dic ispell-current-dictionary) 
+         (change (if (string= dic "en_GB") "polish" "en_GB"))) 
+    (ispell-change-dictionary change) 
+    (message "Dictionary switched from %s to %s" dic change)))
+
+;; move windows with shift+arrow
+(windmove-default-keybindings 'shift)
+
 
 (show-paren-mode t)
 (setq visible-bell nil)
-
 
 (require 'ido-vertical-mode)
 (ido-mode 1)
@@ -168,45 +297,51 @@
 (require 'move-lines)
 (move-lines-binding)
 
-(global-flycheck-mode)
+(require 'mmm-auto)
+(setq mmm-global-mode 'maybe)
+(mmm-add-mode-ext-class 'html-mode "\\.php\\'" 'html-php)
+(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
+(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
+
+;;(global-flycheck-mode)
+(use-package 
+  flycheck 
+  :ensure t 
+  :init (global-flycheck-mode t))
 (add-hook 'after-init-hook 'global-flycheck-mode)
-
-(require 'helm-projectile)
-(helm-projectile-on)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        ; modes
 
 (eval-after-load "auto-complete" '(progn (ac-ispell-setup)))
 
 (dolist (hook '(text-mode-hook)) 
   (add-hook hook (lambda () 
-                   (flyspell-mode 1))))
+                   (linum-mode) 
+                   (flyspell-mode))))
+
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook)) 
   (add-hook hook (lambda () 
                    (flyspell-mode -1))))
 
-
-(add-hook 'python-mode-hook (lambda () 
-                              (flyspell-prog-mode)
-                                        ; TODO:
-                                        ;(eval-after-load 'python
-                                        ;  '(define-key python-mode-map (kbd "C-.") 'jedi:goto-definition)
-                                        ;  '(define-key python-mode-map (kbd "C-,") 'jedi:goto-definition-pop-marker)
-                                        ;  '(define-key python-mode-map (kbd "C-/") 'jedi:complete)
-                                        ;)
-                                        ; ...
-                              ))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; prog modes
 
 (require 'pyimpsort)
+(add-hook 'python-mode-hook (lambda () 
+                              (flyspell-prog-mode)
+                              ;; TODO:
+                              ;;(eval-after-load 'python
+                              ;;  '(define-key python-mode-map (kbd "C-c /") 'jedi:complete)
+                              ;;  '(define-key python-mode-map (kbd "C-c .") 'jedi:goto-definition)
+                              ;;  '(define-key python-mode-map (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
+                              ;;)
+                              ;; ...
+                              ))
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
 
 (defun js-custom () 
   "js-mode-hook" 
-  (setq js-indent-level 2) 
   (flyspell-prog-mode) 
+  (setq js-indent-level 2) 
   (local-set-key (kbd "C-c /") 'completion-at-point) 
   (local-set-key (kbd "C-c .") 'js-find-symbol) 
   (push '("function" . ?ƒ) prettify-symbols-alist) 
@@ -214,86 +349,72 @@
   (tern-mode t))
 (add-hook 'js-mode-hook 'js-custom)
 
-                                        ; js autocomplete via tern + ac - czy to działa?
-                                        ;(eval-after-load 'tern
-                                        ;   '(progn
-                                        ;      (require 'tern-auto-complete)
-                                        ;      (tern-ac-setup)))
+;; js autocomplete via tern + ac - czy to w ogóle działa?
+;;(eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;      (tern-ac-setup)))
 
+(defun my-php-mode-config () 
+  "konfig php-mode"
+  (local-set-key (kbd "C-d") nil))
+(add-hook 'php-mode-hook 'my-php-mode-config)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'prog-mode-hook (lambda () 
+                            (linum-mode) 
+                            (flyspell-prog-mode)))
 
-(setq ispell-list-command "--list")     ; aspel uzywa --list
-(defun fd-switch-dictionary() 
-  (interactive) 
-  (let* ((dic ispell-current-dictionary) 
-         (change (if (string= dic "en_GB") "polish" "en_GB"))) 
-    (ispell-change-dictionary change) 
-    (message "Dictionary switched from %s to %s" dic change)))
-(global-set-key (kbd "<f7>")   'fd-switch-dictionary)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; keys
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(setq-default indent-tabs-mode nil)
-(setq-default auto-compression-mode nil)
-(setq-default auto-encryption-mode nil)
-(setq-default tab-width 4)
-
-;;;;;;;;; keys
-                                        ; C-x C-b -> ibuffer-list-buffers zamiast helm-buffers
+;; C-x C-b -> ibuffer-list-buffers zamiast helm-buffers
 (defalias 'list-buffers 'ibuffer)
 (add-hook 'ibuffer-mode-hook (lambda () 
                                (ibuffer-auto-mode 1)))
 
+(global-set-key (kbd "<f7>")   'fd-switch-dictionary)
+
 (global-set-key (kbd "<home>") 'beginning-of-line)
 (global-set-key (kbd "<select>") 'end-of-line)
-(defun duplicate-line() 
-  (interactive) 
-  (move-beginning-of-line 1) 
-  (kill-line) 
-  (yank) 
-  (open-line 1) 
-  (next-line 1) 
-  (yank))
+
 (global-set-key (kbd "C-d") 'duplicate-line)
 (global-set-key (kbd "C-k") 'kill-whole-line)
 (global-set-key (kbd "C-e") 'kill-whole-line)
-(global-set-key (kbd "C-x k") 
-                (lambda () 
-                  (interactive) 
-                  (kill-buffer (current-buffer))))
 
 (global-set-key (kbd "M-x") 'helm-M-x)
+
+(global-set-key (kbd "C-x k") 'my-kill-current-buffer)
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-                                        ; C-x C-u  upcase-region
-                                        ; C-x C-l  downcase-region
+(global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
+;; C-x C-u  upcase-region
+;; C-x C-l  downcase-region
 
-                                        ; zamiast key-binda jest ibuffer modede hook
-                                        ;(global-set-key (kbd "C-x C-b") 'ibuffer-list-buffers)
-                                        ;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit) to coś nie działa
+;; zamiast key-binda jest ibuffer modede hook
+;;(global-set-key (kbd "C-x C-b") 'ibuffer-list-buffers)
+;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit) to coś nie działa
 
 (global-set-key (kbd "C-c .") 'jedi:goto-definition)
 (global-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-c d") 'jedi:show-doc)
-                                        ;(setq ac-trigger-key "C-c /")
-                                        ;(global-auto-complete-mode t)
-                                        ;(define-key ac-completing-map (kbd "C-c /") 'ac-complete)
+
+;;(setq ac-trigger-key "C-c /")
+;;(global-auto-complete-mode t)
+;;(define-key ac-completing-map (kbd "C-c /") 'ac-complete)
 (define-key ac-completing-map (kbd "C-c /") 'jedi:complete)
 (global-set-key (kbd "C-_") 'nil)
 (global-set-key (kbd "C-c _") 'jedi:complete)
 (global-set-key (kbd "C-c /") 'jedi:complete)
 
 (global-set-key (kbd "C-<tab>") nil)
-(global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
 
-(setq helm-boring-buffer-regexp-list (quote (  "\\Minibuf.+\\*" "\\` " "\\*.+\\*")))
+
+
 (put 'upcase-region 'disabled nil)
 
 (require 'neotree)
-(global-set-key (kbd "<f8>") 'neotree-toggle)
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
@@ -306,22 +427,12 @@
                         (progn (neotree-dir project-dir) 
                                (neotree-find file-name))) 
       (message "Could not find git project root."))))
-(global-set-key (kbd "<f8>") 'neotree-project-dir)
+(global-set-key (kbd "<f8>") 'neotree-toggle)
+;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
 
+(require 'imenu-list)
+(global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
 
-                                        ;(add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
-                                        ;(defadvice
-                                        ;  isearch-repeat-forward
-                                        ;  (after isearch-repeat-forward-recenter activate)
-                                        ;  (recenter-top-bottom))
-                                        ;
-                                        ;(defadvice
-                                        ;  isearch-repeat-backward
-                                        ;  (after isearch-repeat-backward-recenter activate)
-                                        ;  (recenter-top-bottom))
-                                        ;
-                                        ;(ad-activate 'isearch-repeat-forward)
-                                        ;(ad-activate 'isearch-repeat-backward)
 
 
 ;;;the end
