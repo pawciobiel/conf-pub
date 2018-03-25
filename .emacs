@@ -64,6 +64,11 @@
 ;; http://ternjs.net/doc/manual.html#emacs
 (add-to-list 'load-path "~/.emacs.d/tern/")
 (autoload 'tern-mode "tern.el" nil t)
+;; js autocomplete via tern + ac - czy to w ogóle działa?
+;;(eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;      (tern-ac-setup)))
 
 ;;(load-file "~/.emacs.d/lisp/pdb-current.el")
 (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
@@ -220,7 +225,8 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
-(setq ac-auto-start nil)
+(global-auto-complete-mode t)
+(setq ac-auto-start nil) ;; I'll use trigger key
 
 (require 'helm)
 (setq helm-boring-buffer-regexp-list (quote (  "\\Minibuf.+\\*" "\\` " "\\*.+\\*")))
@@ -285,6 +291,7 @@
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
 
+(put 'upcase-region 'disabled nil)
 
 (show-paren-mode t)
 (setq visible-bell nil)
@@ -296,6 +303,20 @@
 
 (require 'move-lines)
 (move-lines-binding)
+
+(require 'neotree)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(defun neotree-project-dir () 
+  "Open NeoTree using the git root." 
+  (interactive) 
+  (let ((project-dir (projectile-project-root)) 
+        (file-name (buffer-file-name))) 
+    (neotree-toggle) 
+    (if project-dir (if (neo-global--window-exists-p) 
+                        (progn (neotree-dir project-dir) 
+                               (neotree-find file-name))) 
+      (message "Could not find git project root."))))
 
 (require 'mmm-auto)
 (setq mmm-global-mode 'maybe)
@@ -325,40 +346,46 @@
 ;; prog modes
 
 (require 'pyimpsort)
-(add-hook 'python-mode-hook (lambda () 
-                              (flyspell-prog-mode)
-                              ;; TODO:
-                              ;;(eval-after-load 'python
-                              ;;  '(define-key python-mode-map (kbd "C-c /") 'jedi:complete)
-                              ;;  '(define-key python-mode-map (kbd "C-c .") 'jedi:goto-definition)
-                              ;;  '(define-key python-mode-map (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
-                              ;;)
-                              ;; ...
-                              ))
+(defun python-custom() 
+  "python-mode-hook"
+  (flyspell-prog-mode) 
+  (local-unset-key (kbd "C-_")) 
+  (local-unset-key (kbd "C-c _")) 
+  (local-set-key (kbd "C-_") 'jedi:complete) 
+  (local-set-key (kbd "C-c _") 'jedi:complete) 
+  (local-set-key (kbd "C-.") 'jedi:goto-definition) 
+  (local-set-key (kbd "C-c .") 'jedi:goto-definition) 
+  (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker) 
+  (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker) 
+  (local-set-key (kbd "C-c d") 'jedi:show-doc))
+(add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
-
 
 (defun js-custom () 
   "js-mode-hook"
   (flyspell-prog-mode) 
   (setq js-indent-level 2) 
-  (local-set-key (kbd "C-c /") 'completion-at-point) 
+  (local-unset-key (kbd "C-_")) 
+  (local-unset-key (kbd "C-c _")) 
+  (local-set-key (kbd "C-_") 'completion-at-point) 
+  (local-set-key (kbd "C-c _") 'completion-at-point) 
+  (local-set-key (kbd "C-.") 'js-find-symbol) 
   (local-set-key (kbd "C-c .") 'js-find-symbol) 
   (push '("function" . ?ƒ) prettify-symbols-alist) 
   (prettify-symbols-mode) 
   (tern-mode t))
 (add-hook 'js-mode-hook 'js-custom)
 
-;; js autocomplete via tern + ac - czy to w ogóle działa?
-;;(eval-after-load 'tern
-;;   '(progn
-;;      (require 'tern-auto-complete)
-;;      (tern-ac-setup)))
-
-(defun my-php-mode-config () 
+(defun php-custom() 
   "konfig php-mode"
   (local-set-key (kbd "C-d") nil))
-(add-hook 'php-mode-hook 'my-php-mode-config)
+(add-hook 'php-mode-hook 'php-custom)
+
+(defun elisp-custom() 
+  "konfig elisp-mode"
+  (rainbow-delimiters-mode) 
+  (local-set-key (kbd "C-d") nil))
+(add-hook 'emacs-lisp-mode-hook 'elisp-custom)
 
 (add-hook 'prog-mode-hook (lambda () 
                             (linum-mode) 
@@ -377,6 +404,7 @@
 (global-set-key (kbd "<home>") 'beginning-of-line)
 (global-set-key (kbd "<select>") 'end-of-line)
 
+;;(global-unset-key key)
 (global-set-key (kbd "C-d") 'duplicate-line)
 (global-set-key (kbd "C-k") 'kill-whole-line)
 (global-set-key (kbd "C-e") 'kill-whole-line)
@@ -396,43 +424,25 @@
 ;;(global-set-key (kbd "C-x C-b") 'ibuffer-list-buffers)
 ;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit) to coś nie działa
 
-(global-set-key (kbd "C-c .") 'jedi:goto-definition)
+(global-set-key (kbd "C-.") 'xref-find-definitions)
+(global-set-key (kbd "C-c .") 'xref-find-definitions)
+(global-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
 (global-set-key (kbd "C-c d") 'jedi:show-doc)
 
-;;(setq ac-trigger-key "C-c /")
-;;(global-auto-complete-mode t)
-;;(define-key ac-completing-map (kbd "C-c /") 'ac-complete)
-(define-key ac-completing-map (kbd "C-c /") 'jedi:complete)
-(global-set-key (kbd "C-_") 'nil)
-(global-set-key (kbd "C-c _") 'jedi:complete)
-(global-set-key (kbd "C-c /") 'jedi:complete)
+
+(define-key ac-mode-map (kbd "C-_") 'auto-complete)
+(define-key ac-mode-map (kbd "C-c _") 'auto-complete)
+(global-set-key (kbd "C-_") 'auto-complete)
+(global-set-key (kbd "C-c _") 'auto-complete)
 
 (global-set-key (kbd "C-<tab>") nil)
 
-
-
-(put 'upcase-region 'disabled nil)
-
-(require 'neotree)
-(setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
-(defun neotree-project-dir () 
-  "Open NeoTree using the git root." 
-  (interactive) 
-  (let ((project-dir (projectile-project-root)) 
-        (file-name (buffer-file-name))) 
-    (neotree-toggle) 
-    (if project-dir (if (neo-global--window-exists-p) 
-                        (progn (neotree-dir project-dir) 
-                               (neotree-find file-name))) 
-      (message "Could not find git project root."))))
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 ;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
 
 (require 'imenu-list)
 (global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
-
 
 
 ;;;the end
