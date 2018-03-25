@@ -19,16 +19,16 @@
                             ("marmalade" . "https://marmalade-repo.org/packages/") 
                             ("melpa" . "https://melpa.org/packages/")))) 
  '(package-selected-packages (quote (imenu-list dired dired-single pyvenv tern rainbow-delimiters
-                                            use-package fish-mode
-                                            web-mode restclient elisp-format restclient
-                                            flycheck yaml-mode handlebars-mode
-                                            jinja2-mode mmm-jinja2 mmm-mako
-                                            mmm-mode mustache pyimpsort go-autocomplete go-mode
-                                            neotree dired-narrow ac-php sql-indent php-mode
-                                            ac-ispell sphinx-doc sphinx-mode markdown-mode
-                                            auto-complete-nxml auto-complete-rst pydoc paradox nose
-                                            nginx-mode magit json-mode jedi ido-vertical-mode
-                                            helm-projectile helm-ispell flycheck-pyflakes epic))) 
+                                                use-package fish-mode web-mode restclient
+                                                elisp-format restclient flycheck yaml-mode
+                                                handlebars-mode jinja2-mode mmm-jinja2 mmm-mako
+                                                mmm-mode mustache pyimpsort go-autocomplete go-mode
+                                                neotree dired-narrow ac-php sql-indent php-mode
+                                                ac-ispell sphinx-doc sphinx-mode markdown-mode
+                                                auto-complete-nxml auto-complete-rst pydoc paradox
+                                                nose nginx-mode magit json-mode jedi
+                                                ido-vertical-mode helm-projectile helm-ispell
+                                                flycheck-pyflakes epic))) 
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -79,19 +79,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
 
-(defun kill-other-buffers()
+(defun kill-other-buffers() 
   "Kill all other buffers." 
   (interactive) 
   (mapc 'kill-buffer (delq (current-buffer) 
                            (buffer-list))))
 
-(defun my-kill-current-buffer()
-  "Kill current buffer"
+(defun my-kill-current-buffer() 
+  "Kill current buffer" 
   (interactive) 
   (kill-buffer (current-buffer)))
 
-(defun duplicate-line()
-  "Duplicate line"
+(defun duplicate-line() 
+  "Duplicate line" 
   (interactive) 
   (move-beginning-of-line 1) 
   (kill-line) 
@@ -133,7 +133,7 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
-(global-linum-mode 0)  ;; poszczegolne mody włączają linum
+(global-linum-mode 0) ;; poszczegolne mody włączają linum
 ;;(setq linum-format "%d ")
 (setq linum-format "%4d \u2502 ")
 
@@ -274,7 +274,7 @@
   (setq-default jedi:complete-on-dot nil))
 
 ;; ispell/aspel
-(setq ispell-list-command "--list")     ;; aspel uzywa --list
+(setq ispell-list-command "--list") ;; aspel uzywa --list
 (defun fd-switch-dictionary() 
   (interactive) 
   (let* ((dic ispell-current-dictionary) 
@@ -339,7 +339,7 @@
 
 
 (defun js-custom () 
-  "js-mode-hook" 
+  "js-mode-hook"
   (flyspell-prog-mode) 
   (setq js-indent-level 2) 
   (local-set-key (kbd "C-c /") 'completion-at-point) 
