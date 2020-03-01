@@ -7,63 +7,45 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 4) 
- '(ac-ispell-requires 4) 
- '(ansi-color-faces-vector [default default default italic underline success warning error]) 
- '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff"
-                            "#eeeeec"]) 
- '(custom-enabled-themes nil) 
- '(js-enabled-frameworks (quote (javascript))) 
- '(js-indent-level 2) 
- '(package-archives (quote (("gnu" . "http://elpa.gnu.org/packages/") 
-                            ("marmalade" . "https://marmalade-repo.org/packages/") 
-                            ("melpa" . "https://melpa.org/packages/")))) 
- '(package-selected-packages (quote (imenu-list dired dired-single pyvenv tern rainbow-delimiters
-                                                use-package fish-mode web-mode restclient
-                                                elisp-format restclient flycheck yaml-mode
-                                                handlebars-mode jinja2-mode mmm-jinja2 mmm-mako
-                                                mmm-mode mustache pyimpsort go-autocomplete go-mode
-                                                neotree dired-narrow ac-php sql-indent php-mode
-                                                ac-ispell sphinx-doc sphinx-mode markdown-mode
-                                                auto-complete-nxml auto-complete-rst pydoc paradox
-                                                nose nginx-mode magit json-mode jedi
-                                                ido-vertical-mode helm-projectile helm-ispell
-                                                flycheck-pyflakes epic))) 
+ '(ac-ispell-fuzzy-limit 4)
+ '(ac-ispell-requires 4)
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes nil)
+ '(js-enabled-frameworks (quote (javascript)))
+ '(js-indent-level 2)
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("marmalade" . "https://marmalade-repo.org/packages/")
+     ("melpa" . "https://melpa.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (flycheck-rust rust-mode yapfify imenu-list dired dired-single pyvenv tern rainbow-delimiters use-package fish-mode web-mode restclient elisp-format restclient flycheck yaml-mode handlebars-mode jinja2-mode mmm-jinja2 mmm-mako mmm-mode mustache pyimpsort go-autocomplete go-mode neotree dired-narrow ac-php sql-indent php-mode ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc paradox nose nginx-mode magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-delimiter-face ((t 
-                                      (:foreground "dim gray")))) 
- '(font-lock-comment-face ((t 
-                            (:foreground "dim gray")))) 
- '(font-lock-doc-face ((t 
-                        (:foreground "green")))) 
- '(font-lock-string-face ((t 
-                           (:foreground "green")))) 
- '(font-lock-variable-name-face ((t 
-                                  (:foreground "white" 
-                                               :weight light)))) 
- '(neo-dir-link-face ((t 
-                       (:foreground "deep sky blue" 
-                                    :slant normal 
-                                    :weight bold 
-                                    :height 120 
-                                    :family "Fantasque Sans Mono")))) 
- '(neo-file-link-face ((t 
-                        (:foreground "White" 
-                                     :weight normal 
-                                     :height 120 
-                                     :family "Fantasque Sans Mono")))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "dim gray"))))
+ '(font-lock-comment-face ((t (:foreground "dim gray"))))
+ '(font-lock-doc-face ((t (:foreground "green"))))
+ '(font-lock-string-face ((t (:foreground "green"))))
+ '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
+ '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
+ '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono")))))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; js autocompletion
 ;; http://ternjs.net/doc/manual.html#emacs
-(add-to-list 'load-path "~/.emacs.d/tern/")
-(autoload 'tern-mode "tern.el" nil t)
+;; THIS IS not NEEDED as installed via package???
+;;(add-to-list 'load-path "~/.emacs.d/tern/")
+;;(add-to-list 'load-path "~/node_modules/tern/emacs/")
+;;(autoload 'tern-mode "tern.el" nil t)
 ;; js autocomplete via tern + ac - czy to w ogóle działa?
 ;;(eval-after-load 'tern
 ;;   '(progn
@@ -119,6 +101,11 @@
                (rename-buffer new-name) 
                (set-visited-file-name new-name) 
                (set-buffer-modified-p nil))))))
+
+
+(defun run-ipython()
+  (interactive)
+  (term "/home/pgb/bin/ipython"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -177,8 +164,18 @@
 ;;(ad-activate 'isearch-repeat-forward)
 ;;(ad-activate 'isearch-repeat-backward)
 
+(require 'dired)
 (setq dired-use-ls-dired nil)
-;;(require 'dired-single)  ??? nie działa
+;;(require 'dired-single)
+;(require 'dired+)
+;(setq diredp-bind-problematic-terminal-keys nil)
+(defun dired-custom() 
+  "konfig dired-mode"
+  (diredp-toggle-find-file-reuse-dir t)
+  (local-set-key (kbd "M-O") nil))
+(add-hook 'dired-mode-hook 'dired-custom)
+(eval-after-load 'dired-mode '(define-key dired-mode-map (kbd "M-O") nil))
+
 ;;(put 'dired-find-alternate-file 'disabled nil)
 ;;(defadvice dired-advertised-find-file (around dired-subst-directory activate)
 ;;  "Replace current buffer if file is a directory."
@@ -351,13 +348,19 @@
   (flyspell-prog-mode) 
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
+  (local-unset-key (kbd "C-c /")) 
   (local-set-key (kbd "C-_") 'jedi:complete) 
   (local-set-key (kbd "C-c _") 'jedi:complete) 
+  (local-set-key (kbd "C-c /") 'jedi:complete) 
   (local-set-key (kbd "C-.") 'jedi:goto-definition) 
   (local-set-key (kbd "C-c .") 'jedi:goto-definition) 
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker) 
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker) 
-  (local-set-key (kbd "C-c d") 'jedi:show-doc))
+  (local-set-key (kbd "C-c d") 'jedi:show-doc)
+  (setq indent-tabs-mode f)
+  (setq-default tab-width 4)
+  (setq tab-width 4)
+  )
 (add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
@@ -367,10 +370,18 @@
   (setq js-indent-level 2) 
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
-  (local-set-key (kbd "C-_") 'completion-at-point) 
+;;  (local-set-key (kbd "C-_") 'tern-completion-at-point) 
+  (local-set-key (kbd "C-_") 'tern-completion-at-point) 
   (local-set-key (kbd "C-c _") 'completion-at-point) 
-  (local-set-key (kbd "C-.") 'js-find-symbol) 
-  (local-set-key (kbd "C-c .") 'js-find-symbol) 
+  (local-set-key (kbd "C-c /") 'completion-at-point) 
+  ;;(local-set-key (kbd "C-.") 'js-find-symbol) 
+  (local-set-key (kbd "C-.") 'tern-find-definition) 
+  (local-set-key (kbd "C-c .") 'tern-find-definition) 
+  (local-set-key (kbd "C-,") 'tern-pop-find-definition) 
+  (local-set-key (kbd "C-c ,") 'tern-pop-find-definition) 
+  (local-set-key (kbd "C-c d") 'tern-get-docs)
+  (local-set-key (kbd "C-c t") 'tern-get-type)
+  (local-set-key (kbd "C-c r") 'tern-rename-variable)
   (push '("function" . ?ƒ) prettify-symbols-alist) 
   (prettify-symbols-mode) 
   (tern-mode t))
@@ -444,5 +455,8 @@
 (require 'imenu-list)
 (global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
 
+(require 'my-move-word)
+(global-set-key (kbd "C-<left>") 'my-backward-word)
+(global-set-key (kbd "C-<right>") 'my-forward-word)
 
 ;;;the end
