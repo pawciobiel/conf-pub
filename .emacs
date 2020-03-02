@@ -14,8 +14,15 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes nil)
+ '(helm-boring-buffer-regexp-list
+   (quote
+    ("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*")))
+ '(helm-boring-file-regexp-list
+   (quote
+    ("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$")))
  '(js-enabled-frameworks (quote (javascript)))
  '(js-indent-level 2)
+ '(mode-require-final-newline nil)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
@@ -23,8 +30,8 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (flycheck-rust rust-mode yapfify imenu-list dired dired-single pyvenv tern rainbow-delimiters use-package fish-mode web-mode restclient elisp-format restclient flycheck yaml-mode handlebars-mode jinja2-mode mmm-jinja2 mmm-mako mmm-mode mustache pyimpsort go-autocomplete go-mode neotree dired-narrow ac-php sql-indent php-mode ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc paradox nose nginx-mode magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
- '(paradox-github-token t))
+    (lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode pip-requirements virtualenvwrapper toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired pyvenv tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
+ '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,27 +65,32 @@
 ;; hideshowvis nie działa bo emacs compiled bez png/gtk...?
 ;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
 
-;;(recentf-mode 1)
-;;(setq-default recent-save-file "~/.emacs.d/recentf")
 ;; zamiast recentf-mode mam desktop save
 (desktop-save-mode 1)
+;; ??? how does this work??(desktop-auto-save-timeout 10)
+;;(recentf-mode 1)
+;;(setq-default recent-save-file "~/.emacs.d/recentf")
+
+;; start server if it's not already running
+(load "server")
+(unless (server-running-p) (server-start))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
 
-(defun kill-other-buffers() 
-  "Kill all other buffers." 
+(defun kill-other-buffers()
+  "Kill all other buffers."
   (interactive) 
   (mapc 'kill-buffer (delq (current-buffer) 
                            (buffer-list))))
 
 (defun my-kill-current-buffer() 
-  "Kill current buffer" 
+  "Kill current buffer."
   (interactive) 
   (kill-buffer (current-buffer)))
 
 (defun duplicate-line() 
-  "Duplicate line" 
+  "Duplicate line."
   (interactive) 
   (move-beginning-of-line 1) 
   (kill-line) 
@@ -106,6 +118,25 @@
 (defun run-ipython()
   (interactive)
   (term "/home/pgb/bin/ipython"))
+
+
+(defun xah-next-user-buffer ()
+  "Switch to the next user buffer.
+ (buffer name does not start with “*”.)"
+  (interactive)
+  (next-buffer)
+  (let ((i 0))
+    (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
+      (setq i (1+ i)) (next-buffer))))
+
+(defun xah-prev-user-buffer ()
+  "Switch to the previous user buffer.
+ (buffer name does not start with “*”.)"
+  (interactive)
+  (previous-buffer)
+  (let ((i 0))
+    (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
+      (setq i (1+ i)) (previous-buffer))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -164,17 +195,17 @@
 ;;(ad-activate 'isearch-repeat-forward)
 ;;(ad-activate 'isearch-repeat-backward)
 
-(require 'dired)
-(setq dired-use-ls-dired nil)
+;(require 'dired)
+;(setq dired-use-ls-dired nil)
 ;;(require 'dired-single)
-;(require 'dired+)
-;(setq diredp-bind-problematic-terminal-keys nil)
-(defun dired-custom() 
-  "konfig dired-mode"
-  (diredp-toggle-find-file-reuse-dir t)
-  (local-set-key (kbd "M-O") nil))
-(add-hook 'dired-mode-hook 'dired-custom)
-(eval-after-load 'dired-mode '(define-key dired-mode-map (kbd "M-O") nil))
+;;(require 'dired+)
+;;(setq diredp-bind-problematic-terminal-keys nil)
+;(defun dired-custom() 
+;  "konfig dired-mode"
+;  (diredp-toggle-find-file-reuse-dir t)
+;  (local-set-key (kbd "M-O") nil))
+;(add-hook 'dired-mode-hook 'dired-custom)
+;(eval-after-load 'dired-mode '(define-key dired-mode-map (kbd "M-O") nil))
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
 ;;(defadvice dired-advertised-find-file (around dired-subst-directory activate)
@@ -202,6 +233,22 @@
 ;;           (progn (kill-buffer orig)
 ;;                  (dired up)
 ;;                  (dired-goto-file dir))))))
+;;;;;;;;;
+;; otwiera w tym samym bufforze, problem w tym ze pliki powinien otwierac w nowym
+;; a tylko katalogi w tym samym
+;; wiecel lepiej jest uzywac `a` by otwieral wtym samym bufferze a nie RET!
+;;(defun dired-custom() 
+;;  "konfig dired-mode"
+;;  (local-set-key (kbd "RET") 'dired-find-alternate-file)) ;; otwiera w tym samym bufferze
+;;(add-hook 'dired-mode-hook 'dired-custom)
+;;(setq dired-use-ls-dired nil)
+
+;(use-package dired-subtree :ensure t
+;  :after dired
+;  :config
+;  (bind-key "<tab>" 'dired-subtree-toggle dired-mode-map)
+;  (bind-key "<backtab>" 'dired0subtree-cycle dired-mode-map))
+
 
 ;;(setq-default ibuffer-saved-filter-groups `(("Default"
 ;;                                             ;; I create a group call Dired, which contains all buffer in dired-mode
@@ -217,23 +264,47 @@
 (require 'projectile)
 (projectile-global-mode)
 
-(require 'helm-projectile)
-(helm-projectile-on)
-
-(require 'auto-complete-config)
-(ac-config-default)
-(global-auto-complete-mode t)
-(setq ac-auto-start nil) ;; I'll use trigger key
-
 (require 'helm)
-(setq helm-boring-buffer-regexp-list (quote (  "\\Minibuf.+\\*" "\\` " "\\*.+\\*")))
-
 ;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
 ;;(require 'popwin)
 ;;(popwin-mode 1)
 ;;(setq display-buffer-function 'popwin:display-buffer)
 ;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
 ;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
+
+(require 'helm-projectile)
+(helm-projectile-on)
+
+; auto-complete-mode ac-mode ac AC auto-complete.el
+(require 'auto-complete-config)
+(ac-config-default)
+(global-auto-complete-mode t)
+(setq ac-auto-show-menu t)
+(setq ac-show-menu-immediately-on-auto-complete t)
+;;(setq ac-expand-on-auto-complete t)
+;;(setq ac-use-comphist nil)  FOR PERFORMANCE
+;; (setq ac-auto-show-menu 0.8)
+(setq ac-auto-start nil) ;; I'll use trigger key
+(ac-set-trigger-key "TAB")
+;;(setq ac-use-quick-help t)
+;;(setq ac-quick-help-delay 1)
+;; ac-help  C-?
+;; ac-complete
+;; ac-expand
+;; ac-stop complete C-g
+;;(define-key ac-completing-map "\M-/" 'ac-stop)
+(define-key ac-mode-map (kbd "C-/") 'auto-complete)
+(define-key ac-mode-map (kbd "C-_") 'auto-complete)
+(define-key ac-mode-map (kbd "C-c _") 'auto-complete)
+(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
+(global-set-key (kbd "C-_") 'auto-complete)
+(global-set-key (kbd "C-c _") 'auto-complete)
+(global-set-key (kbd "C-c /") 'auto-complete)
+
+
+(global-set-key (kbd "C-x <right>") 'xah-next-user-buffer)
+(global-set-key (kbd "C-x <left>") 'xah-prev-user-buffer)
+
 
 (use-package 
   auto-complete-nxml 
@@ -257,6 +328,13 @@
   :ensure t)
 
 ;;(use-package web-mode :ensure t)
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-enable-current-element-highlight 1)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
 
 (use-package 
   magit 
@@ -264,10 +342,6 @@
   :bind (("C-x g" . magit-status) ;; Display the main magit popup
          ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
 
-;;(require 'jedi)
-;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
-;;(add-hook 'python-mode-hook 'jedi:setup)
-;;(setq jedi:complete-on-dot nil)
 (use-package 
   jedi 
   :ensure t 
@@ -301,6 +375,10 @@
 (require 'move-lines)
 (move-lines-binding)
 
+(load-library "hideshow")
+    (global-set-key (kbd "C-c -") 'hs-hide-block)
+    (global-set-key (kbd "C-c =") 'hs-show-block)
+
 (require 'neotree)
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action)
@@ -315,11 +393,12 @@
                                (neotree-find file-name))) 
       (message "Could not find git project root."))))
 
-(require 'mmm-auto)
-(setq mmm-global-mode 'maybe)
-(mmm-add-mode-ext-class 'html-mode "\\.php\\'" 'html-php)
-(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
-(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
+;; old deprecated unavailable
+;;(require 'mmm-auto)
+;;(setq mmm-global-mode 'maybe)
+;;(mmm-add-mode-ext-class 'html-mode "\\.php\\'" 'html-php)
+;;(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
+;;(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
 
 ;;(global-flycheck-mode)
 (use-package 
@@ -346,6 +425,13 @@
 (defun python-custom() 
   "python-mode-hook"
   (flyspell-prog-mode) 
+  (setq tab-width 4)
+  (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
+  (require 'py-autopep8)
+  (require 'virtualenvwrapper)
+  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
+  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
+ 
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
   (local-unset-key (kbd "C-c /")) 
@@ -368,20 +454,18 @@
   "js-mode-hook"
   (flyspell-prog-mode) 
   (setq js-indent-level 2) 
+  (setq mode-require-final-newline nil) 
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
-;;  (local-set-key (kbd "C-_") 'tern-completion-at-point) 
+  (local-unset-key (kbd "C-c .")) 
+  (local-unset-key (kbd "C-c ,")) 
   (local-set-key (kbd "C-_") 'tern-completion-at-point) 
-  (local-set-key (kbd "C-c _") 'completion-at-point) 
-  (local-set-key (kbd "C-c /") 'completion-at-point) 
-  ;;(local-set-key (kbd "C-.") 'js-find-symbol) 
+  (local-set-key (kbd "C-c _") 'tern-completion-at-point) 
+  (local-set-key (kbd "C-c /") 'tern-completion-at-point) 
   (local-set-key (kbd "C-.") 'tern-find-definition) 
   (local-set-key (kbd "C-c .") 'tern-find-definition) 
   (local-set-key (kbd "C-,") 'tern-pop-find-definition) 
   (local-set-key (kbd "C-c ,") 'tern-pop-find-definition) 
-  (local-set-key (kbd "C-c d") 'tern-get-docs)
-  (local-set-key (kbd "C-c t") 'tern-get-type)
-  (local-set-key (kbd "C-c r") 'tern-rename-variable)
   (push '("function" . ?ƒ) prettify-symbols-alist) 
   (prettify-symbols-mode) 
   (tern-mode t))
@@ -392,6 +476,12 @@
   (local-set-key (kbd "C-d") nil))
 (add-hook 'php-mode-hook 'php-custom)
 
+(defun restclient-custom() 
+  "konfig restclient-mode"
+  (fset 'json-pretty-print 'json-reformat-region))
+(add-hook 'restclient-mode-hook 'restclient-custom)
+
+
 (defun elisp-custom() 
   "konfig elisp-mode"
   (rainbow-delimiters-mode) 
@@ -399,8 +489,45 @@
 (add-hook 'emacs-lisp-mode-hook 'elisp-custom)
 
 (add-hook 'prog-mode-hook (lambda () 
+                            (hs-minor-mode) 
                             (linum-mode) 
                             (flyspell-prog-mode)))
+
+(defun setup-tide-mode ()
+  "konfig tide-mode typescript"
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (electric-indent-mode nil)
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (setq tab-width 2)
+  (setq typescript-indent-level
+        (or (plist-get (tide-tsfmt-options) ':indentSize) 2))
+  (local-unset-key (kbd "C-c ."))
+  (local-unset-key (kbd "C-c ,"))
+  (local-set-key (kbd "C-c .") 'tide-jump-to-definition)
+  (local-set-key (kbd "C-c ,") 'tide-jump-back)
+
+;;  "indentSize": 2,
+;;  "tabSize": 2,
+;;  "insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+;;  "placeOpenBraceOnNewLineForFunctions": false,
+;;  "placeOpenBraceOnNewLineForControlBlocks": false
+
+  (setq tide-format-options '(
+    :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
+    :indentSize 2
+    :tabSize 2
+    :placeOpenBraceOnNewLineForControlBlocks nil
+    :placeOpenBraceOnNewLineForFunctions nil))
+
+;; formats the buffer before saving
+;;(add-hook 'before-save-hook 'tide-format-before-save)
+
+  )
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keys
@@ -411,6 +538,10 @@
                                (ibuffer-auto-mode 1)))
 
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
+(global-set-key (kbd "<f8>") 'neotree-toggle)
+;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
+(require 'imenu-list)
+(global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
 
 (global-set-key (kbd "<home>") 'beginning-of-line)
 (global-set-key (kbd "<select>") 'end-of-line)
@@ -437,26 +568,16 @@
 
 (global-set-key (kbd "C-.") 'xref-find-definitions)
 (global-set-key (kbd "C-c .") 'xref-find-definitions)
-(global-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
-(global-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
-(global-set-key (kbd "C-c d") 'jedi:show-doc)
-
-
-(define-key ac-mode-map (kbd "C-_") 'auto-complete)
-(define-key ac-mode-map (kbd "C-c _") 'auto-complete)
-(global-set-key (kbd "C-_") 'auto-complete)
-(global-set-key (kbd "C-c _") 'auto-complete)
 
 (global-set-key (kbd "C-<tab>") nil)
-
-(global-set-key (kbd "<f8>") 'neotree-toggle)
-;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
-
-(require 'imenu-list)
-(global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
 
 (require 'my-move-word)
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
 
+
+(global-unset-key (kbd "C--"))
+(global-unset-key (kbd "C-="))
+
 ;;;the end
+(put 'dired-find-alternate-file 'disabled nil)
