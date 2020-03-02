@@ -80,58 +80,57 @@
 
 (defun kill-other-buffers()
   "Kill all other buffers."
-  (interactive) 
-  (mapc 'kill-buffer (delq (current-buffer) 
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer)
                            (buffer-list))))
 
-(defun my-kill-current-buffer() 
+(defun my-kill-current-buffer()
   "Kill current buffer."
-  (interactive) 
+  (interactive)
   (kill-buffer (current-buffer)))
 
-(defun duplicate-line() 
+(defun duplicate-line()
   "Duplicate line."
-  (interactive) 
-  (move-beginning-of-line 1) 
-  (kill-line) 
-  (yank) 
-  (open-line 1) 
-  (next-line 1) 
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
   (yank))
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
-(defun rename-file-and-buffer (new-name) 
-  "Renames both current buffer and file it's visiting to NEW-NAME." 
-  (interactive "New name: ") 
-  (let ((name (buffer-name)) 
-        (filename (buffer-file-name))) 
-    (if (not filename) 
-        (message "Buffer '%s' is not visiting a file!" name) 
-      (if (get-buffer new-name) 
-          (message "A buffer named '%s' already exists!" new-name) 
-        (progn (rename-file filename new-name 1) 
-               (rename-buffer new-name) 
-               (set-visited-file-name new-name) 
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "New name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn (rename-file filename new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
                (set-buffer-modified-p nil))))))
 
 
 (defun run-ipython()
+  "Run ipython."
   (interactive)
   (term "/home/pgb/bin/ipython"))
 
 
-(defun xah-next-user-buffer ()
-  "Switch to the next user buffer.
- (buffer name does not start with “*”.)"
+(defun my-next-user-buffer ()
+  "Switch to the next user buffer (buffer name does not start with “*”)."
   (interactive)
   (next-buffer)
   (let ((i 0))
     (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
       (setq i (1+ i)) (next-buffer))))
 
-(defun xah-prev-user-buffer ()
-  "Switch to the previous user buffer.
- (buffer name does not start with “*”.)"
+(defun my-prev-user-buffer ()
+  "Switch to the previous user buffer (buffer name does not start with “*”)."
   (interactive)
   (previous-buffer)
   (let ((i 0))
@@ -142,8 +141,8 @@
 
 ;;(load-file "~/.emacs.d/lisp/fill-column-indicator.el")
 (require 'fill-column-indicator)
-(define-globalized-minor-mode global-fci-mode fci-mode 
-  (lambda () 
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
     (fci-mode 1)))
 (global-fci-mode 1)
 (setq fci-rule-width 1)
@@ -166,12 +165,12 @@
   (load-theme 'manoj-dark t)
   ;;(load-theme 'solarized-dark t)
   (setq linum-format "%d"))
-(cond 
- ((featurep 
+(cond
+ ((featurep
    'xemacs)
   ;; Code for XEmacs
   ;;(color-theme-robin-hood))
-  ) 
+  )
  (t
   ;; Code for Emacs
   ))
@@ -302,8 +301,8 @@
 (global-set-key (kbd "C-c /") 'auto-complete)
 
 
-(global-set-key (kbd "C-x <right>") 'xah-next-user-buffer)
-(global-set-key (kbd "C-x <left>") 'xah-prev-user-buffer)
+(global-set-key (kbd "C-x <right>") 'my-next-user-buffer)
+(global-set-key (kbd "C-x <left>") 'my-prev-user-buffer)
 
 
 (use-package 
@@ -352,8 +351,9 @@
 
 ;; ispell/aspel
 (setq ispell-list-command "--list") ;; aspel uzywa --list
-(defun fd-switch-dictionary() 
-  (interactive) 
+(defun fd-switch-dictionary()
+  "Switch language dictionary."
+  (interactive)
   (let* ((dic ispell-current-dictionary) 
          (change (if (string= dic "en_GB") "polish" "en_GB"))) 
     (ispell-change-dictionary change) 
@@ -423,7 +423,7 @@
 
 (require 'pyimpsort)
 (defun python-custom() 
-  "python-mode-hook"
+  "My custom python-mode-hook."
   (flyspell-prog-mode) 
   (setq tab-width 4)
   (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
@@ -451,7 +451,7 @@
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
 (defun js-custom () 
-  "js-mode-hook"
+  "My custom js-mode-hook."
   (flyspell-prog-mode) 
   (setq js-indent-level 2) 
   (setq mode-require-final-newline nil) 
@@ -472,18 +472,18 @@
 (add-hook 'js-mode-hook 'js-custom)
 
 (defun php-custom() 
-  "konfig php-mode"
+  "My custom php-mode."
   (local-set-key (kbd "C-d") nil))
 (add-hook 'php-mode-hook 'php-custom)
 
 (defun restclient-custom() 
-  "konfig restclient-mode"
+  "My custom restclient-mode."
   (fset 'json-pretty-print 'json-reformat-region))
 (add-hook 'restclient-mode-hook 'restclient-custom)
 
 
 (defun elisp-custom() 
-  "konfig elisp-mode"
+  "My custom elisp-mode."
   (rainbow-delimiters-mode) 
   (local-set-key (kbd "C-d") nil))
 (add-hook 'emacs-lisp-mode-hook 'elisp-custom)
@@ -494,7 +494,7 @@
                             (flyspell-prog-mode)))
 
 (defun setup-tide-mode ()
-  "konfig tide-mode typescript"
+  "My custom tide-mode for typescript."
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
@@ -579,5 +579,5 @@
 (global-unset-key (kbd "C--"))
 (global-unset-key (kbd "C-="))
 
-;;;the end
 (put 'dired-find-alternate-file 'disabled nil)
+;;; .emacs ends here
