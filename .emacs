@@ -30,7 +30,7 @@
      ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode pip-requirements virtualenvwrapper toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired pyvenv tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
+    (helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode pip-requirements virtualenvwrapper toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired pyvenv tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -263,7 +263,9 @@
 (require 'projectile)
 (projectile-global-mode)
 
+;(require 'helm-config)
 (require 'helm)
+
 ;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
 ;;(require 'popwin)
 ;;(popwin-mode 1)
@@ -446,7 +448,7 @@
   (setq indent-tabs-mode f)
   (setq-default tab-width 4)
   (setq tab-width 4)
-  )
+)
 (add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
@@ -540,7 +542,9 @@
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 ;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
+
 (require 'imenu-list)
+;; or helm-semantic-or-imenu
 (global-set-key (kbd "<f9>") 'imenu-list-smart-toggle)
 
 (global-set-key (kbd "<home>") 'beginning-of-line)
