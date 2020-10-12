@@ -197,8 +197,8 @@
 ;(require 'dired)
 ;(setq dired-use-ls-dired nil)
 ;;(require 'dired-single)
-;;(require 'dired+)
-;;(setq diredp-bind-problematic-terminal-keys nil)
+;(require 'dired+)
+;(setq diredp-bind-problematic-terminal-keys nil)
 ;(defun dired-custom() 
 ;  "konfig dired-mode"
 ;  (diredp-toggle-find-file-reuse-dir t)
@@ -578,7 +578,6 @@
 (require 'my-move-word)
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
-
 
 (global-unset-key (kbd "C--"))
 (global-unset-key (kbd "C-="))
