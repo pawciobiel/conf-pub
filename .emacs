@@ -26,11 +26,11 @@
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "https://marmalade-repo.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
+     ("marmalade" . "http://marmalade-repo.org/packages/")
+     ("melpa" . "http://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode pip-requirements virtualenvwrapper toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired pyvenv tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
+    (projectile virtualenvwrapper helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -148,6 +148,10 @@
 (setq fci-rule-width 1)
 (setq fci-rule-column 79)
 (setq fci-rule-color "darkblue")
+(set-default 'truncate-lines t)
+; visual-line-mode
+(global-set-key "\C-c$" 'toggle-truncate-lines)
+;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -197,8 +201,8 @@
 ;(require 'dired)
 ;(setq dired-use-ls-dired nil)
 ;;(require 'dired-single)
-;(require 'dired+)
-;(setq diredp-bind-problematic-terminal-keys nil)
+;;(require 'dired+)
+;;(setq diredp-bind-problematic-terminal-keys nil)
 ;(defun dired-custom() 
 ;  "konfig dired-mode"
 ;  (diredp-toggle-find-file-reuse-dir t)
@@ -430,10 +434,31 @@
   (setq tab-width 4)
   (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
   (require 'py-autopep8)
+
+  ; 1) virtualenvwrapper
   (require 'virtualenvwrapper)
+  (setq venv-dirlookup-names '())
+  (setq venv-location "/home/pgb/venvs/")
   (setq projectile-switch-project-action 'venv-projectile-auto-workon)
   (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
- 
+  (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
+  (add-hook 'venv-postactivate-hook 'jedi:stop-server)
+  (add-hook 'venv-postdeactivate-hook 'jedi:stop-server)
+
+  ; or 2) pyenv-mode
+  ;(require 'pyenv-mode)
+  ;(defun projectile-pyenv-mode-set ()
+  ;"Set pyenv version matching project name."
+  ;(let ((project (projectile-project-name)))
+  ;  (if (member project (pyenv-mode-versions))
+  ;      (pyenv-mode-set project)
+  ;    (pyenv-mode-unset))))
+  ;(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+
+  ; or 3) pyvenv used by elpy
+  ; (require 'pyvenv)
+
+
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
   (local-unset-key (kbd "C-c /")) 
@@ -473,10 +498,23 @@
   (tern-mode t))
 (add-hook 'js-mode-hook 'js-custom)
 
+
 (defun php-custom() 
   "My custom php-mode."
   (local-set-key (kbd "C-d") nil))
 (add-hook 'php-mode-hook 'php-custom)
+
+
+(defun markdown-custom() 
+  "My custom markdown-mode."
+  (local-set-key (kbd "C-d") nil)
+  (setq indent-tabs-mode f)
+  (setq-default tab-width 4)
+  (setq tab-width 4)
+  (setq truncate-lines t)
+  (setq visual-line-mode t))
+(add-hook 'markdown-mode-hook 'markdown-custom)
+
 
 (defun restclient-custom() 
   "My custom restclient-mode."
@@ -531,6 +569,18 @@
   )
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+;(size-indication-mode 1)
+;;; large file - duzy pliczek, powyłączaj co się da...
+;(add-hook 'find-file-hook #'fuck-large-file)
+;(defun fuck-large-file ()
+;  (when (> 100000 (buffer-size))
+;    (linum-mode -1)
+;    (jedi-mode -1)
+;    (fci-mode -1)
+;    (font-lock-mode -1)
+;    )
+;)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keys
 
@@ -578,6 +628,7 @@
 (require 'my-move-word)
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
+
 
 (global-unset-key (kbd "C--"))
 (global-unset-key (kbd "C-="))
