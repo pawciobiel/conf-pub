@@ -1,0 +1,4 @@
+# im-config(8) generated on Fri, 29 Dec 2017 16:36:11 +0100
+run_im none
+# im-config signature: 5a6305348e84e9ffbd13d34b60dc37a7  -
+synclient TouchpadOff=1

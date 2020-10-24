@@ -1,7 +1,7 @@
+;;;-*-coding: utf-8-*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -15,30 +15,26 @@
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes nil)
  '(helm-boring-buffer-regexp-list
-   (quote
-    ("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*")))
+   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
  '(helm-boring-file-regexp-list
-   (quote
-    ("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$")))
- '(js-enabled-frameworks (quote (javascript)))
+   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
+ '(js-enabled-frameworks '(javascript))
  '(js-indent-level 2)
  '(mode-require-final-newline nil)
  '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
+   '(("gnu" . "http://elpa.gnu.org/packages/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
+     ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   (quote
-    (projectile virtualenvwrapper helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic)))
+   '(projectile virtualenvwrapper helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-delimiter-face ((t (:foreground "dim gray"))))
- '(font-lock-comment-face ((t (:foreground "dim gray"))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "DimGray"))))
+ '(font-lock-comment-face ((t (:foreground "DimGray"))))
  '(font-lock-doc-face ((t (:foreground "green"))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
@@ -140,14 +136,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;(load-file "~/.emacs.d/lisp/fill-column-indicator.el")
-(require 'fill-column-indicator)
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-    (fci-mode 1)))
-(global-fci-mode 1)
-(setq fci-rule-width 1)
-(setq fci-rule-column 79)
-(setq fci-rule-color "darkblue")
+;;(require 'fill-column-indicator)
+;;(define-globalized-minor-mode global-fci-mode fci-mode
+;;  (lambda ()
+;;    (fci-mode 1)))
+;;(global-fci-mode 1)
+;;(setq fci-rule-width 1)
+;;(setq fci-rule-column 79)
+;;(setq fci-rule-color "darkblue")
 (set-default 'truncate-lines t)
 ; visual-line-mode
 (global-set-key "\C-c$" 'toggle-truncate-lines)
@@ -332,6 +328,12 @@
   yaml-mode 
   :ensure t)
 
+(use-package
+  python-black
+  :demand t
+  :after python
+  :config (setq python-black-command "/home/pgb/bin/black"))
+
 ;;(use-package web-mode :ensure t)
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -412,12 +414,13 @@
   :ensure t 
   :init (global-flycheck-mode t))
 (add-hook 'after-init-hook 'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
 
 (eval-after-load "auto-complete" '(progn (ac-ispell-setup)))
 
 (dolist (hook '(text-mode-hook)) 
   (add-hook hook (lambda () 
-                   (linum-mode) 
+                   ;(linum-mode) 
                    (flyspell-mode))))
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook)) 
@@ -431,14 +434,16 @@
 (defun python-custom() 
   "My custom python-mode-hook."
   (flyspell-prog-mode) 
-  (setq tab-width 4)
+  
+  (flycheck-mode +1)
   (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
-  (require 'py-autopep8)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                                        ;(require 'py-autopep8)
 
   ; 1) virtualenvwrapper
   (require 'virtualenvwrapper)
   (setq venv-dirlookup-names '())
-  (setq venv-location "/home/pgb/venvs/")
+  (setq venv-location "/home/pgb/workspace/python/venvs/")
   (setq projectile-switch-project-action 'venv-projectile-auto-workon)
   (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
   (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
@@ -470,12 +475,14 @@
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker) 
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker) 
   (local-set-key (kbd "C-c d") 'jedi:show-doc)
+
   (setq indent-tabs-mode f)
   (setq-default tab-width 4)
   (setq tab-width 4)
 )
 (add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
+
 
 (defun js-custom () 
   "My custom js-mode-hook."
@@ -530,7 +537,7 @@
 
 (add-hook 'prog-mode-hook (lambda () 
                             (hs-minor-mode) 
-                            (linum-mode) 
+                            ;(linum-mode) 
                             (flyspell-prog-mode)))
 
 (defun setup-tide-mode ()
@@ -618,7 +625,8 @@
 
 ;; zamiast key-binda jest ibuffer modede hook
 ;;(global-set-key (kbd "C-x C-b") 'ibuffer-list-buffers)
-;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit) to coś nie działa
+;; to nie działa bo ESC jest jako meta
+;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
 
 (global-set-key (kbd "C-.") 'xref-find-definitions)
 (global-set-key (kbd "C-c .") 'xref-find-definitions)
