@@ -32,6 +32,6 @@ xsetroot -solid DarkGreen
 #/usr/local/bin/openbsd-wallpaper
 
 # lock screen after 30m of inactivity
-xidle -timeout 1800 &
+#xidle -timeout 1800 &
 
 exec icewm-session || exec xterm -fg red
