@@ -2,6 +2,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar first-time t
+  "Flag signifying this is the first time that .emacs has been evaled")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,13 +66,17 @@
 
 ;; zamiast recentf-mode mam desktop save
 (desktop-save-mode 1)
+;(if first-time
+;    (progn
+;      (desktop-read)))
 ;; ??? how does this work??(desktop-auto-save-timeout 10)
 ;;(recentf-mode 1)
 ;;(setq-default recent-save-file "~/.emacs.d/recentf")
 
 ;; start server if it's not already running
-(load "server")
-(unless (server-running-p) (server-start))
+;(if first-time
+;(load "server")
+;(unless (server-running-p) (server-start)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
@@ -357,15 +364,6 @@
   ;;(setq-default jedi:setup-keys t)
   (setq-default jedi:complete-on-dot nil))
 
-;; ispell/aspel
-(setq ispell-list-command "--list") ;; aspel uzywa --list
-(defun fd-switch-dictionary()
-  "Switch language dictionary."
-  (interactive)
-  (let* ((dic ispell-current-dictionary) 
-         (change (if (string= dic "en_GB") "polish" "en_GB"))) 
-    (ispell-change-dictionary change) 
-    (message "Dictionary switched from %s to %s" dic change)))
 
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
@@ -416,16 +414,35 @@
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-(eval-after-load "auto-complete" '(progn (ac-ispell-setup)))
 
 (dolist (hook '(text-mode-hook)) 
   (add-hook hook (lambda () 
                    ;(linum-mode) 
-                   (flyspell-mode))))
+                   (flyspell-mode -1)
+                   )))
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook)) 
   (add-hook hook (lambda () 
                    (flyspell-mode -1))))
+
+;; ispell/aspel
+(setq ispell-list-command "--list") ;; aspel uzywa --list
+;; ispell-valid-dictionary-list
+(setenv "DICTIONARY" "en_GB")
+;; (setenv "DICTIONARY" "en-GB")
+;; (setenv "DICTIONARY" "pl")
+;; speed it up at the cost of reducing the quality of its suggestions
+(setq ispell-extra-args '("--sug-mode=fast"))
+(eval-after-load "auto-complete" '(progn (ac-ispell-setup)))
+
+
+(defun fd-switch-dictionary()
+  "Switch language dictionary."
+  (interactive)
+  (let* ((dic ispell-current-dictionary) 
+         (change (if (string= dic "en_GB") "pl" "en_GB"))) 
+    (ispell-change-dictionary change) 
+    (message "Dictionary switched from %s to %s" dic change)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; prog modes
@@ -596,6 +613,7 @@
 (add-hook 'ibuffer-mode-hook (lambda () 
                                (ibuffer-auto-mode 1)))
 
+(global-set-key (kbd "<f6>")   'flyspell-mode)
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 ;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
@@ -642,4 +660,6 @@
 (global-unset-key (kbd "C-="))
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
