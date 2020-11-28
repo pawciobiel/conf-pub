@@ -1,6 +1,6 @@
 [user]
 	name = pawciobiel
-	email = pawciobiel@gmail.com
+	email = 
 
 [color]
 	ui = auto
@@ -19,6 +19,8 @@
 	st = status -s -b
 	ci = commit
 	cdiff = diff --color -C -U5
+	cdh = diff --color -C -U5 HEAD
+	coh = checkout HEAD
 	tags = for-each-ref --format '%(objectname:short) %(refname) %(taggerdate)' --sort=-taggerdate refs/tags
 	#git format-patch --no-prefix --stdout trunk > patch_name.patch
 	#git diff --no-prefix trunk your_branch > patch_name.patch
@@ -47,3 +49,5 @@
 [push]
 	default = current # simple
 
+[merge]
+	tool = meld
