@@ -2,55 +2,114 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar first-time t
+(defvar first-time t 
   "Flag signifying this is the first time that .emacs has been evaled")
+                                        ;(toggle-debug-on-error)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+;; (add-to-list 'load-path "/usr/local/emacs/share/emacs/27.1/lisp/")
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 4)
- '(ac-ispell-requires 4)
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes nil)
- '(helm-boring-buffer-regexp-list
-   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
- '(helm-boring-file-regexp-list
-   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
- '(js-enabled-frameworks '(javascript))
- '(js-indent-level 2)
- '(mode-require-final-newline nil)
- '(package-archives
-   '(("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")
-     ("melpa" . "http://melpa.org/packages/")))
- '(package-selected-packages
-   '(projectile virtualenvwrapper helm lua-mode python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide ng2-mode typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort go-autocomplete neotree dired-narrow ac-php sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+ '(ac-ispell-fuzzy-limit 4) 
+ '(ac-ispell-requires 4) 
+ '(ansi-color-faces-vector [default default default italic underline success warning error]) 
+ '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff"
+                            "#eeeeec"]) 
+ '(custom-safe-themes '("5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default)) 
+ '(flycheck-checker-error-threshold 600) 
+ '(flycheck-disabled-checkers '(python-mypy)) 
+ '(helm-boring-buffer-regexp-list '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*"
+                                    "\\*helm*")) 
+ '(helm-boring-file-regexp-list '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$"
+                                  "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$"
+                                  "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$"
+                                  "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$"
+                                  "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$"
+                                  "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$"
+                                  "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$"
+                                  "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$"
+                                  "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$"
+                                  "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$"
+                                  "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$"
+                                  "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$")) 
+ '(initial-frame-alist (quote ((fullscreen . maximized)))) 
+ '(js-enabled-frameworks '(javascript)) 
+ '(js-indent-level 4) 
+ '(mode-require-final-newline nil) 
+ '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") 
+                      ("melpa" . "http://melpa.org/packages/"))) 
+ '(package-selected-packages '(helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify
+                                         jq-format flycheck-aspell scss-mode magit-filenotify
+                                         projectile virtualenvwrapper helm python-black flycheck
+                                         restclient dired-subtree dired-toggle dired-single
+                                         gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode
+                                         w3 python-mode racer rust-mode csv-mode toml-mode
+                                         docker-compose-mode dockerfile-mode helm-ag fish-mode
+                                         jedi-core json-reformat less-css-mode yapfify imenu-list
+                                         dired tern rainbow-delimiters use-package web-mode
+                                         elisp-format yaml-mode handlebars-mode jinja2-mode mustache
+                                         pyimpsort neotree dired-narrow sql-indent ac-ispell
+                                         sphinx-doc sphinx-mode markdown-mode auto-complete-nxml
+                                         auto-complete-rst pydoc magit json-mode jedi
+                                         ido-vertical-mode helm-projectile helm-ispell epic)) 
+ '(projectile-indexing-method 'hybrid) 
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-delimiter-face ((t (:foreground "DimGray"))))
- '(font-lock-comment-face ((t (:foreground "DimGray"))))
- '(font-lock-doc-face ((t (:foreground "green"))))
- '(font-lock-string-face ((t (:foreground "green"))))
- '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
- '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
- '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono")))))
+ '(error 
+   ((t 
+     (:foreground "salmon" 
+                  :weight bold)))) 
+ '(font-lock-builtin-face ((t 
+                            (:foreground "steelblue")))) 
+ '(font-lock-comment-delimiter-face ((t 
+                                      (:foreground "DimGray")))) 
+ '(font-lock-comment-face ((t 
+                            (:foreground "DimGray")))) 
+ '(font-lock-constant-face ((t 
+                             (:foreground "darkcyan")))) 
+ '(font-lock-doc-face ((t 
+                        (:foreground "green4")))) 
+ '(font-lock-function-name-face ((t 
+                                  (:foreground "#add8e6")))) 
+ '(font-lock-keyword-face ((t 
+                            (:foreground "mediumpurple")))) 
+ '(font-lock-string-face ((t 
+                           (:foreground "green4")))) 
+ '(font-lock-variable-name-face ((t 
+                                  (:foreground "white" 
+                                               :weight light)))) 
+ '(neo-dir-link-face ((t 
+                       (:foreground "deep sky blue" 
+                                    :slant normal 
+                                    :weight bold 
+                                    :height 120 
+                                    :family "Fantasque Sans Mono")))) 
+ '(neo-file-link-face ((t 
+                        (:foreground "White" 
+                                     :weight normal 
+                                     :height 120 
+                                     :family "Fantasque Sans Mono")))) 
+ '(success ((t 
+             (:foreground "Green4" 
+                          :weight bold)))))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 
 ;; js autocompletion
 ;; http://ternjs.net/doc/manual.html#emacs
 ;; THIS IS not NEEDED as installed via package???
 ;;(add-to-list 'load-path "~/.emacs.d/tern/")
-;;(add-to-list 'load-path "~/node_modules/tern/emacs/")
+(add-to-list 'load-path "~/node_modules/tern/emacs/")
 ;;(autoload 'tern-mode "tern.el" nil t)
 ;; js autocomplete via tern + ac - czy to w ogóle działa?
 ;;(eval-after-load 'tern
@@ -58,87 +117,104 @@
 ;;      (require 'tern-auto-complete)
 ;;      (tern-ac-setup)))
 
+(setq shell-file-name "/usr/bin/bash")
+
 ;;(load-file "~/.emacs.d/lisp/pdb-current.el")
 (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
 
-;; hideshowvis nie działa bo emacs compiled bez png/gtk...?
-;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
+(setq use-short-answers 1)
 
-;; zamiast recentf-mode mam desktop save
+(setq create-lockfiles nil)
+
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+;;(setq auto-save-file-name-transforms
+;;                `((".*" ,temporary-file-directory t)))
+
+;; zamiast recentf-mode mam desktop-save-mode
+                                        ;(if first-time
+                                        ;(progn
+                                        ;(desktop-read)))
+(setq my-own-path "/home/pgb/.emacs.d")
+                                        ;(if (file-exists-p
+                                        ;     (concat my-own-path ".emacs.desktop"))
+                                        ;    (desktop-read my-own-path))
+
+(add-hook 'kill-emacs-hook `(lambda () 
+                              (desktop-save my-own-path t)))
+(setq desktop-auto-save-timeout 2 desktop-dirname             "~/.emacs.d/" desktop-base-file-name
+      ".emacs.desktop" desktop-save                nil desktop-load-locked-desktop nil)
 (desktop-save-mode 1)
-;(if first-time
-;    (progn
-;      (desktop-read)))
-;; ??? how does this work??(desktop-auto-save-timeout 10)
-;;(recentf-mode 1)
-;;(setq-default recent-save-file "~/.emacs.d/recentf")
 
 ;; start server if it's not already running
-;(if first-time
-;(load "server")
-;(unless (server-running-p) (server-start)))
+                                        ;(if first-time
+                                        ;(load "server")
+                                        ;(unless (server-running-p) (server-start)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
 
-(defun kill-other-buffers()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer)
+(defun kill-other-buffers() 
+  "Kill all other buffers." 
+  (interactive) 
+  (mapc 'kill-buffer (delq (current-buffer) 
                            (buffer-list))))
 
-(defun my-kill-current-buffer()
-  "Kill current buffer."
-  (interactive)
+(defun my-kill-current-buffer() 
+  "Kill current buffer." 
+  (interactive) 
   (kill-buffer (current-buffer)))
 
-(defun duplicate-line()
-  "Duplicate line."
-  (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
+(defun duplicate-line() 
+  "Duplicate line." 
+  (interactive) 
+  (move-beginning-of-line 1) 
+  (kill-line) 
+  (yank) 
+  (open-line 1) 
+  (next-line 1) 
   (yank))
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "New name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
-      (if (get-buffer new-name)
-          (message "A buffer named '%s' already exists!" new-name)
-        (progn (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
+(defun rename-file-and-buffer (new-name) 
+  "Renames both current buffer and file it's visiting to NEW-NAME." 
+  (interactive "New name: ") 
+  (let ((name (buffer-name)) 
+        (filename (buffer-file-name))) 
+    (if (not filename) 
+        (message "Buffer '%s' is not visiting a file!" name) 
+      (if (get-buffer new-name) 
+          (message "A buffer named '%s' already exists!" new-name) 
+        (progn (rename-file filename new-name 1) 
+               (rename-buffer new-name) 
+               (set-visited-file-name new-name) 
                (set-buffer-modified-p nil))))))
 
 
-(defun run-ipython()
-  "Run ipython."
-  (interactive)
-  (term "/home/pgb/bin/ipython"))
+(defun run-ipython() 
+  "Run ipython." 
+  (interactive) 
+  (term "/home/pgb/bin/ipython3"))
 
 
-(defun my-next-user-buffer ()
-  "Switch to the next user buffer (buffer name does not start with “*”)."
-  (interactive)
-  (next-buffer)
-  (let ((i 0))
-    (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
-      (setq i (1+ i)) (next-buffer))))
+(defun my-next-user-buffer () 
+  "Switch to the next user buffer (buffer name does not start with “*”)." 
+  (interactive) 
+  (next-buffer) 
+  (let ((i 0)) 
+    (while (and (string-equal "*" (substring (buffer-name) 0 1)) 
+                (< i 20)) 
+      (setq i (1+ i)) 
+      (next-buffer))))
 
-(defun my-prev-user-buffer ()
-  "Switch to the previous user buffer (buffer name does not start with “*”)."
-  (interactive)
-  (previous-buffer)
-  (let ((i 0))
-    (while (and (string-equal "*" (substring (buffer-name) 0 1)) (< i 20))
-      (setq i (1+ i)) (previous-buffer))))
+(defun my-prev-user-buffer () 
+  "Switch to the previous user buffer (buffer name does not start with “*”)." 
+  (interactive) 
+  (previous-buffer) 
+  (let ((i 0)) 
+    (while (and (string-equal "*" (substring (buffer-name) 0 1)) 
+                (< i 20)) 
+      (setq i (1+ i)) 
+      (previous-buffer))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -152,9 +228,11 @@
 ;;(setq fci-rule-column 79)
 ;;(setq fci-rule-color "darkblue")
 (set-default 'truncate-lines t)
-; visual-line-mode
+                                        ; visual-line-mode
 (global-set-key "\C-c$" 'toggle-truncate-lines)
-;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
+                                        ;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
+
+(setq ediff-split-window-function 'split-window-horizontally)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -163,24 +241,11 @@
 (set-default-coding-systems 'utf-8)
 
 (global-linum-mode 0) ;; poszczegolne mody włączają linum
-;;(setq linum-format "%d ")
-(setq linum-format "%4d \u2502 ")
 
-;; if we run xemacs load some related modes and thames
-(when (eq window-system 'x)
-  ;;(color-theme-robin-hood)
-  (load-theme 'manoj-dark t)
-  ;;(load-theme 'solarized-dark t)
-  (setq linum-format "%d"))
-(cond
- ((featurep
-   'xemacs)
-  ;; Code for XEmacs
-  ;;(color-theme-robin-hood))
-  )
- (t
-  ;; Code for Emacs
-  ))
+
+(setq linum-format "%4d \u2502 ")
+(when (member window-system '(pgtk x)) 
+  (setq linum-format "%d "))
 
 (setq column-number-mode t)
 (setq scroll-step            1 scroll-conservatively  10000)
@@ -201,17 +266,17 @@
 ;;(ad-activate 'isearch-repeat-forward)
 ;;(ad-activate 'isearch-repeat-backward)
 
-;(require 'dired)
-;(setq dired-use-ls-dired nil)
+                                        ;(require 'dired)
+                                        ;(setq dired-use-ls-dired nil)
 ;;(require 'dired-single)
 ;;(require 'dired+)
 ;;(setq diredp-bind-problematic-terminal-keys nil)
-;(defun dired-custom() 
-;  "konfig dired-mode"
-;  (diredp-toggle-find-file-reuse-dir t)
-;  (local-set-key (kbd "M-O") nil))
-;(add-hook 'dired-mode-hook 'dired-custom)
-;(eval-after-load 'dired-mode '(define-key dired-mode-map (kbd "M-O") nil))
+                                        ;(defun dired-custom()
+                                        ;  "konfig dired-mode"
+                                        ;  (diredp-toggle-find-file-reuse-dir t)
+                                        ;  (local-set-key (kbd "M-O") nil))
+                                        ;(add-hook 'dired-mode-hook 'dired-custom)
+                                        ;(eval-after-load 'dired-mode '(define-key dired-mode-map (kbd "M-O") nil))
 
 ;;(put 'dired-find-alternate-file 'disabled nil)
 ;;(defadvice dired-advertised-find-file (around dired-subst-directory activate)
@@ -243,17 +308,17 @@
 ;; otwiera w tym samym bufforze, problem w tym ze pliki powinien otwierac w nowym
 ;; a tylko katalogi w tym samym
 ;; wiecel lepiej jest uzywac `a` by otwieral wtym samym bufferze a nie RET!
-;;(defun dired-custom() 
+;;(defun dired-custom()
 ;;  "konfig dired-mode"
 ;;  (local-set-key (kbd "RET") 'dired-find-alternate-file)) ;; otwiera w tym samym bufferze
 ;;(add-hook 'dired-mode-hook 'dired-custom)
 ;;(setq dired-use-ls-dired nil)
 
-;(use-package dired-subtree :ensure t
-;  :after dired
-;  :config
-;  (bind-key "<tab>" 'dired-subtree-toggle dired-mode-map)
-;  (bind-key "<backtab>" 'dired0subtree-cycle dired-mode-map))
+                                        ;(use-package dired-subtree :ensure t
+                                        ;  :after dired
+                                        ;  :config
+                                        ;  (bind-key "<tab>" 'dired-subtree-toggle dired-mode-map)
+                                        ;  (bind-key "<backtab>" 'dired0subtree-cycle dired-mode-map))
 
 
 ;;(setq-default ibuffer-saved-filter-groups `(("Default"
@@ -269,9 +334,15 @@
 
 (require 'projectile)
 (projectile-global-mode)
+(setq projectile-enable-caching t)
+(setq projectile-files-cache-expire 432000)
+(setq projectile-globally-ignored-file-suffixes (quote (".pyc")))
+                                        ;(setq projectile-mode t nil (projectile))
+                                        ;(setq projectile-switch-project-action (quote helm-projectile-find-file))
 
-;(require 'helm-config)
+                                        ;(require 'helm-config)
 (require 'helm)
+(setq helm-ff-skip-boring-files t)
 
 ;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
 ;;(require 'popwin)
@@ -283,7 +354,7 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 
-; auto-complete-mode ac-mode ac AC auto-complete.el
+                                        ; auto-complete-mode ac-mode ac AC auto-complete.el
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
@@ -293,7 +364,9 @@
 ;;(setq ac-use-comphist nil)  FOR PERFORMANCE
 ;; (setq ac-auto-show-menu 0.8)
 (setq ac-auto-start nil) ;; I'll use trigger key
-(ac-set-trigger-key "TAB")
+                                        ;(ac-set-trigger-key "TAB")
+(define-key ac-complete-mode-map "\t" 'ac-complete)
+(define-key ac-complete-mode-map "\r" nil)
 ;;(setq ac-use-quick-help t)
 ;;(setq ac-quick-help-delay 1)
 ;; ac-help  C-?
@@ -304,10 +377,10 @@
 (define-key ac-mode-map (kbd "C-/") 'auto-complete)
 (define-key ac-mode-map (kbd "C-_") 'auto-complete)
 (define-key ac-mode-map (kbd "C-c _") 'auto-complete)
-(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
+                                        ;(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
 (global-set-key (kbd "C-_") 'auto-complete)
 (global-set-key (kbd "C-c _") 'auto-complete)
-(global-set-key (kbd "C-c /") 'auto-complete)
+                                        ;(global-set-key (kbd "C-c /") 'auto-complete)
 
 
 (global-set-key (kbd "C-x <right>") 'my-next-user-buffer)
@@ -335,18 +408,17 @@
   yaml-mode 
   :ensure t)
 
-(use-package
-  python-black
-  :demand t
-  :after python
+(use-package 
+  python-black 
+  :demand t 
+  :after python 
   :config (setq python-black-command "/home/pgb/bin/black"))
 
 ;;(use-package web-mode :ensure t)
-(defun my-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-enable-current-element-highlight 1)
-)
+(defun my-web-mode-hook () 
+  "Hooks for Web mode." 
+  (setq web-mode-markup-indent-offset 2) 
+  (setq web-mode-enable-current-element-highlight 1))
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 
@@ -356,12 +428,26 @@
   :bind (("C-x g" . magit-status) ;; Display the main magit popup
          ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
 
+;; jedi:start-dedicated-server
 (use-package 
   jedi 
   :ensure t 
   :config (add-hook 'python-mode-hook 'jedi:setup) 
-  (add-to-list 'ac-sources 'ac-source-jedi-direct)
+  (add-to-list 'ac-sources 'ac-source-jedi-direct) 
+  (setq jedi:get-in-function-call-delay 100000) ;; wait long for tooltip-popup - nie lubie tego...
+  ;;(jedi:tooltip-method nil)
+  (setq jedi:environment-root "/home/pgb/.local")
+  ;;(setq jedi:environment-virtualenv
+  ;;	(append python-environment-virtualenv
+  ;;		'("--python" "/usr/bin/python3")))
+  ;;(setq jedi:server-args
+  ;;      '("--sys-path" "/home/pgb/.local/lib/python3.8/site-packages"))
+  ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
+  ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
+
   ;;(setq-default jedi:setup-keys t)
+  (setq python-environment-directory "/home/pgb/.local")
+  ;;python-environment-default-root-name
   (setq-default jedi:complete-on-dot nil))
 
 
@@ -381,13 +467,22 @@
 (require 'move-lines)
 (move-lines-binding)
 
-(load-library "hideshow")
-    (global-set-key (kbd "C-c -") 'hs-hide-block)
-    (global-set-key (kbd "C-c =") 'hs-show-block)
+;; hs-minor-mode
+;;(load-library "hideshow")
+(require 'hideshow)
+(global-set-key (kbd "C-c -") 'hs-hide-block)
+(global-set-key (kbd "C-c =") 'hs-show-block)
+;;; hideshowvis.el
+;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
+(require 'hideshowvis)
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+(autoload 'hideshowvis-minor-mode "hideshowvis"
+  "Will indicate regions foldable with hideshow in the fringe." 'interactive)
+(hideshowvis-symbols)
 
 (require 'neotree)
 (setq neo-smart-open t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
+                                        ;(setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
   "Open NeoTree using the git root." 
   (interactive) 
@@ -411,15 +506,16 @@
   flycheck 
   :ensure t 
   :init (global-flycheck-mode t))
-(add-hook 'after-init-hook 'global-flycheck-mode)
+
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
 
 (dolist (hook '(text-mode-hook)) 
   (add-hook hook (lambda () 
-                   ;(linum-mode) 
-                   (flyspell-mode -1)
-                   )))
+                   (hideshowvis-enable) 
+                   (electric-indent-mode nil)
+                                        ;(linum-mode)
+                   (flyspell-mode -1))))
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook)) 
   (add-hook hook (lambda () 
@@ -436,9 +532,9 @@
 (eval-after-load "auto-complete" '(progn (ac-ispell-setup)))
 
 
-(defun fd-switch-dictionary()
-  "Switch language dictionary."
-  (interactive)
+(defun fd-switch-dictionary() 
+  "Switch language dictionary." 
+  (interactive) 
   (let* ((dic ispell-current-dictionary) 
          (change (if (string= dic "en_GB") "pl" "en_GB"))) 
     (ispell-change-dictionary change) 
@@ -450,61 +546,72 @@
 (require 'pyimpsort)
 (defun python-custom() 
   "My custom python-mode-hook."
+  (hideshowvis-enable) 
   (flyspell-prog-mode) 
-  
-  (flycheck-mode +1)
-  (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
+  (flycheck-mode +1) 
+  (push '("lambda" . ?λ) prettify-symbols-alist) 
+  (prettify-symbols-mode) 
+  (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8") 
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
                                         ;(require 'py-autopep8)
 
-  ; 1) virtualenvwrapper
-  (require 'virtualenvwrapper)
-  (setq venv-dirlookup-names '())
-  (setq venv-location "/home/pgb/workspace/python/venvs/")
-  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
-  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
-  (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
-  (add-hook 'venv-postactivate-hook 'jedi:stop-server)
+                                        ; 1) virtualenvwrapper
+  (require 'virtualenvwrapper) 
+  (setq venv-dirlookup-names '()) 
+  (setq venv-location "/home/pgb/.virtualenvs/")
+                                        ;  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
+                                        ;  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
+                                        ;  (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
+  (add-hook 'venv-postactivate-hook 'jedi:stop-server) 
   (add-hook 'venv-postdeactivate-hook 'jedi:stop-server)
 
-  ; or 2) pyenv-mode
-  ;(require 'pyenv-mode)
-  ;(defun projectile-pyenv-mode-set ()
-  ;"Set pyenv version matching project name."
-  ;(let ((project (projectile-project-name)))
-  ;  (if (member project (pyenv-mode-versions))
-  ;      (pyenv-mode-set project)
-  ;    (pyenv-mode-unset))))
-  ;(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+                                        ; or 2) pyenv-mode
+                                        ;(require 'pyenv-mode)
+                                        ;(defun projectile-pyenv-mode-set ()
+                                        ;"Set pyenv version matching project name."
+                                        ;(let ((project (projectile-project-name)))
+                                        ;  (if (member project (pyenv-mode-versions))
+                                        ;      (pyenv-mode-set project)
+                                        ;    (pyenv-mode-unset))))
+                                        ;(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
 
-  ; or 3) pyvenv used by elpy
-  ; (require 'pyvenv)
-
-
+                                        ; or 3) pyvenv used by elpy
+                                        ; (require 'pyvenv)
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
   (local-unset-key (kbd "C-c /")) 
   (local-set-key (kbd "C-_") 'jedi:complete) 
   (local-set-key (kbd "C-c _") 'jedi:complete) 
-  (local-set-key (kbd "C-c /") 'jedi:complete) 
+  (local-set-key (kbd "C-c /") 'jedi:complete)
+                                        ; M-/ = dabbrev-expand
+                                        ; C-/ = auto-complete (ac-mode-map)
+                                        ; C-c / = C-c / runs the command helm-jedi-related-names (jedi-mode-map)
   (local-set-key (kbd "C-.") 'jedi:goto-definition) 
   (local-set-key (kbd "C-c .") 'jedi:goto-definition) 
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker) 
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker) 
-  (local-set-key (kbd "C-c d") 'jedi:show-doc)
+  (local-set-key (kbd "C-c d") 'jedi:show-doc) 
+  (global-set-key (kbd "<f12>") 'my-insert-pdb) 
+  (defun my-insert-pdb () 
+    (interactive) 
+    (insert
+     "import pdb; pdb.Pdb(skip=['tornado.*', '_pytest.*', 'pluggy.*', 'asyncio.*', 'abc', 'ast']).set_trace()"))
 
-  (setq indent-tabs-mode f)
-  (setq-default tab-width 4)
-  (setq tab-width 4)
-)
+                                        ;  (setq indent-tabs-mode f)
+  (setq-default tab-width 4) 
+  (setq tab-width 4))
 (add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
 
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;;   (add-hook 'js-mode-hook 'js2-minor-mode)
 (defun js-custom () 
   "My custom js-mode-hook."
+  (hideshowvis-enable) 
   (flyspell-prog-mode) 
-  (setq js-indent-level 2) 
+  (setq web-beautify-js-program "~/bin/js-beautify.js") 
+  (setq js-indent-level 4) 
   (setq mode-require-final-newline nil) 
   (local-unset-key (kbd "C-_")) 
   (local-unset-key (kbd "C-c _")) 
@@ -531,11 +638,11 @@
 
 (defun markdown-custom() 
   "My custom markdown-mode."
-  (local-set-key (kbd "C-d") nil)
-  (setq indent-tabs-mode f)
-  (setq-default tab-width 4)
-  (setq tab-width 4)
-  (setq truncate-lines t)
+  (local-set-key (kbd "C-d") nil) 
+  (setq indent-tabs-mode f) 
+  (setq-default tab-width 4) 
+  (setq tab-width 4) 
+  (setq truncate-lines t) 
   (setq visual-line-mode t))
 (add-hook 'markdown-mode-hook 'markdown-custom)
 
@@ -546,64 +653,79 @@
 (add-hook 'restclient-mode-hook 'restclient-custom)
 
 
+;;(defun cider-custom()
+;;  "My custom cider-mode."
+;;  (electric-indent-mode nil)
+;;   ;(local-set-key (kbd "C-c TAB"))
+;;   ;(local-set-key (kbd "C-c C-i"))
+;;  )
+;;(add-hook 'cider-mode-hook 'cider-custom)
+
+
 (defun elisp-custom() 
   "My custom elisp-mode."
+  (push '("lambda" . ?λ) prettify-symbols-alist) 
+  (prettify-symbols-mode) 
+  (hideshowvis-enable) 
   (rainbow-delimiters-mode) 
   (local-set-key (kbd "C-d") nil))
 (add-hook 'emacs-lisp-mode-hook 'elisp-custom)
 
 (add-hook 'prog-mode-hook (lambda () 
+                            (hideshowvis-enable) 
                             (hs-minor-mode) 
-                            ;(linum-mode) 
+                            (flycheck-mode +1)
+                                        ;(linum-mode)
                             (flyspell-prog-mode)))
 
-(defun setup-tide-mode ()
-  "My custom tide-mode for typescript."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (electric-indent-mode nil)
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (setq tab-width 2)
-  (setq typescript-indent-level
-        (or (plist-get (tide-tsfmt-options) ':indentSize) 2))
-  (local-unset-key (kbd "C-c ."))
-  (local-unset-key (kbd "C-c ,"))
-  (local-set-key (kbd "C-c .") 'tide-jump-to-definition)
+(defun setup-tide-mode () 
+  "My custom tide-mode for typescript." 
+  (interactive) 
+  (tide-setup) 
+  (flycheck-mode +1) 
+  (setq flycheck-check-syntax-automatically '(save mode-enabled)) 
+  (electric-indent-mode nil) 
+  (eldoc-mode +1) 
+  (tide-hl-identifier-mode +1) 
+  (setq tab-width 2) 
+  (setq typescript-indent-level (or (plist-get (tide-tsfmt-options) 
+                                               ':indentSize) 
+                                    2)) 
+  (local-unset-key (kbd "C-c .")) 
+  (local-unset-key (kbd "C-c ,")) 
+  (local-set-key (kbd "C-c .") 'tide-jump-to-definition) 
   (local-set-key (kbd "C-c ,") 'tide-jump-back)
 
-;;  "indentSize": 2,
-;;  "tabSize": 2,
-;;  "insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
-;;  "placeOpenBraceOnNewLineForFunctions": false,
-;;  "placeOpenBraceOnNewLineForControlBlocks": false
+  ;;  "indentSize": 2,
+  ;;  "tabSize": 2,
+  ;;  "insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": false,
+  ;;  "placeOpenBraceOnNewLineForFunctions": false,
+  ;;  "placeOpenBraceOnNewLineForControlBlocks": false
+  (setq tide-format-options 
+        '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t 
+                                                                :indentSize 2 
+                                                                :tabSize 2 
+                                                                :placeOpenBraceOnNewLineForControlBlocks
+                                                                nil 
+                                                                :placeOpenBraceOnNewLineForFunctions
+                                                                nil))
 
-  (setq tide-format-options '(
-    :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
-    :indentSize 2
-    :tabSize 2
-    :placeOpenBraceOnNewLineForControlBlocks nil
-    :placeOpenBraceOnNewLineForFunctions nil))
-
-;; formats the buffer before saving
-;;(add-hook 'before-save-hook 'tide-format-before-save)
-
+  ;; formats the buffer before saving
+  ;;(add-hook 'before-save-hook 'tide-format-before-save)
   )
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-;(size-indication-mode 1)
+                                        ;(size-indication-mode 1)
 ;;; large file - duzy pliczek, powyłączaj co się da...
-;(add-hook 'find-file-hook #'fuck-large-file)
-;(defun fuck-large-file ()
-;  (when (> 100000 (buffer-size))
-;    (linum-mode -1)
-;    (jedi-mode -1)
-;    (fci-mode -1)
-;    (font-lock-mode -1)
-;    )
-;)
+                                        ;(add-hook 'find-file-hook #'fuck-large-file)
+                                        ;(defun fuck-large-file ()
+                                        ;  (when (> 100000 (buffer-size))
+                                        ;    (linum-mode -1)
+                                        ;    (jedi-mode -1)
+                                        ;    (fci-mode -1)
+                                        ;    (font-lock-mode -1)
+                                        ;    )
+                                        ;)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keys
@@ -638,6 +760,12 @@
 (global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
+
+(global-set-key (kbd "C-c i") 'iedit-mode) ;; iedit rename var occurences
+
+
+;; M-u  upcase-word
+;; M-l  downcase-word
 ;; C-x C-u  upcase-region
 ;; C-x C-l  downcase-region
 
@@ -656,10 +784,22 @@
 (global-set-key (kbd "C-<right>") 'my-forward-word)
 
 
-(global-unset-key (kbd "C--"))
-(global-unset-key (kbd "C-="))
+                                        ;(global-unset-key (kbd "C--"))
+                                        ;(global-unset-key (kbd "C-="))
+
+                                        ; change indent-rigidly
+(global-unset-key (kbd "C-x C-i"))
+(global-unset-key (kbd "C-x TAB"))
+(global-set-key (kbd "C-c C-i") 'indent-rigidly)
+(global-set-key (kbd "C-c TAB") 'indent-rigidly)
+
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(add-hook 'after-init-hook (lambda ()
+                             ;;(load-theme 'pawcio t)
+                             (load-theme 'deeper-blue t) 
+                             (desktop-read)))
 
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
