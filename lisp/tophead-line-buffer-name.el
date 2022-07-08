@@ -37,7 +37,7 @@
   (setq header-line-format '("" ;; invocation-name
                              (:eval (if (buffer-file-name) 
                                         (let ((text (buffer-file-name))) 
-                                          (if (member window-system '(pgtk x)) 
+                                          (if (display-graphic-p) 
                                             (when text (buttonize text (lambda (text) 
                                                                          (message
                                                                           "Copied `%s' to kill ring"

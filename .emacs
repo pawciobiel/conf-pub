@@ -16,92 +16,49 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-ispell-fuzzy-limit 4) 
- '(ac-ispell-requires 4) 
- '(ansi-color-faces-vector [default default default italic underline success warning error]) 
- '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff"
-                            "#eeeeec"]) 
- '(custom-safe-themes '("5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default)) 
- '(flycheck-checker-error-threshold 600) 
- '(flycheck-disabled-checkers '(python-mypy)) 
- '(helm-boring-buffer-regexp-list '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*"
-                                    "\\*helm*")) 
- '(helm-boring-file-regexp-list '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$"
-                                  "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$"
-                                  "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$"
-                                  "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$"
-                                  "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$"
-                                  "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$"
-                                  "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$"
-                                  "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$"
-                                  "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$"
-                                  "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$"
-                                  "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$"
-                                  "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$")) 
- '(initial-frame-alist (quote ((fullscreen . maximized)))) 
- '(js-enabled-frameworks '(javascript)) 
- '(js-indent-level 4) 
- '(mode-require-final-newline nil) 
- '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/") 
-                      ("melpa" . "http://melpa.org/packages/"))) 
- '(package-selected-packages '(helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify
-                                         jq-format flycheck-aspell scss-mode magit-filenotify
-                                         projectile virtualenvwrapper helm python-black flycheck
-                                         restclient dired-subtree dired-toggle dired-single
-                                         gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode
-                                         w3 python-mode racer rust-mode csv-mode toml-mode
-                                         docker-compose-mode dockerfile-mode helm-ag fish-mode
-                                         jedi-core json-reformat less-css-mode yapfify imenu-list
-                                         dired tern rainbow-delimiters use-package web-mode
-                                         elisp-format yaml-mode handlebars-mode jinja2-mode mustache
-                                         pyimpsort neotree dired-narrow sql-indent ac-ispell
-                                         sphinx-doc sphinx-mode markdown-mode auto-complete-nxml
-                                         auto-complete-rst pydoc magit json-mode jedi
-                                         ido-vertical-mode helm-projectile helm-ispell epic)) 
- '(projectile-indexing-method 'hybrid) 
+ '(ac-ispell-fuzzy-limit 4)
+ '(ac-ispell-requires 4)
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-safe-themes
+   '("5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
+ '(flycheck-checker-error-threshold 600)
+ '(flycheck-disabled-checkers '(python-mypy))
+ '(helm-boring-buffer-regexp-list
+   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
+ '(helm-boring-file-regexp-list
+   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
+ '(initial-frame-alist '((fullscreen . maximized)))
+ '(js-enabled-frameworks '(javascript))
+ '(js-indent-level 4)
+ '(mode-require-final-newline nil)
+ '(package-archives
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "http://melpa.org/packages/")))
+ '(package-selected-packages
+   '(all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+ '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(error 
-   ((t 
-     (:foreground "salmon" 
-                  :weight bold)))) 
- '(font-lock-builtin-face ((t 
-                            (:foreground "steelblue")))) 
- '(font-lock-comment-delimiter-face ((t 
-                                      (:foreground "DimGray")))) 
- '(font-lock-comment-face ((t 
-                            (:foreground "DimGray")))) 
- '(font-lock-constant-face ((t 
-                             (:foreground "darkcyan")))) 
- '(font-lock-doc-face ((t 
-                        (:foreground "green4")))) 
- '(font-lock-function-name-face ((t 
-                                  (:foreground "#add8e6")))) 
- '(font-lock-keyword-face ((t 
-                            (:foreground "mediumpurple")))) 
- '(font-lock-string-face ((t 
-                           (:foreground "green4")))) 
- '(font-lock-variable-name-face ((t 
-                                  (:foreground "white" 
-                                               :weight light)))) 
- '(neo-dir-link-face ((t 
-                       (:foreground "deep sky blue" 
-                                    :slant normal 
-                                    :weight bold 
-                                    :height 120 
-                                    :family "Fantasque Sans Mono")))) 
- '(neo-file-link-face ((t 
-                        (:foreground "White" 
-                                     :weight normal 
-                                     :height 120 
-                                     :family "Fantasque Sans Mono")))) 
- '(success ((t 
-             (:foreground "Green4" 
-                          :weight bold)))))
+ '(error ((t (:foreground "salmon" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "steelblue"))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "DimGray"))))
+ '(font-lock-comment-face ((t (:foreground "DimGray"))))
+ '(font-lock-constant-face ((t (:foreground "darkcyan"))))
+ '(font-lock-doc-face ((t (:foreground "green4"))))
+ '(font-lock-function-name-face ((t (:foreground "#add8e6"))))
+ '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
+ '(font-lock-string-face ((t (:foreground "green4"))))
+ '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
+ '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
+ '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
+ '(success ((t (:foreground "Green4" :weight bold)))))
 
 
 
@@ -244,7 +201,7 @@
 
 
 (setq linum-format "%4d \u2502 ")
-(when (member window-system '(pgtk x)) 
+(when (display-graphic-p) 
   (setq linum-format "%d "))
 
 (setq column-number-mode t)
@@ -482,6 +439,7 @@
 
 (require 'neotree)
 (setq neo-smart-open t)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
                                         ;(setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
   "Open NeoTree using the git root." 
