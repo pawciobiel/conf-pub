@@ -1,6 +1,9 @@
-[user]
-	name = pawciobiel
-	email = 
+[includeIf "gitdir:conf-pub/"]
+    path = .gitconfig-github
+[includeIf "gitdir:workspace/"]
+    path = .gitconfig-github
+[includeIf "gitdir:workspace/nclab/"]
+    path = .gitconfig-nclab
 
 [color]
 	ui = auto
@@ -13,13 +16,15 @@
 	glog = log --graph --decorate --color --name-status --abbrev-commit
 	gloga = log --graph --decorate --color --name-status --abbrev-commit --all
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-
+    rso = remote show origin
 	# list local commits since last pull
 	llc = log ORIG_HEAD.. --stat --no-merges
 	st = status -s -b
 	ci = commit
-	cdiff = diff --color -C -U5
-	cdh = diff --color -C -U5 HEAD
+	rb = rebase
+	rbi = rebase -i
+	cdiff = diff --color -C -U10
+	cdh = diff --color -C -U10 HEAD
 	coh = checkout HEAD
 	tags = for-each-ref --format '%(objectname:short) %(refname) %(taggerdate)' --sort=-taggerdate refs/tags
 	#git format-patch --no-prefix --stdout trunk > patch_name.patch
@@ -51,3 +56,11 @@
 
 [merge]
 	tool = meld
+[diff]
+	submodule = log
+#[blame]
+#	ignoreRevsFile = .git-blame-ignore-revs
+[safe]
+	directory = /go/src/github.com/user/repo
+	directory = /go/src/github.com/user/repo
+	directory = /go/src/github.com/user/repo
