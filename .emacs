@@ -136,15 +136,18 @@
                                         ;(if first-time
                                         ;(progn
                                         ;(desktop-read)))
-(setq my-own-path "/home/pgb/.emacs.d")
+(setq-default my-own-path "/home/pgb/.emacs.d")
                                         ;(if (file-exists-p
                                         ;     (concat my-own-path ".emacs.desktop"))
                                         ;    (desktop-read my-own-path))
 
 (add-hook 'kill-emacs-hook `(lambda ()
-			      (desktop-save my-own-path t)))
-(setq desktop-auto-save-timeout 2 desktop-dirname             "~/.emacs.d/" desktop-base-file-name
-      ".emacs.desktop" desktop-save                nil desktop-load-locked-desktop nil)
+			                  (desktop-save my-own-path t)))
+(setq desktop-auto-save-timeout 2)
+(setq desktop-dirname "~/.emacs.d/")
+(setq desktop-base-file-name ".emacs.desktop")
+(setq desktop-save nil)
+(setq desktop-load-locked-desktop nil)
 (desktop-save-mode 1)
 
 ;; start server if it's not already running
@@ -234,7 +237,7 @@
 (global-set-key "\C-c$" 'toggle-truncate-lines)
                                         ;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
 
-(setq ediff-split-window-function 'split-window-horizontally)
+(setq-default ediff-split-window-function 'split-window-horizontally)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -245,9 +248,9 @@
 (global-linum-mode 0) ;; poszczegolne mody włączają linum
 
 
-(setq linum-format "%4d \u2502 ")
+(setq-default linum-format "%4d \u2502 ")
 (when (display-graphic-p)
-  (setq linum-format "%d "))
+  (setq-default linum-format "%d "))
 
 (setq column-number-mode t)
 (setq scroll-step            1 scroll-conservatively  10000)
@@ -335,11 +338,12 @@
 (package-install-selected-packages)
 
 (require 'projectile)
-(projectile-global-mode)
+(projectile-mode +1)
 (setq projectile-enable-caching t)
 (setq projectile-files-cache-expire 432000)
 (setq projectile-globally-ignored-file-suffixes (quote (".pyc")))
 ;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
+;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
 
 (require 'helm)
 ;;(require 'helm-config);
@@ -359,8 +363,9 @@
 
 (require 'helm-projectile)
 (helm-projectile-on)
+(global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
 
-                                        ; auto-complete-mode ac-mode ac AC auto-complete.el
+;; auto-complete-mode ac-mode ac AC auto-complete.el
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
@@ -392,6 +397,9 @@
 (global-set-key (kbd "C-x <right>") 'my-next-user-buffer)
 (global-set-key (kbd "C-x <left>") 'my-prev-user-buffer)
 
+
+(use-package undo-tree
+  ::ensure t)
 
 (use-package auto-complete-nxml
 	     :ensure t
@@ -481,7 +489,7 @@
 (require 'neotree)
 (setq neo-smart-open t)
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-                                        ;(setq projectile-switch-project-action 'neotree-projectile-action)
+;;(setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
   "Open NeoTree using the git root." 
   (interactive)
@@ -500,12 +508,11 @@
 ;;(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
 ;;(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
 
-;;(global-flycheck-mode)
 (use-package flycheck
-	     :ensure t
-	     :init (global-flycheck-mode t))
-
-(setq flycheck-check-syntax-automatically '(mode-enabled save))
+  :ensure t
+  :config
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  )
 
 
 (dolist (hook '(text-mode-hook))
@@ -791,7 +798,9 @@
 (add-hook 'after-init-hook (lambda ()
                              ;;(load-theme 'pawcio t)
                              (load-theme 'deeper-blue t)
-			     (desktop-read)))
+                             (global-flycheck-mode t)
+                             (global-undo-tree-mode t)
+			                 (desktop-read)))
 
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
