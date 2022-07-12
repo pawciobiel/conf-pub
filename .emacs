@@ -23,7 +23,7 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-safe-themes
-   '("5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
+   '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
  '(flycheck-checker-error-threshold 600)
  '(flycheck-disabled-checkers '(python-mypy))
  '(helm-boring-buffer-regexp-list
@@ -38,9 +38,10 @@
    '(("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   '(all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+   '(undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
  '(projectile-indexing-method 'hybrid)
- '(require-final-newline nil))
+ '(require-final-newline nil)
+ '(vc-follow-symlinks t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -294,12 +295,16 @@
 (setq projectile-enable-caching t)
 (setq projectile-files-cache-expire 432000)
 (setq projectile-globally-ignored-file-suffixes (quote (".pyc")))
-                                        ;(setq projectile-mode t nil (projectile))
-                                        ;(setq projectile-switch-project-action (quote helm-projectile-find-file))
+;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
 
-                                        ;(require 'helm-config)
 (require 'helm)
+;;(require 'helm-config);
 (setq helm-ff-skip-boring-files t)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 
 ;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
 ;;(require 'popwin)
@@ -320,10 +325,10 @@
 ;;(setq ac-expand-on-auto-complete t)
 ;;(setq ac-use-comphist nil)  FOR PERFORMANCE
 ;; (setq ac-auto-show-menu 0.8)
-(setq ac-auto-start nil) ;; I'll use trigger key
-                                        ;(ac-set-trigger-key "TAB")
-(define-key ac-complete-mode-map "\t" 'ac-complete)
-(define-key ac-complete-mode-map "\r" nil)
+(setq ac-auto-start nil) ;; I'll use trigger key albo kbd mapping C-/
+;;(ac-set-trigger-key "TAB")
+(define-key ac-complete-mode-map "\t" 'ac-expand)
+(define-key ac-complete-mode-map "\r" 'ac-complete)
 ;;(setq ac-use-quick-help t)
 ;;(setq ac-quick-help-delay 1)
 ;; ac-help  C-?
@@ -622,8 +627,8 @@
 
 (defun elisp-custom() 
   "My custom elisp-mode."
-  (push '("lambda" . ?λ) prettify-symbols-alist) 
-  (prettify-symbols-mode) 
+  ;;(push '("lambda" . ?λ) prettify-symbols-alist) 
+  ;;(prettify-symbols-mode) 
   (hideshowvis-enable) 
   (rainbow-delimiters-mode) 
   (local-set-key (kbd "C-d") nil))
@@ -710,13 +715,7 @@
 (global-set-key (kbd "C-k") 'kill-whole-line)
 (global-set-key (kbd "C-e") 'kill-whole-line)
 
-(global-set-key (kbd "M-x") 'helm-M-x)
-
 (global-set-key (kbd "C-x k") 'my-kill-current-buffer)
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
 
 (global-set-key (kbd "C-c i") 'iedit-mode) ;; iedit rename var occurences

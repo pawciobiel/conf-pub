@@ -36,16 +36,18 @@
 (defun sl/display-header () 
   (setq header-line-format '("" ;; invocation-name
                              (:eval (if (buffer-file-name) 
-                                        (let ((text (buffer-file-name))) 
-                                          (if (display-graphic-p) 
-                                            (when text (buttonize text (lambda (text) 
-                                                                         (message
-                                                                          "Copied `%s' to kill ring"
-                                                                          text) 
-                                                                         (kill-new text)) 
-                                                                  (sl/make-header) "%b"))
-                                            (sl/make-header) "%b"
-                                            )))))))
+                                        (if (display-graphic-p) 
+                                            (let ((text (buffer-file-name))) 
+                                              (when text (buttonize text (lambda (text) 
+                                                                           (message
+                                                                            "Copied `%s' to kill ring"
+                                                                            text) 
+                                                                           (kill-new text)) 
+                                                                    (sl/make-header))))
+                                          (sl/make-header)
+                                          )
+                                      "%b"
+                                      )))))
 
 (add-hook 'buffer-list-update-hook 'sl/display-header)
 

@@ -28,4 +28,4 @@
 (global-set-key (kbd "C-<right>") 'my-forward-word)
 (provide 'my-move-word)
 
-                                        ; end
+;; end
