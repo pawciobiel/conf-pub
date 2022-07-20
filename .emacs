@@ -399,7 +399,7 @@
 
 
 (use-package undo-tree
-  ::ensure t)
+  :ensure t)
 
 (use-package auto-complete-nxml
 	     :ensure t
