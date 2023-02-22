@@ -1,4 +1,4 @@
-;;;-*-coding: utf-8-*-
+;;-*-coding: utf-8-*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,47 +18,27 @@
  ;; If there is more than one, they won't work right.
  '(ac-ispell-fuzzy-limit 4)
  '(ac-ispell-requires 4)
- '(ansi-color-faces-vector [default default default italic underline success warning error])
- '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff"
-			    "#eeeeec"])
- '(custom-safe-themes '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0"
-			"5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-safe-themes
+   '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
  '(flycheck-checker-error-threshold 600)
  '(flycheck-disabled-checkers '(python-mypy))
- '(helm-boring-buffer-regexp-list '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*"
-				    "\\*helm*"))
- '(helm-boring-file-regexp-list '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$"
-				  "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$"
-				  "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$"
-				  "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$"
-				  "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$"
-				  "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$"
-				  "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$"
-				  "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$"
-				  "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$"
-				  "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$"
-				  "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$"
-				  "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
+ '(helm-boring-buffer-regexp-list
+   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
+ '(helm-boring-file-regexp-list
+   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
  '(initial-frame-alist '((fullscreen . maximized)))
  '(js-enabled-frameworks '(javascript))
  '(js-indent-level 4)
  '(mode-require-final-newline nil)
- '(package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-		      ("melpa" . "http://melpa.org/packages/")))
- '(package-selected-packages '(undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs
-					 pacmacs iedit isortify jq-format flycheck-aspell scss-mode
-					 magit-filenotify projectile virtualenvwrapper helm
-					 python-black flycheck restclient dired-subtree dired-toggle
-					 dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide
-					 typescript-mode w3 python-mode racer rust-mode csv-mode
-					 toml-mode docker-compose-mode dockerfile-mode helm-ag
-					 fish-mode jedi-core json-reformat less-css-mode yapfify
-					 imenu-list dired tern rainbow-delimiters use-package
-					 web-mode elisp-format yaml-mode handlebars-mode jinja2-mode
-					 mustache pyimpsort neotree dired-narrow sql-indent
-					 ac-ispell sphinx-doc sphinx-mode markdown-mode
-					 auto-complete-nxml auto-complete-rst pydoc magit json-mode
-					 jedi ido-vertical-mode helm-projectile helm-ispell epic))
+ '(package-archives
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa" . "http://melpa.org/packages/")))
+ '(package-selected-packages
+   '(company-go flymake-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
  '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil)
  '(vc-follow-symlinks t))
@@ -67,43 +47,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(error 
-   ((t 
-     (:foreground "salmon"
-		  :weight bold))))
- '(font-lock-builtin-face ((t 
-			    (:foreground "steelblue"))))
- '(font-lock-comment-delimiter-face ((t 
-				      (:foreground "DimGray"))))
- '(font-lock-comment-face ((t 
-			    (:foreground "DimGray"))))
- '(font-lock-constant-face ((t 
-			     (:foreground "darkcyan"))))
- '(font-lock-doc-face ((t 
-			(:foreground "green4"))))
- '(font-lock-function-name-face ((t 
-				  (:foreground "#add8e6"))))
- '(font-lock-keyword-face ((t 
-			    (:foreground "mediumpurple"))))
- '(font-lock-string-face ((t 
-			   (:foreground "green4"))))
- '(font-lock-variable-name-face ((t 
-				  (:foreground "white"
-					       :weight light))))
- '(neo-dir-link-face ((t 
-		       (:foreground "deep sky blue"
-				    :slant normal
-				    :weight bold
-				    :height 120
-				    :family "Fantasque Sans Mono"))))
- '(neo-file-link-face ((t 
-			(:foreground "White"
-				     :weight normal
-				     :height 120
-				     :family "Fantasque Sans Mono"))))
- '(success ((t 
-	     (:foreground "Green4"
-			  :weight bold)))))
+ '(error ((t (:foreground "salmon" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "steelblue"))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "DimGray"))))
+ '(font-lock-comment-face ((t (:foreground "DimGray"))))
+ '(font-lock-constant-face ((t (:foreground "darkcyan"))))
+ '(font-lock-doc-face ((t (:foreground "green4"))))
+ '(font-lock-function-name-face ((t (:foreground "#add8e6"))))
+ '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
+ '(font-lock-string-face ((t (:foreground "green4"))))
+ '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
+ '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
+ '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
+ '(success ((t (:foreground "Green4" :weight bold)))))
 
 
 
@@ -158,6 +114,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
 
+(defun my-kill-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
 (defun kill-other-buffers() 
   "Kill all other buffers." 
   (interactive)
@@ -173,6 +133,7 @@
   "Duplicate line." 
   (interactive)
   (move-beginning-of-line 1)
+  (move-beginning-of-line 1)  ;; 2x dziala lepiej z lsp-mode(?)
   (kill-line)
   (yank)
   (open-line 1)
@@ -247,6 +208,7 @@
 
 (global-linum-mode 0) ;; poszczegolne mody włączają linum
 
+(global-prettify-symbols-mode 0)
 
 (setq-default linum-format "%4d \u2502 ")
 (when (display-graphic-p)
@@ -365,6 +327,20 @@
 (helm-projectile-on)
 (global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
 
+
+(require 'undo-tree)
+(defun my-undo-tree-mode-hook ()
+  ""
+  ;;  (define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
+  ;;  (local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
+  ;(local-unset-key (kbd "C-/"))
+  ;(local-unset-key (kbd "C-_"))
+  ;(local-unset-key (kbd "C-c /"))
+  ;(local-unset-key (kbd "C-c _"))
+  )
+(add-hook 'undo-tree-mode-hook  'my-undo-tree-mode-hook)
+
+
 ;; auto-complete-mode ac-mode ac AC auto-complete.el
 (require 'auto-complete-config)
 (ac-config-default)
@@ -377,7 +353,9 @@
 (setq ac-auto-start nil) ;; I'll use trigger key albo kbd mapping C-/
 ;;(ac-set-trigger-key "TAB")
 (define-key ac-complete-mode-map "\t" 'ac-expand)
+;;(define-key ac-mode-map "\t" 'ac-expand)
 (define-key ac-complete-mode-map "\r" 'ac-complete)
+;;(define-key ac-mode-map "\r" 'ac-complete)
 ;;(setq ac-use-quick-help t)
 ;;(setq ac-quick-help-delay 1)
 ;; ac-help  C-?
@@ -385,21 +363,20 @@
 ;; ac-expand
 ;; ac-stop complete C-g
 ;;(define-key ac-completing-map "\M-/" 'ac-stop)
+;; DEFAULT (define-key map (kbd "M-TAB") 'auto-complete)
 (define-key ac-mode-map (kbd "C-/") 'auto-complete)
 (define-key ac-mode-map (kbd "C-_") 'auto-complete)
+(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
 (define-key ac-mode-map (kbd "C-c _") 'auto-complete)
-                                        ;(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
+(global-set-key (kbd "C-/") 'auto-complete)
 (global-set-key (kbd "C-_") 'auto-complete)
+(global-set-key (kbd "C-c /") 'auto-complete)
 (global-set-key (kbd "C-c _") 'auto-complete)
-                                        ;(global-set-key (kbd "C-c /") 'auto-complete)
 
 
 (global-set-key (kbd "C-x <right>") 'my-next-user-buffer)
 (global-set-key (kbd "C-x <left>") 'my-prev-user-buffer)
 
-
-(use-package undo-tree
-  :ensure t)
 
 (use-package auto-complete-nxml
 	     :ensure t
@@ -438,24 +415,35 @@
 ;; jedi:start-dedicated-server
 (use-package jedi
 	     :ensure t
-	     :config (add-hook 'python-mode-hook 'jedi:setup)
-	     (add-to-list 'ac-sources 'ac-source-jedi-direct)
-	     (setq jedi:get-in-function-call-delay 100000) ;; wait long for tooltip-popup - nie lubie tego...
+	     :config
+         (add-hook 'python-mode-hook 'jedi:setup)
+         ;; this calls jedi:ac-setup and sets ac-sources
+	     ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
+	     (setq jedi:get-in-function-call-delay 800) ;; wait long for tooltip-popup - chyba tego nie lubie...
 	     ;;(jedi:tooltip-method nil)
-	     (setq jedi:environment-root "/home/pgb/.local")
+	     ;;(setq jedi:environment-root "/home/pgb/.local")
 	     ;;(setq jedi:environment-virtualenv
 	     ;;	(append python-environment-virtualenv
 	     ;;		'("--python" "/usr/bin/python3")))
-	     ;;(setq jedi:server-args
-	     ;;      '("--sys-path" "/home/pgb/.local/lib/python3.8/site-packages"))
+         ;;
+         ;; to nie działa jak jest nowsza wersja jedi.py niz jedi.el!?!?!?!?
+         ;;(setq jedi:server-args
+	     ;;      '("--sys-path-append" "/home/pgb/.local/lib/python3.10/site-packages"))
+         ;;
 	     ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
 	     ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
 
 	     ;;(setq-default jedi:setup-keys t)
-	     (setq python-environment-directory "/home/pgb/.local")
+	     ;;(setq python-environment-directory "/home/pgb/.local")
 	     ;;python-environment-default-root-name
 	     (setq-default jedi:complete-on-dot nil))
 
+(use-package lsp-jedi
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'pyls)
+    (add-to-list 'lsp-enabled-clients 'jedi)))
 
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
@@ -520,7 +508,7 @@
 		   (hideshowvis-enable)
 		   (electric-indent-mode nil)
                                         ;(linum-mode)
-                   (flyspell-mode -1))))
+                   (flyspell-mode +1))))
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda ()
@@ -548,15 +536,36 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; prog modes
 
-(require 'pyimpsort)
+
 (defun python-custom() 
   "My custom python-mode-hook."
+  (require 'pyimpsort)
+  (require 'dap-python)
+  ;;(dap-register-debug-template "My App"
+  ;;  (list :type "python"
+  ;;        :args "-i"
+  ;;        :cwd nil
+  ;;        :env '(("DEBUG" . "1"))
+  ;;        :target-module (expand-file-name "~/src/myapp/.env/bin/myapp")
+  ;;        :request "launch"
+  ;;        :name "My App"))
+
   (hideshowvis-enable) 
   (flyspell-prog-mode) 
-  (flycheck-mode +1) 
-  (push '("lambda" . ?λ) prettify-symbols-alist) 
-  (prettify-symbols-mode)
+  (flycheck-mode +1)
+  ;;(setq prettify-symbols-alist nil)
+  ;;(push '("<=" . ?≤) prettify-symbols-alist)
+  (setq prettify-symbols-alist '(
+                                 ("<=" . ?≤)
+                                 (">=" . ?≥)
+                                 ("!=" . ?≠)
+                                 ("lambda" . ?λ)
+                                 ))
+  (prettify-symbols-mode +1)
+
   (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
+  (setq flycheck-python-pylint-executable "/home/pgb/.local/bin/pylint")
+  (setq flycheck-pylintrc "/home/pgb/.pylintrc")
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
                                         ;(require 'py-autopep8)
 
@@ -591,7 +600,7 @@
                                         ; M-/ = dabbrev-expand
                                         ; C-/ = auto-complete (ac-mode-map)
                                         ; C-c / = C-c / runs the command helm-jedi-related-names (jedi-mode-map)
-  (local-set-key (kbd "C-.") 'jedi:goto-definition)
+  (local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'jedi:goto-definition)
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
@@ -622,23 +631,66 @@
   (local-unset-key (kbd "C-c _"))
   (local-unset-key (kbd "C-c ."))
   (local-unset-key (kbd "C-c ,"))
-  (local-set-key (kbd "C-_") 'tern-completion-at-point)
-  (local-set-key (kbd "C-c _") 'tern-completion-at-point)
   (local-set-key (kbd "C-c /") 'tern-completion-at-point)
-  (local-set-key (kbd "C-.") 'tern-find-definition)
+  (local-set-key (kbd "C-c _") 'tern-completion-at-point)
+  (local-set-key (kbd "C-/") 'tern-completion-at-point)
+  (local-set-key (kbd "C-_") 'tern-completion-at-point)
+  (local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'tern-find-definition)
   (local-set-key (kbd "C-,") 'tern-pop-find-definition)
   (local-set-key (kbd "C-c ,") 'tern-pop-find-definition)
+  (prettify-symbols-mode +1)
   (push '("function" . ?ƒ) prettify-symbols-alist)
-  (prettify-symbols-mode)
+  (push '("<=" . ?≤) prettify-symbols-alist)
+  (push '(">=" . ?≥) prettify-symbols-alist)
+  (push '("!=" . ?≠) prettify-symbols-alist)
   (tern-mode t))
 (add-hook 'js-mode-hook 'js-custom)
 
 
+(require 'lsp-mode)
+(lsp-register-custom-settings
+ '(("gopls.completeUnimported" t t)
+   ("gopls.staticcheck" t t)))
+;; nie chce complte-at-point tylko complete via gopls mode
+;;;(add-hook 'completion-at-point-functions 'go-complete-at-point)
+(add-hook 'go-mode-hook #'lsp-deferred)
+(defun go-custom() 
+  "My custom golang go-mode."
+
+  (require 'dap-dlv-go)
+  
+  (local-set-key (kbd "C-/") 'auto-complete)
+  (local-set-key (kbd "C-_") 'auto-complete)
+  (local-set-key (kbd "C-c /") 'auto-complete)
+  (local-set-key (kbd "C-c _") 'auto-complete)
+  
+  (local-set-key (kbd "C-c .") 'xref-find-definitions)
+  (local-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
+  
+;;  (lsp-deferred)
+;;  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;;  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+)
+(add-hook 'go-mode-hook 'go-custom)
+
+
 (defun php-custom() 
   "My custom php-mode."
-  (local-set-key (kbd "C-d") nil))
+  (local-set-key (kbd "C-d") nil)
+  (local-set-key (kbd "C-/") 'auto-complete)
+  (local-set-key (kbd "C-_") 'auto-complete)
+  (local-set-key (kbd "C-c /") 'auto-complete)
+  (local-set-key (kbd "C-c _") 'auto-complete)
+)
 (add-hook 'php-mode-hook 'php-custom)
+
+(defun clojure-custom() 
+  "My custom clojure-mode cider-mode"
+  (local-set-key (kbd "C-/") 'auto-complete)
+  (local-set-key (kbd "C-c /") 'auto-complete)
+)
+(add-hook 'clojure-mode-hook 'clojure-custom)
 
 
 (defun markdown-custom() 
@@ -669,8 +721,11 @@
 
 (defun elisp-custom() 
   "My custom elisp-mode."
-  ;;(push '("lambda" . ?λ) prettify-symbols-alist)
-  ;;(prettify-symbols-mode)
+  (prettify-symbols-mode +1)
+  (push '("lambda" . ?λ) prettify-symbols-alist)
+  (push '("<=" . ?≤) prettify-symbols-alist)
+  (push '(">=" . ?≥) prettify-symbols-alist)
+  (push '("!=" . ?≠) prettify-symbols-alist)
   (hideshowvis-enable)
   (rainbow-delimiters-mode)
   (local-set-key (kbd "C-d") nil))
@@ -773,7 +828,7 @@
 ;; to nie działa bo ESC jest jako meta
 ;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
 
-(global-set-key (kbd "C-.") 'xref-find-definitions)
+(global-set-key (kbd "C-.") 'helm-ispell)
 (global-set-key (kbd "C-c .") 'xref-find-definitions)
 
 (global-set-key (kbd "C-<tab>") nil)
@@ -797,7 +852,7 @@
 
 (add-hook 'after-init-hook (lambda ()
                              ;;(load-theme 'pawcio t)
-                             (load-theme 'deeper-blue t)
+                             ;;(load-theme 'deeper-blue t)
                              (global-flycheck-mode t)
                              (global-undo-tree-mode t)
 			                 (desktop-read)))
