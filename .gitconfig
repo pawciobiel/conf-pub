@@ -4,6 +4,8 @@
     path = .gitconfig-github
 [includeIf "gitdir:workspace/nclab/"]
     path = .gitconfig-nclab
+[includeIf "gitdir:workspace/bidnamic/"]
+    path = .gitconfig-bidnamic
 
 [color]
 	ui = auto
@@ -60,7 +62,7 @@
 	submodule = log
 #[blame]
 #	ignoreRevsFile = .git-blame-ignore-revs
-[safe]
-	directory = /go/src/github.com/user/repo
-	directory = /go/src/github.com/user/repo
-	directory = /go/src/github.com/user/repo
+#[safe]
+#	directory = /go/src/github.com/user/repo
+[gpg]
+	program = gpg
