@@ -1,0 +1,11 @@
+
+[user]
+    email = pawel.bielecki@bidnamic.com
+    name = Paweł Bielecki
+    signingkey = BF9FA8813C2ACD103780479DBB4B8C64D412C470
+[commit]
+	gpgsign = true
+[blame]
+    ignoreRevsFile = .git-blame-skip
+[rerere]
+    enabled = true
