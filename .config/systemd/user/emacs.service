@@ -1,0 +1,19 @@
+#
+# systemctl enable --user emacs
+# systemctl start --user emacs
+#
+[Unit]
+Description=Emacs text editor
+Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/emacs -nw --daemon
+#ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+#ExecStop=emacsclient --eval '(server-shutdown)'
+ExecStop=/usr/bin/pkill emacs
+#Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
