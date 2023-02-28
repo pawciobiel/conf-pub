@@ -1,0 +1,16 @@
+*.pyc
+*~
+.pytest_cache
+.tern-port
+*.#*
+#.*#
+*#*#
+.projectile
+.emacs.desktop
+.emacs.desktop.lock
+__pycache__/
+.pytest_cache/
+flycheck_*.py
+src/web/settings/local.py
+*.~undo-tree~
+src/web/settings/local.py
