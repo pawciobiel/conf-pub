@@ -52,6 +52,7 @@
 
 [core]
 	excludesfile = ~/.gitignore
+	editor = emacsclient -nw -t
 
 [push]
 	default = current # simple
@@ -66,3 +67,5 @@
 #	directory = /go/src/github.com/user/repo
 [gpg]
 	program = gpg
+[init]
+	defaultBranch = master

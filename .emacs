@@ -563,7 +563,7 @@
                                  ))
   (prettify-symbols-mode +1)
 
-  (setq flycheck-python-flake8-executable "/home/pgb/bin/flake8")
+  (setq flycheck-python-flake8-executable "/home/pgb/.local/bin/flake8")
   (setq flycheck-python-pylint-executable "/home/pgb/.local/bin/pylint")
   (setq flycheck-pylintrc "/home/pgb/.pylintrc")
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
