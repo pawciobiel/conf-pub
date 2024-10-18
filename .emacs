@@ -2,14 +2,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; pgb emacs file :-) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar first-time t 
-  "Flag signifying this is the first time that .emacs has been evaled")
-                                        ;(toggle-debug-on-error)
+;;; Code:
+
+(setenv "PATH" "/home/pgb/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pgb/.local/bin")
+
+(defvar first-time t "Flag signifying this is the first time that .emacs has been evaled.")
+
+;;(toggle-debug-on-error)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+;;(add-to-list 'load-path "~/conf-pub/lisp/")
 ;; (add-to-list 'load-path "/usr/local/emacs/share/emacs/27.1/lisp/")
 ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
-
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -24,8 +29,6 @@
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-safe-themes
    '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
- '(flycheck-checker-error-threshold 600)
- '(flycheck-disabled-checkers '(python-mypy))
  '(helm-boring-buffer-regexp-list
    '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
  '(helm-boring-file-regexp-list
@@ -38,7 +41,7 @@
    '(("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   '(company-go flymake-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag fish-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+   '(fish-mode company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
  '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil)
  '(vc-follow-symlinks t))
@@ -57,6 +60,7 @@
  '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
+ '(lsp-ui-doc-background ((t (:background "black"))))
  '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
  '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
  '(success ((t (:foreground "Green4" :weight bold)))))
@@ -80,31 +84,32 @@
 ;;(load-file "~/.emacs.d/lisp/pdb-current.el")
 (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
 
-(setq use-short-answers 1)
-
-(setq create-lockfiles nil)
-
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
+(setq use-short-answers 1
+      create-lockfiles nil
+      backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 ;;(setq auto-save-file-name-transforms
 ;;                `((".*" ,temporary-file-directory t)))
 
 ;; zamiast recentf-mode mam desktop-save-mode
-                                        ;(if first-time
-                                        ;(progn
-                                        ;(desktop-read)))
+;;(if first-time
+;;(progn
+;;(desktop-read)))
+
 (setq-default my-own-path "/home/pgb/.emacs.d")
-                                        ;(if (file-exists-p
-                                        ;     (concat my-own-path ".emacs.desktop"))
-                                        ;    (desktop-read my-own-path))
+(require 'desktop)
+(desktop-save-mode 1)
+(setq desktop-auto-save-timeout 2
+      desktop-dirname "~/.emacs.d/"
+      desktop-base-file-name ".emacs.desktop"
+      desktop-save nil
+      desktop-load-locked-desktop nil)
+
+;;(if (file-exists-p
+;;     (concat my-own-path ".emacs.desktop"))
+;;    (desktop-read my-own-path))
 
 (add-hook 'kill-emacs-hook `(lambda ()
 			                  (desktop-save my-own-path t)))
-(setq desktop-auto-save-timeout 2)
-(setq desktop-dirname "~/.emacs.d/")
-(setq desktop-base-file-name ".emacs.desktop")
-(setq desktop-save nil)
-(setq desktop-load-locked-desktop nil)
-(desktop-save-mode 1)
 
 ;; start server if it's not already running
                                         ;(if first-time
@@ -132,6 +137,7 @@
 (defun duplicate-line() 
   "Duplicate line." 
   (interactive)
+  ;;(back-to-indentation)
   (move-beginning-of-line 1)
   (move-beginning-of-line 1)  ;; 2x dziala lepiej z lsp-mode(?)
   (kill-line)
@@ -154,7 +160,6 @@
 	       (rename-buffer new-name)
 	       (set-visited-file-name new-name)
 	       (set-buffer-modified-p nil))))))
-
 
 (defun run-ipython() 
   "Run ipython." 
@@ -190,13 +195,13 @@
 ;;  (lambda ()
 ;;    (fci-mode 1)))
 ;;(global-fci-mode 1)
-;;(setq fci-rule-width 1)
-;;(setq fci-rule-column 79)
-;;(setq fci-rule-color "darkblue")
+;;(setq fci-rule-width 1
+;;      fci-rule-column 79
+;;      fci-rule-color "darkblue")
 (set-default 'truncate-lines t)
-                                        ; visual-line-mode
+;; visual-line-mode
 (global-set-key "\C-c$" 'toggle-truncate-lines)
-                                        ;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
+;;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
 
 (setq-default ediff-split-window-function 'split-window-horizontally)
 
@@ -206,7 +211,7 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
-(global-linum-mode 0) ;; poszczegolne mody włączają linum
+;;(global-linum-mode 0) ;; poszczegolne mody włączają linum
 
 (global-prettify-symbols-mode 0)
 
@@ -214,8 +219,8 @@
 (when (display-graphic-p)
   (setq-default linum-format "%d "))
 
-(setq column-number-mode t)
-(setq scroll-step            1 scroll-conservatively  10000)
+(setq column-number-mode    t
+      scroll-step           1 scroll-conservatively  10000)
 (which-function-mode 1)
 
 ;; when searching place highlited text in the middle of the screen - recenter
@@ -281,18 +286,18 @@
 ;;(add-hook 'dired-mode-hook 'dired-custom)
 ;;(setq dired-use-ls-dired nil)
 
-                                        ;(use-package dired-subtree :ensure t
-                                        ;  :after dired
-                                        ;  :config
-                                        ;  (bind-key "<tab>" 'dired-subtree-toggle dired-mode-map)
-                                        ;  (bind-key "<backtab>" 'dired0subtree-cycle dired-mode-map))
+;;(use-package dired-subtree :ensure t
+;;  :after dired
+;;  :config
+;;  (bind-key "<tab>" 'dired-subtree-toggle dired-mode-map)
+;;  (bind-key "<backtab>" 'dired0subtree-cycle dired-mode-map))
 
 
+;; I create a group call Dired, which contains all buffer in dired-mode
 ;;(setq-default ibuffer-saved-filter-groups `(("Default"
-;;                                             ;; I create a group call Dired, which contains all buffer in dired-mode
-;;                                             ("Dired" (mode . dired-mode))
-;;                                             ("Dired" (mode . "\*Dired\*"))
-;;                                             ("Temporary" (name . "\*.*\*")))))
+;;("Dired" (mode . dired-mode))
+;;("Dired" (mode . "\*Dired\*"))
+;;("Temporary" (name . "\*.*\*")))))
 
 (require 'package)
 (package-initialize)
@@ -301,14 +306,14 @@
 
 (require 'projectile)
 (projectile-mode +1)
-(setq projectile-enable-caching t)
-(setq projectile-files-cache-expire 432000)
-(setq projectile-globally-ignored-file-suffixes (quote (".pyc")))
+(setq projectile-enable-caching t
+      projectile-files-cache-expire 432000
+      projectile-globally-ignored-file-suffixes (quote (".pyc")))
 ;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
 ;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
 
 (require 'helm)
-;;(require 'helm-config);
+;;(require 'helm-config)
 (setq helm-ff-skip-boring-files t)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
@@ -327,30 +332,32 @@
 (helm-projectile-on)
 (global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
 
-
-(require 'undo-tree)
-(defun my-undo-tree-mode-hook ()
-  ""
-  ;;  (define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
-  ;;  (local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
-  ;(local-unset-key (kbd "C-/"))
-  ;(local-unset-key (kbd "C-_"))
-  ;(local-unset-key (kbd "C-c /"))
-  ;(local-unset-key (kbd "C-c _"))
+(use-package undo-tree
+  :config
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/backups/undo-tree")))
+    ;;(define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
+    ;;(local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
+    ;;(local-unset-key (kbd "C-/"))
+    ;;(local-unset-key (kbd "C-_"))
+    ;;(local-unset-key (kbd "C-c /"))
+    ;;(local-unset-key (kbd "C-c _"))
+    )
   )
-(add-hook 'undo-tree-mode-hook  'my-undo-tree-mode-hook)
 
 
 ;; auto-complete-mode ac-mode ac AC auto-complete.el
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
-(setq ac-auto-show-menu t)
-(setq ac-show-menu-immediately-on-auto-complete t)
+(setq ac-auto-show-menu t
+      ac-show-menu-immediately-on-auto-complete t
+      ac-auto-start nil) ;; I'll use trigger key albo kbd mapping C-/
 ;;(setq ac-expand-on-auto-complete t)
 ;;(setq ac-use-comphist nil)  FOR PERFORMANCE
 ;; (setq ac-auto-show-menu 0.8)
-(setq ac-auto-start nil) ;; I'll use trigger key albo kbd mapping C-/
 ;;(ac-set-trigger-key "TAB")
 (define-key ac-complete-mode-map "\t" 'ac-expand)
 ;;(define-key ac-mode-map "\t" 'ac-expand)
@@ -379,71 +386,80 @@
 
 
 (use-package auto-complete-nxml
-	     :ensure t
-	     :config (setq auto-complete-nxml-automatic-p nil))
+  :ensure t
+  :config (setq auto-complete-nxml-automatic-p nil))
 
 (use-package jinja2-mode
-	     :ensure t)
+  :ensure t)
 
 (use-package fish-mode
-	     :ensure t)
+  :ensure t)
 
 (use-package markdown-mode
-	     :ensure t)
+  :ensure t)
 
 (use-package yaml-mode
-	     :ensure t)
+  :ensure t)
 
 (use-package python-black
-	     :demand t
-	     :after python
-	     :config (setq python-black-command "/home/pgb/bin/black"))
+  :demand t
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim)
+  :config (setq python-black-command "/home/pgb/bin/black"))
 
 ;;(use-package web-mode :ensure t)
 (defun my-web-mode-hook () 
   "Hooks for Web mode." 
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-enable-current-element-highlight 1))
+  (setq web-mode-markup-indent-offset 2
+        web-mode-enable-current-element-highlight 1)
+)
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 
 (use-package magit
-	     :ensure t
-	     :bind (("C-x g" . magit-status) ;; Display the main magit popup
-		    ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
+  :ensure t
+  :bind (("C-x g" . magit-status) ;; Display the main magit popup
+		 ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
 
 ;; jedi:start-dedicated-server
 (use-package jedi
-	     :ensure t
-	     :config
-         (add-hook 'python-mode-hook 'jedi:setup)
-         ;; this calls jedi:ac-setup and sets ac-sources
-	     ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
-	     (setq jedi:get-in-function-call-delay 800) ;; wait long for tooltip-popup - chyba tego nie lubie...
-	     ;;(jedi:tooltip-method nil)
-	     ;;(setq jedi:environment-root "/home/pgb/.local")
-	     ;;(setq jedi:environment-virtualenv
-	     ;;	(append python-environment-virtualenv
-	     ;;		'("--python" "/usr/bin/python3")))
-         ;;
-         ;; to nie działa jak jest nowsza wersja jedi.py niz jedi.el!?!?!?!?
-         ;;(setq jedi:server-args
-	     ;;      '("--sys-path-append" "/home/pgb/.local/lib/python3.10/site-packages"))
-         ;;
-	     ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
-	     ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
-
-	     ;;(setq-default jedi:setup-keys t)
-	     ;;(setq python-environment-directory "/home/pgb/.local")
-	     ;;python-environment-default-root-name
-	     (setq-default jedi:complete-on-dot nil))
-
-(use-package lsp-jedi
   :ensure t
   :config
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'pyls)
-    (add-to-list 'lsp-enabled-clients 'jedi)))
+  (add-hook 'python-mode-hook 'jedi:setup)
+  ;; this calls jedi:ac-setup and sets ac-sources
+  ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
+
+  (setq jedi:tooltip-method '(pos-tip popup)
+        jedi:get-in-function-call-timeout 11000
+        jedi:get-in-function-call-delay 10000) ;; wait long for tooltip-popup - chyba tego nie lubie... i wole `C-c f` jedi:get-in-function-cal
+  ;;
+  ;; ta wersja z githuba cos nie dziala wiec jest symlink do
+  ;; .emacs.d/elpa/jedi-core-20210503.1315/jediepcserver.py
+  (setq jedi:server-command '("python3" "-W" "ignore::DeprecationWarning" "/home/pgb/.emacs.d/.python-environments/default/bin/jediepcserver.py"))
+  ;;(jedi:tooltip-method nil)
+  ;;(setq jedi:environment-root "/home/pgb/.local")
+  ;;(setq jedi:environment-virtualenv
+  ;;	(append python-environment-virtualenv
+  ;;		'("--python" "/usr/bin/python3 -W ignore::DeprecationWarning")))
+  ;;
+  ;; to nie działa jak jest nowsza wersja jedi.py niz jedi.el!?!?!?!?
+  ;;(setq jedi:server-args
+  ;;      '("--sys-path-append" "/home/pgb/.local/lib/python3.11/site-packages"))
+  ;;
+  ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
+  ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
+
+  ;;(setq-default jedi:setup-keys t)
+  ;;(setq python-environment-directory "/home/pgb/.local")
+  ;;python-environment-default-root-name
+  (setq-default jedi:complete-on-dot nil))
+
+;;(use-package lsp-jedi
+;;  :ensure t
+;;  :config
+;;  (with-eval-after-load "lsp-mode"
+;;    (add-to-list 'lsp-disabled-clients 'pyls)
+;;    (add-to-list 'lsp-enabled-clients 'jedi)))
 
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
@@ -458,6 +474,7 @@
 (ido-vertical-mode 1)
 (setq ido-default-buffer-method 'selected-window)
 
+;;(load-file "~/.emacs.d/lisp/move-lines.el")
 (require 'move-lines)
 (move-lines-binding)
 
@@ -489,30 +506,23 @@
 			       (neotree-find file-name)))
       (message "Could not find git project root."))))
 
-;; old deprecated unavailable
-;;(require 'mmm-auto)
-;;(setq mmm-global-mode 'maybe)
-;;(mmm-add-mode-ext-class 'html-mode "\\.php\\'" 'html-php)
-;;(add-to-list 'auto-mode-alist '("\\.mako\\'" . html-mode))
-;;(mmm-add-mode-ext-class 'html-mode "\\.mako\\'" 'mako)
-
 (use-package flycheck
   :ensure t
   :config
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  )
-
+  (flymake-mode -1)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save)
+        flycheck-checker-error-threshold 600))
 
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda ()
-		   (hideshowvis-enable)
-		   (electric-indent-mode nil)
-                                        ;(linum-mode)
+		           (hideshowvis-enable)
+		           (electric-indent-mode nil)
+                   ;;(linum-mode)
                    (flyspell-mode +1))))
 
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda ()
-		   (flyspell-mode -1))))
+		           (flyspell-mode -1))))
 
 ;; ispell/aspel
 (setq ispell-list-command "--list") ;; aspel uzywa --list
@@ -550,9 +560,21 @@
   ;;        :request "launch"
   ;;        :name "My App"))
 
+  (undo-tree-mode t)
   (hideshowvis-enable) 
   (flyspell-prog-mode) 
   (flycheck-mode +1)
+  ;;(add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
+  (setq-default flycheck-disabled-checkers '(python-mypy python-flake8 python-pylint javascript-jshint))
+  ;;(setq flycheck-python-flake8-executable "/home/pgb/.local/bin/flake8")
+  ;;(setq flycheck-python-pylint-executable "/home/pgb/.local/bin/pylint")
+  ;;(setq flycheck-python-mypy-executable "/home/pgb/.local/bin/mypy")
+  (setq flycheck-python-ruff-executable "/home/pgb/.local/bin/ruff"
+        flycheck-checker 'python-ruff
+        flycheck-python-pyright-executable "/home/pgb/.local/bin/pyright"
+        flycheck-pylintrc "/home/pgb/.pylintrc")
+  (flycheck-add-next-checker 'python-ruff 'python-pyright)
+
   ;;(setq prettify-symbols-alist nil)
   ;;(push '("<=" . ?≤) prettify-symbols-alist)
   (setq prettify-symbols-alist '(
@@ -563,10 +585,8 @@
                                  ))
   (prettify-symbols-mode +1)
 
-  (setq flycheck-python-flake8-executable "/home/pgb/.local/bin/flake8")
-  (setq flycheck-python-pylint-executable "/home/pgb/.local/bin/pylint")
-  (setq flycheck-pylintrc "/home/pgb/.pylintrc")
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (python-black-on-save-mode +1)
+
                                         ;(require 'py-autopep8)
 
                                         ; 1) virtualenvwrapper
@@ -605,27 +625,33 @@
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-c d") 'jedi:show-doc)
+  (local-set-key (kbd "C-c f") 'jedi:get-in-function-call)
   (global-set-key (kbd "<f12>") 'my-insert-pdb)
   (defun my-insert-pdb ()
     (interactive)
     (insert
      "import pdb; pdb.Pdb(skip=['tornado.*', '_pytest.*', 'pluggy.*', 'asyncio.*', 'abc', 'ast']).set_trace()"))
 
-                                        ;  (setq indent-tabs-mode f)
+  ;; (setq indent-tabs-mode f)
   (setq-default tab-width 4)
-  (setq tab-width 4))
+  (setq tab-width 4)
+)
 (add-hook 'python-mode-hook 'python-custom)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;;   (add-hook 'js-mode-hook 'js2-minor-mode)
 (defun js-custom () 
   "My custom js-mode-hook."
   (hideshowvis-enable)
   (flyspell-prog-mode)
+  (setq flycheck-disabled-checkers '(javascript-jshint))
+  (setq flycheck-checkers '(javascript-eslint))
+  (setq flycheck-javascript-eslint-executable "/home/pgb/.local/bin/eslint")
   (setq web-beautify-js-program "~/bin/js-beautify.js")
   (setq js-indent-level 4)
+  (setq-default js2-basic-offset 4)
+  (setq-default indent-tabs-mode nil)
   (setq mode-require-final-newline nil)
   (local-unset-key (kbd "C-_"))
   (local-unset-key (kbd "C-c _"))
@@ -655,6 +681,8 @@
 ;; nie chce complte-at-point tylko complete via gopls mode
 ;;;(add-hook 'completion-at-point-functions 'go-complete-at-point)
 (add-hook 'go-mode-hook #'lsp-deferred)
+;;(add-hook 'python-mode-hook #'lsp-deferred)
+
 (defun go-custom() 
   "My custom golang go-mode."
 
@@ -710,15 +738,6 @@
 (add-hook 'restclient-mode-hook 'restclient-custom)
 
 
-;;(defun cider-custom()
-;;  "My custom cider-mode."
-;;  (electric-indent-mode nil)
-;;   ;(local-set-key (kbd "C-c TAB"))
-;;   ;(local-set-key (kbd "C-c C-i"))
-;;  )
-;;(add-hook 'cider-mode-hook 'cider-custom)
-
-
 (defun elisp-custom() 
   "My custom elisp-mode."
   (prettify-symbols-mode +1)
@@ -731,12 +750,13 @@
   (local-set-key (kbd "C-d") nil))
 (add-hook 'emacs-lisp-mode-hook 'elisp-custom)
 
-(add-hook 'prog-mode-hook (lambda ()
-			    (hideshowvis-enable)
-			    (hs-minor-mode)
-			    (flycheck-mode +1)
-                                        ;(linum-mode)
-                            (flyspell-prog-mode)))
+(add-hook 'prog-mode-hook
+          (lambda ()
+			(hideshowvis-enable)
+			(hs-minor-mode)
+			(flycheck-mode +1)
+            ;;(linum-mode)
+            (flyspell-prog-mode)))
 
 (defun setup-tide-mode () 
   "My custom tide-mode for typescript." 
@@ -787,13 +807,34 @@
                                         ;    )
                                         ;)
 
+
+;;; Show Diff Highlighting with Margin
+;;; diff-hl does not work in the terminal by default.
+;;; It turns out that diff-hl already has a solution by using “margin” to show the diff.
+;;; Turn on diff-hl-margin-mode whenever inside a terminal:
+(add-hook 'diff-hl-mode-on-hook
+          (lambda ()
+            (unless (display-graphic-p)
+              (diff-hl-margin-local-mode))))
+
+;;; open url in local browser as opposed to ssh term browser
+;;;(defun my/browse-url-advice (orig-fun &rest args)
+;;;  "In terminal, copy the url to the kill ring for `browse-url'."
+;;;  (if (display-graphic-p)
+;;;      (apply orig-fun args)
+;;;    (let ((url (car args)))
+;;;      (message "Copied link: %s" url)
+;;;      (kill-new url))))
+
+(advice-add 'browse-url :around #'my/browse-url-advice)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keys
 
 ;; C-x C-b -> ibuffer-list-buffers zamiast helm-buffers
 (defalias 'list-buffers 'ibuffer)
-(add-hook 'ibuffer-mode-hook (lambda ()
-			       (ibuffer-auto-mode 1)))
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+			(ibuffer-auto-mode 1)))
 
 (global-set-key (kbd "<f6>")   'flyspell-mode)
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
@@ -837,11 +878,10 @@
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
 
+;;(global-unset-key (kbd "C--"))
+;;(global-unset-key (kbd "C-="))
 
-                                        ;(global-unset-key (kbd "C--"))
-                                        ;(global-unset-key (kbd "C-="))
-
-                                        ; change indent-rigidly
+;; change indent-rigidly
 (global-unset-key (kbd "C-x C-i"))
 (global-unset-key (kbd "C-x TAB"))
 (global-set-key (kbd "C-c C-i") 'indent-rigidly)
@@ -850,12 +890,13 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
-(add-hook 'after-init-hook (lambda ()
-                             ;;(load-theme 'pawcio t)
-                             ;;(load-theme 'deeper-blue t)
-                             (global-flycheck-mode t)
-                             (global-undo-tree-mode t)
-			                 (desktop-read)))
+(add-hook 'after-init-hook
+          (lambda ()
+            ;;(load-theme 'pawcio t)
+            ;;(load-theme 'deeper-blue t)
+            (global-flycheck-mode t)
+            (global-undo-tree-mode t)
+			(desktop-read)))
 
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here

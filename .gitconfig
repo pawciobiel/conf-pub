@@ -4,8 +4,6 @@
     path = .gitconfig-github
 [includeIf "gitdir:workspace/nclab/"]
     path = .gitconfig-nclab
-[includeIf "gitdir:workspace/bidnamic/"]
-    path = .gitconfig-bidnamic
 
 [color]
 	ui = auto
@@ -48,6 +46,10 @@
 	serve = daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 	unstage = reset HEAD --
+
+    sdiff = !git diff && git submodule foreach 'git diff'
+	spush = push --recurse-submodules=on-demand
+	supdate = submodule update --remote --merge
 
 
 [core]
