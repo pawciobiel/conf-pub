@@ -38,10 +38,10 @@
  '(js-indent-level 4)
  '(mode-require-final-newline nil)
  '(package-archives
-   '(("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/")))
+   '(("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(fish-mode company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+   '(highlight-indent-guides dashboard fish-mode company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
  '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil)
  '(vc-follow-symlinks t))
@@ -60,6 +60,7 @@
  '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
+ '(highlight-indent-guides-character-face ((t (:foreground "color-234"))))
  '(lsp-ui-doc-background ((t (:background "black"))))
  '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
  '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
@@ -103,6 +104,20 @@
       desktop-base-file-name ".emacs.desktop"
       desktop-save nil
       desktop-load-locked-desktop nil)
+
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title "Witaj ponownie Pawciu!")
+  (setq dashboard-projects-backend 'projectile)
+  (setq dashboard-items '((recents   . 5)
+                        (bookmarks . 5)
+                        (projects  . 5)
+                        (agenda    . 5)
+                        (registers . 5)))
+  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+  )
 
 ;;(if (file-exists-p
 ;;     (concat my-own-path ".emacs.desktop"))
@@ -491,9 +506,17 @@
   "Will indicate regions foldable with hideshow in the fringe." 'interactive)
 (hideshowvis-symbols)
 
+(require 'highlight-indent-guides)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
+(set-face-foreground 'highlight-indent-guides-character-face "color-234")
+
+
 (require 'neotree)
-(setq neo-smart-open t)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(setq neo-smart-open t
+      neo-theme (if (display-graphic-p) 'icons 'arrow)
+      neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "__pycache__")
+      )
 ;;(setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
   "Open NeoTree using the git root." 
@@ -624,8 +647,8 @@
   (local-set-key (kbd "C-c .") 'jedi:goto-definition)
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
-  (local-set-key (kbd "C-c d") 'jedi:show-doc)
-  (local-set-key (kbd "C-c f") 'jedi:get-in-function-call)
+  (local-set-key (kbd "C-h d") 'jedi:show-doc)
+  (local-set-key (kbd "C-h f") 'jedi:get-in-function-call)
   (global-set-key (kbd "<f12>") 'my-insert-pdb)
   (defun my-insert-pdb ()
     (interactive)
@@ -896,7 +919,8 @@
             ;;(load-theme 'deeper-blue t)
             (global-flycheck-mode t)
             (global-undo-tree-mode t)
-			(desktop-read)))
+			(desktop-read)
+            ))
 
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
