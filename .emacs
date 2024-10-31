@@ -14,7 +14,8 @@
 ;;(add-to-list 'load-path "~/conf-pub/lisp/")
 ;; (add-to-list 'load-path "/usr/local/emacs/share/emacs/27.1/lisp/")
 ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/")
+;;(add-to-list 'exec-path "/home/pgb/workspace/elixir/elixir-ls/release")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -28,11 +29,7 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-safe-themes
-   '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
- '(helm-boring-buffer-regexp-list
-   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
- '(helm-boring-file-regexp-list
-   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
+   '("f162035f254dcf4f5e3116bbb9568ac9bbd06cc9b11f875068cc1ab43d78ad88" "55d762ff9b32ad03281e51125f790fdcb5971da39249bc731cc0b2bd5b536526" "bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
  '(initial-frame-alist '((fullscreen . maximized)))
  '(js-enabled-frameworks '(javascript))
  '(js-indent-level 4)
@@ -41,7 +38,7 @@
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(highlight-indent-guides dashboard fish-mode company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+   '(orderless marginalia vertico highlight-indent-guides all-the-icons-nerd-fonts dashboard yasnippet flutter-l10n-flycheck company flycheck-mypy flycheck-pycheckers flutter lsp-dart dap-ui elixir-mode flycheck-elixir edts auto-complete-distel erlang company-go flymake-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons web-beautify js2-mode restart-emacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper python-black restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode csv-mode toml-mode docker-compose-mode dockerfile-mode jedi-core json-reformat less-css-mode imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi epic))
  '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil)
  '(vc-follow-symlinks t))
@@ -60,13 +57,17 @@
  '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
- '(highlight-indent-guides-character-face ((t (:foreground "color-234"))))
  '(lsp-ui-doc-background ((t (:background "black"))))
+ '(highlight-indent-guides-character-face ((t (:foreground "color-236"))))
  '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
  '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
  '(success ((t (:foreground "Green4" :weight bold)))))
 
 
+(require 'package)
+(package-initialize)
+;;(unless package-archive-contents (package-refresh-contents))
+;;(package-install-selected-packages)
 
 ;; js autocompletion
 ;; http://ternjs.net/doc/manual.html#emacs
@@ -108,7 +109,6 @@
 (use-package dashboard
   :ensure t
   :config
-  (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "Witaj ponownie Pawciu!")
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-items '((recents   . 5)
@@ -117,7 +117,10 @@
                         (agenda    . 5)
                         (registers . 5)))
   (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
-  )
+  (setq dashboard-display-icons-p t)
+  (dashboard-setup-startup-hook)
+)
+
 
 ;;(if (file-exists-p
 ;;     (concat my-own-path ".emacs.desktop"))
@@ -131,26 +134,28 @@
                                         ;(load "server")
                                         ;(unless (server-running-p) (server-start)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; my defuns
 
 (defun my-kill-all-buffers ()
+  "Kill all my buffers."
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
-(defun kill-other-buffers() 
-  "Kill all other buffers." 
+(defun kill-other-buffers ()
+  "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer)
 			   (buffer-list))))
 
-(defun my-kill-current-buffer() 
-  "Kill current buffer." 
+(defun my-kill-current-buffer ()
+  "Kill current buffer."
   (interactive)
   (kill-buffer (current-buffer)))
 
-(defun duplicate-line() 
-  "Duplicate line." 
+(defun duplicate-line ()
+  "Duplicate line."
   (interactive)
   ;;(back-to-indentation)
   (move-beginning-of-line 1)
@@ -159,11 +164,13 @@
   (yank)
   (open-line 1)
   (next-line 1)
-  (yank))
+  (yank)
+  (move-beginning-of-line 1)
+  )
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
-(defun rename-file-and-buffer (new-name) 
-  "Renames both current buffer and file it's visiting to NEW-NAME." 
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "New name: ")
   (let ((name (buffer-name))
 	(filename (buffer-file-name)))
@@ -182,8 +189,8 @@
   (term "/home/pgb/bin/ipython3"))
 
 
-(defun my-next-user-buffer () 
-  "Switch to the next user buffer (buffer name does not start with “*”)." 
+(defun my-next-user-buffer ()
+  "Switch to the next user buffer (buffer name does not start with “*”)."
   (interactive)
   (next-buffer)
   (let ((i 0))
@@ -192,8 +199,8 @@
       (setq i (1+ i))
       (next-buffer))))
 
-(defun my-prev-user-buffer () 
-  "Switch to the previous user buffer (buffer name does not start with “*”)." 
+(defun my-prev-user-buffer ()
+  "Switch to the previous user buffer (buffer name does not start with “*”)."
   (interactive)
   (previous-buffer)
   (let ((i 0))
@@ -253,8 +260,8 @@
 ;;(ad-activate 'isearch-repeat-forward)
 ;;(ad-activate 'isearch-repeat-backward)
 
-                                        ;(require 'dired)
-                                        ;(setq dired-use-ls-dired nil)
+;;(require 'dired)
+;;(setq dired-use-ls-dired nil)
 ;;(require 'dired-single)
 ;;(require 'dired+)
 ;;(setq diredp-bind-problematic-terminal-keys nil)
@@ -314,27 +321,82 @@
 ;;("Dired" (mode . "\*Dired\*"))
 ;;("Temporary" (name . "\*.*\*")))))
 
-(require 'package)
-(package-initialize)
-(unless package-archive-contents (package-refresh-contents))
-(package-install-selected-packages)
+(use-package projectile
+  :defer nil
+  :ensure t
+  :config
+  (progn
+    (projectile-mode +1)
+    (setq projectile-enable-caching t
+          projectile-files-cache-expire 432000
+          projectile-globally-ignored-file-suffixes (quote (".pyc")))
+    ;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
+    ;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+    )
+  )
 
-(require 'projectile)
-(projectile-mode +1)
-(setq projectile-enable-caching t
-      projectile-files-cache-expire 432000
-      projectile-globally-ignored-file-suffixes (quote (".pyc")))
-;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
-;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+;; (use-package helm
+;;   :defer nil
+;;   :ensure t
+;;   :config
+;;   (helm-mode +1)
+;;   ;;(require 'helm-config)
+;;   (require 'helm-autoloads)
+;;   (setq helm-ff-skip-boring-files t
+;;         helm-M-x-show-short-doc t
+;;         helm-apropos-show-short-doc t
+;;         helm-commands-using-frame
+;;         (remove 'helm-apropos helm-commands-using-frame))
+;;   (setq helm-ff-skip-boring-files t)
+;;   (global-set-key (kbd "M-x") 'helm-M-x)
+;;   (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+;;   (global-set-key (kbd "C-x C-f") 'helm-find-files)
+;;   (global-set-key (kbd "C-x b") 'helm-buffers-list)
+;;   (helm-mode +1)
+;;   (require 'helm-projectile)
+;;   (global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
+;;   (global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
+;;   (helm-projectile-on)
+;;   )
 
-(require 'helm)
-;;(require 'helm-config)
-(setq helm-ff-skip-boring-files t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+
+(global-set-key (kbd "C-x C-p") 'projectile-find-file)
+
+(use-package vertico
+  :ensure t
+  ;;:bind (:map vertico-map
+  ;;("C-j" . vertico-next)
+  ;;("C-k" . vertico-previous)
+  ;;("C-f" . vertico-exit)
+  ;;:map minibuffer-local-map
+  ;;("M-h" . backward-kill-word)
+  ;;       )
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+(use-package consult
+  :ensure t
+  )
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
 ;;(require 'popwin)
@@ -343,23 +405,16 @@
 ;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
 ;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
 
-(require 'helm-projectile)
-(helm-projectile-on)
-(global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
-
 (use-package undo-tree
+  :ensure t
+  :defer t
   :config
-  (progn
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/backups/undo-tree")))
-    ;;(define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
-    ;;(local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
-    ;;(local-unset-key (kbd "C-/"))
-    ;;(local-unset-key (kbd "C-_"))
-    ;;(local-unset-key (kbd "C-c /"))
-    ;;(local-unset-key (kbd "C-c _"))
-    )
+  ;;(global-undo-tree-mode)
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/backups/undo-tree")))
+  ;;(define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
+  ;;(local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
+  :hook ((prog-mode text-mode conf-mode) . undo-tree-mode)
   )
 
 
@@ -401,23 +456,25 @@
 
 
 (use-package auto-complete-nxml
+  :defer t
   :ensure t
   :config (setq auto-complete-nxml-automatic-p nil))
 
 (use-package jinja2-mode
-  :ensure t)
-
-(use-package fish-mode
+  :defer t
   :ensure t)
 
 (use-package markdown-mode
+  :defer t
   :ensure t)
 
 (use-package yaml-mode
+  :defer t
   :ensure t)
 
 (use-package python-black
-  :demand t
+  :ensure t
+  :defer t
   :after python
   :hook (python-mode . python-black-on-save-mode-enable-dwim)
   :config (setq python-black-command "/home/pgb/bin/black"))
@@ -432,49 +489,23 @@
 
 
 (use-package magit
+  :defer t
   :ensure t
   :bind (("C-x g" . magit-status) ;; Display the main magit popup
 		 ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
 
-;; jedi:start-dedicated-server
-(use-package jedi
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  ;; this calls jedi:ac-setup and sets ac-sources
-  ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
-
-  (setq jedi:tooltip-method '(pos-tip popup)
-        jedi:get-in-function-call-timeout 11000
-        jedi:get-in-function-call-delay 10000) ;; wait long for tooltip-popup - chyba tego nie lubie... i wole `C-c f` jedi:get-in-function-cal
-  ;;
-  ;; ta wersja z githuba cos nie dziala wiec jest symlink do
-  ;; .emacs.d/elpa/jedi-core-20210503.1315/jediepcserver.py
-  (setq jedi:server-command '("python3" "-W" "ignore::DeprecationWarning" "/home/pgb/.emacs.d/.python-environments/default/bin/jediepcserver.py"))
-  ;;(jedi:tooltip-method nil)
-  ;;(setq jedi:environment-root "/home/pgb/.local")
-  ;;(setq jedi:environment-virtualenv
-  ;;	(append python-environment-virtualenv
-  ;;		'("--python" "/usr/bin/python3 -W ignore::DeprecationWarning")))
-  ;;
-  ;; to nie działa jak jest nowsza wersja jedi.py niz jedi.el!?!?!?!?
-  ;;(setq jedi:server-args
-  ;;      '("--sys-path-append" "/home/pgb/.local/lib/python3.11/site-packages"))
-  ;;
-  ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
-  ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
-
-  ;;(setq-default jedi:setup-keys t)
-  ;;(setq python-environment-directory "/home/pgb/.local")
-  ;;python-environment-default-root-name
-  (setq-default jedi:complete-on-dot nil))
-
-;;(use-package lsp-jedi
-;;  :ensure t
-;;  :config
-;;  (with-eval-after-load "lsp-mode"
-;;    (add-to-list 'lsp-disabled-clients 'pyls)
-;;    (add-to-list 'lsp-enabled-clients 'jedi)))
+;; can not get this to work...
+;; (use-package lsp-jedi
+;;   ;;:defer t
+;;   :ensure t
+;;   ;;:after lsp-mode
+;;   :hook python-mode
+;;   :config
+;;   (with-eval-after-load "lsp-mode"
+;;     (add-to-list 'lsp-disabled-clients 'pylsp)
+;;     (add-to-list 'lsp-disabled-clients 'gopls)
+;;     (add-to-list 'lsp-enabled-clients 'jedi))
+;; )
 
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
@@ -484,39 +515,65 @@
 (show-paren-mode t)
 (setq visible-bell nil)
 
-(require 'ido-vertical-mode)
-(ido-mode 1)
-(ido-vertical-mode 1)
-(setq ido-default-buffer-method 'selected-window)
+;; (use-package ido-vertical-mode
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   (ido-mode 1)
+;;   (ido-vertical-mode 1)
+;;   (setq ido-default-buffer-method 'selected-window)
+;;   )
 
-;;(load-file "~/.emacs.d/lisp/move-lines.el")
-(require 'move-lines)
+
+(load-file "~/.emacs.d/lisp/move-lines.el")
+(add-hook 'prog-mode #'move-lines 100)
+(add-hook 'text-mode #'move-lines 100)
+(add-hook 'conf-mode #'move-lines 100)
 (move-lines-binding)
 
 ;; hs-minor-mode
-;;(load-library "hideshow")
-(require 'hideshow)
-(global-set-key (kbd "C-c -") 'hs-hide-block)
-(global-set-key (kbd "C-c =") 'hs-show-block)
-;;; hideshowvis.el
+(use-package hideshow
+  :defer t
+  :config
+  (global-set-key (kbd "C-c -") 'hs-hide-block)
+  (global-set-key (kbd "C-c =") 'hs-show-block)
+  :hook ((prog-mode text-mode conf-mode) . hs-minor-mode)
+  )
+
+;;; hideshowvis.el działa z hs-minor-mode
 ;;(load-file "~/.emacs.d/lisp/hideshowvis.el")
-(require 'hideshowvis)
-(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
-(autoload 'hideshowvis-minor-mode "hideshowvis"
-  "Will indicate regions foldable with hideshow in the fringe." 'interactive)
-(hideshowvis-symbols)
+(use-package hideshowvis
+  :defer t
+  :hook ((prog-mode text-mode conf-mode) . hideshowvis-enable)
+  :config
+  (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+  (autoload 'hideshowvis-minor-mode "hideshowvis"
+    "Will indicate regions foldable with hideshow in the fringe." 'interactive)
+  (hideshowvis-symbols)
+)
 
-(require 'highlight-indent-guides)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method 'character)
-(set-face-foreground 'highlight-indent-guides-character-face "color-234")
+(use-package highlight-indent-guides
+  :defer t
+  :ensure t
+  :after python
+  :hook python-mode
+  :config
+  (progn
+    ;;(setq highlight-indent-guides-method 'bitmap)
+    (setq highlight-indent-guides-method 'character)
+    (highlight-indent-guides-mode +1)
+    )
+)
 
-
+;; wole neotree vs treemacs: 1) neotree szybciej działa 2) listuje łątwiej i szybciej od root katalogu 3) łączy buffor z drzewem lepiej
 (require 'neotree)
 (setq neo-smart-open t
       neo-theme (if (display-graphic-p) 'icons 'arrow)
       neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "__pycache__")
       )
+(global-set-key (kbd "<f8>") 'neotree-toggle)
+;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
+
 ;;(setq projectile-switch-project-action 'neotree-projectile-action)
 (defun neotree-project-dir () 
   "Open NeoTree using the git root." 
@@ -529,16 +586,16 @@
 			       (neotree-find file-name)))
       (message "Could not find git project root."))))
 
-(use-package flycheck
-  :ensure t
-  :config
-  (flymake-mode -1)
-  (setq flycheck-check-syntax-automatically '(mode-enabled save)
-        flycheck-checker-error-threshold 600))
+(require 'flycheck)
+(flymake-mode -1)
+(setq flycheck-check-syntax-automatically '(mode-enabled save)
+      flycheck-checker-error-threshold 600)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda ()
-		           (hideshowvis-enable)
+                   ;;(flycheck-mode +1)
+		           ;;(hideshowvis-enable)
 		           (electric-indent-mode nil)
                    ;;(linum-mode)
                    (flyspell-mode +1))))
@@ -569,11 +626,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; prog modes
 
-
 (defun python-custom() 
   "My custom python-mode-hook."
   (require 'pyimpsort)
-  (require 'dap-python)
+  ;;(require 'dap-python)
   ;;(dap-register-debug-template "My App"
   ;;  (list :type "python"
   ;;        :args "-i"
@@ -583,10 +639,9 @@
   ;;        :request "launch"
   ;;        :name "My App"))
 
-  (undo-tree-mode t)
-  (hideshowvis-enable) 
+  ;;(hideshowvis-enable) 
   (flyspell-prog-mode) 
-  (flycheck-mode +1)
+  ;;(flycheck-mode +1)
   ;;(add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup)
   (setq-default flycheck-disabled-checkers '(python-mypy python-flake8 python-pylint javascript-jshint))
   ;;(setq flycheck-python-flake8-executable "/home/pgb/.local/bin/flake8")
@@ -610,9 +665,39 @@
 
   (python-black-on-save-mode +1)
 
-                                        ;(require 'py-autopep8)
+  ;; jedi:start-dedicated-server
+  (require 'jedi)
+  ;;(add-hook 'python-mode-hook #'jedi:setup)
+  ;; this calls jedi:ac-setup and sets ac-sources
+  ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
 
-                                        ; 1) virtualenvwrapper
+  (setq jedi:tooltip-method '(pos-tip popup)
+        jedi:get-in-function-call-timeout 11000
+        jedi:get-in-function-call-delay 10000) ;; wait long for tooltip-popup - chyba tego nie lubie... i wole `C-c f` jedi:get-in-function-cal
+  ;;
+  ;; ta wersja z githuba cos nie dziala wiec jest symlink do
+  ;; .emacs.d/elpa/jedi-core-20210503.1315/jediepcserver.py
+  (setq jedi:server-command '("python3" "-W" "ignore::DeprecationWarning" "/home/pgb/.emacs.d/.python-environments/default/bin/jediepcserver.py"))
+  ;;(jedi:tooltip-method nil)
+  ;;(setq jedi:environment-root "/home/pgb/.local")
+  ;;(setq jedi:environment-virtualenv
+  ;;	(append python-environment-virtualenv
+  ;;		'("--python" "/usr/bin/python3 -W ignore::DeprecationWarning")))
+  ;;
+  ;; to nie działa jak jest nowsza wersja jedi.py niz jedi.el!?!?!?!?
+  ;;(setq jedi:server-args
+  ;;      '("--sys-path-append" "/home/pgb/.local/lib/python3.11/site-packages"))
+  ;;
+  ;; "--virtual-env" "SOME/VIRTUAL_ENV_1"
+  ;; "--sys-path" "MY/OTHER/SPECIAL/PATH"))
+
+  ;;(setq-default jedi:setup-keys t)
+  ;;(setq python-environment-directory "/home/pgb/.local")
+  ;;python-environment-default-root-name
+  (setq-default jedi:complete-on-dot nil)
+  (jedi:setup)
+
+  ;; 1) virtualenvwrapper
   (require 'virtualenvwrapper)
   (setq venv-dirlookup-names '())
   (setq venv-location "/home/pgb/.virtualenvs/")
@@ -643,13 +728,12 @@
                                         ; M-/ = dabbrev-expand
                                         ; C-/ = auto-complete (ac-mode-map)
                                         ; C-c / = C-c / runs the command helm-jedi-related-names (jedi-mode-map)
-  (local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'jedi:goto-definition)
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-h d") 'jedi:show-doc)
   (local-set-key (kbd "C-h f") 'jedi:get-in-function-call)
-  (global-set-key (kbd "<f12>") 'my-insert-pdb)
+  (local-set-key (kbd "<f12>") 'my-insert-pdb)
   (defun my-insert-pdb ()
     (interactive)
     (insert
@@ -666,7 +750,7 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (defun js-custom () 
   "My custom js-mode-hook."
-  (hideshowvis-enable)
+  ;;(hideshowvis-enable)
   (flyspell-prog-mode)
   (setq flycheck-disabled-checkers '(javascript-jshint))
   (setq flycheck-checkers '(javascript-eslint))
@@ -684,7 +768,6 @@
   (local-set-key (kbd "C-c _") 'tern-completion-at-point)
   (local-set-key (kbd "C-/") 'tern-completion-at-point)
   (local-set-key (kbd "C-_") 'tern-completion-at-point)
-  (local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'tern-find-definition)
   (local-set-key (kbd "C-,") 'tern-pop-find-definition)
   (local-set-key (kbd "C-c ,") 'tern-pop-find-definition)
@@ -697,33 +780,92 @@
 (add-hook 'js-mode-hook 'js-custom)
 
 
-(require 'lsp-mode)
-(lsp-register-custom-settings
- '(("gopls.completeUnimported" t t)
-   ("gopls.staticcheck" t t)))
-;; nie chce complte-at-point tylko complete via gopls mode
-;;;(add-hook 'completion-at-point-functions 'go-complete-at-point)
-(add-hook 'go-mode-hook #'lsp-deferred)
-;;(add-hook 'python-mode-hook #'lsp-deferred)
+(use-package lsp-mode
+  :defer t
+  :ensure t
+  :config
+  ;(add-hook 'go-mode-hook #'lsp-deferred)
+  ;(add-hook 'python-mode-hook #'lsp-deferred)
+  ;(add-hook 'elixir-mode-hook #'lsp-deferred)
+  ;(add-hook 'dart-mode-hook #'lsp-deferred)
+  ;;(add-hook 'elixir-mode . lsp)
+  :hook ((go-mode python-mode elixir-mode dart-mode) . lsp-deferred)
+)
+
+(use-package lsp-dart
+  :defer t
+  :ensure f
+  :hook (dart-mode . lsp)
+  :config
+  (setq lsp-dart-sdk-dir "/usr/local/bin/flutter/bin/cache/dart-sdk/")
+  (with-eval-after-load 'projectile
+    (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+    (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
+  ;;(dap-register-debug-template "Flutter :: Custom debug"
+  ;;                             (list :flutterPlatform "x86_64"
+  ;;                                   :program "lib/main_debug.dart"
+  ;;                                   :args '("--flavor" "customer_a")))
+)
 
 (defun go-custom() 
   "My custom golang go-mode."
+;; nie chce complte-at-point tylko complete via gopls mode
+;;;(add-hook 'completion-at-point-functions 'go-complete-at-point)
 
+  (require 'dap-mode)
   (require 'dap-dlv-go)
+  (require 'lsp-ui)
+
+  (setq tab-width 4)
+
+  (with-eval-after-load "lsp-mode"
+    (lsp-register-custom-settings
+     '(("gopls.completeUnimported" t t)
+       ("gopls.staticcheck" t t)))
+    (add-to-list 'lsp-enabled-clients 'gopls)
+  )
+  (setq lsp-ui-peek-always-show t)  ;; peek in popup, it can "go to definition" when set to nil
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-ui-doc-show-with-cursor t)
   
+  (setq dap-dlv-go-extra-args "--check-go-version=false")
+ 
   (local-set-key (kbd "C-/") 'auto-complete)
   (local-set-key (kbd "C-_") 'auto-complete)
   (local-set-key (kbd "C-c /") 'auto-complete)
   (local-set-key (kbd "C-c _") 'auto-complete)
   
   (local-set-key (kbd "C-c .") 'xref-find-definitions)
-  (local-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
+  ;;(local-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
+  (local-set-key (kbd "C-c ,") 'xref-go-back)
+  (local-set-key (kbd "<f9>") 'lsp-ui-imenu)
   
-;;  (lsp-deferred)
-;;  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-;;  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+  ;;  (lsp-deferred)
+  ;;  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+  ;;  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t)
 )
-(add-hook 'go-mode-hook 'go-custom)
+(add-hook 'go-mode-hook #'go-custom)
+
+;; debugging
+(use-package dap-mode
+  :ensure t
+  :defer t
+  :config
+  (dap-mode 1)
+  (setq dap-print-io t)
+  ;;(setq fit-window-to-buffer-horizontally t)
+  ;;(setq window-resize-pixelwise t)
+  (require 'dap-hydra)
+  (use-package dap-ui
+    :ensure nil
+    :config
+    (dap-ui-mode 1)
+    )
+  )
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
 
 
 (defun php-custom() 
@@ -734,14 +876,23 @@
   (local-set-key (kbd "C-c /") 'auto-complete)
   (local-set-key (kbd "C-c _") 'auto-complete)
 )
-(add-hook 'php-mode-hook 'php-custom)
+(add-hook 'php-mode-hook #'php-custom)
 
 (defun clojure-custom() 
   "My custom clojure-mode cider-mode"
   (local-set-key (kbd "C-/") 'auto-complete)
   (local-set-key (kbd "C-c /") 'auto-complete)
 )
-(add-hook 'clojure-mode-hook 'clojure-custom)
+(add-hook 'clojure-mode-hook #'clojure-custom)
+
+
+(defun elixir-custom() 
+  "My custom elixir-mode"
+  ;;(local-set-key (kbd "C-/") 'auto-complete)
+  (local-set-key (kbd "C-c .") 'xref-find-definitions)
+  (local-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
+)
+(add-hook 'elixir-mode-hook #'elixir-custom)
 
 
 (defun markdown-custom() 
@@ -751,14 +902,16 @@
   (setq-default tab-width 4)
   (setq tab-width 4)
   (setq truncate-lines t)
-  (setq visual-line-mode t))
-(add-hook 'markdown-mode-hook 'markdown-custom)
+  (setq visual-line-mode t)
+)
+(add-hook 'markdown-mode-hook #'markdown-custom)
 
 
 (defun restclient-custom() 
   "My custom restclient-mode."
-  (fset 'json-pretty-print 'json-reformat-region))
-(add-hook 'restclient-mode-hook 'restclient-custom)
+  (fset 'json-pretty-print 'json-reformat-region)
+)
+(add-hook 'restclient-mode-hook #'restclient-custom)
 
 
 (defun elisp-custom() 
@@ -768,24 +921,24 @@
   (push '("<=" . ?≤) prettify-symbols-alist)
   (push '(">=" . ?≥) prettify-symbols-alist)
   (push '("!=" . ?≠) prettify-symbols-alist)
-  (hideshowvis-enable)
+  ;;(hideshowvis-enable)
   (rainbow-delimiters-mode)
-  (local-set-key (kbd "C-d") nil))
-(add-hook 'emacs-lisp-mode-hook 'elisp-custom)
+  (local-set-key (kbd "C-d") nil)
+)
+(add-hook 'emacs-lisp-mode-hook #'elisp-custom)
 
 (add-hook 'prog-mode-hook
           (lambda ()
-			(hideshowvis-enable)
+			;;(hideshowvis-enable)
 			(hs-minor-mode)
-			(flycheck-mode +1)
+			;;(flycheck-mode +1)
             ;;(linum-mode)
             (flyspell-prog-mode)))
 
 (defun setup-tide-mode () 
-  "My custom tide-mode for typescript." 
-  (interactive)
+  "My custom tide-mode for typescript."
   (tide-setup)
-  (flycheck-mode +1)
+  ;;(flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (electric-indent-mode nil)
   (eldoc-mode +1)
@@ -861,8 +1014,6 @@
 
 (global-set-key (kbd "<f6>")   'flyspell-mode)
 (global-set-key (kbd "<f7>")   'fd-switch-dictionary)
-(global-set-key (kbd "<f8>") 'neotree-toggle)
-;;(global-set-key (kbd "<f8>") 'neotree-project-dir)
 
 (require 'imenu-list)
 ;; or helm-semantic-or-imenu
@@ -879,7 +1030,7 @@
 (global-set-key (kbd "C-x k") 'my-kill-current-buffer)
 (global-set-key (kbd "C-x C-r") 'rename-file-and-buffer)
 
-(global-set-key (kbd "C-c i") 'iedit-mode) ;; iedit rename var occurences
+(global-set-key (kbd "C-c i") 'iedit-mode) ;; iedit rename var occurrences
 
 
 ;; M-u  upcase-word
@@ -892,15 +1043,17 @@
 ;; to nie działa bo ESC jest jako meta
 ;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
 
-(global-set-key (kbd "C-.") 'helm-ispell)
+(global-set-key (kbd "C-.") 'ispell-complete-word)
+(global-set-key (kbd "C-c s") 'ispell-word)
 (global-set-key (kbd "C-c .") 'xref-find-definitions)
-
+(global-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
 (global-set-key (kbd "C-<tab>") nil)
 
 (require 'my-move-word)
 (global-set-key (kbd "C-<left>") 'my-backward-word)
 (global-set-key (kbd "C-<right>") 'my-forward-word)
 
+;; Emacs built-in C-xC-+ and C-xC-- to increase or decrease the buffer text size
 ;;(global-unset-key (kbd "C--"))
 ;;(global-unset-key (kbd "C-="))
 
@@ -915,12 +1068,25 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            ;;(load-theme 'pawcio t)
-            ;;(load-theme 'deeper-blue t)
-            (global-flycheck-mode t)
-            (global-undo-tree-mode t)
 			(desktop-read)
             ))
+
+
+(defun my-setup-client-frame()
+  "Setup emacsclient frame."
+  (when (display-graphic-p)
+    ;; running in X
+    (setq neo-theme 'icons)
+    (add-to-list 'default-frame-alist '(foreground-color . "white"))
+    (add-to-list 'default-frame-alist '(background-color . "black"))
+    (add-to-list 'default-frame-alist '(cursor-color . "coral"))
+    ;;(load-theme 'pawcio t)
+    (load-theme 'deeper-blue t)
+    ;;(require 'color-theme)
+    ;;(color-theme-print)
+    )
+  )
+(add-hook 'server-after-make-frame-hook 'my-setup-client-frame)
 
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
