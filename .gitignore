@@ -1,4 +1,5 @@
 *.pyc
+*.elc
 *~
 .pytest_cache
 .tern-port

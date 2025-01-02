@@ -12,7 +12,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;;(add-to-list 'load-path "~/conf-pub/lisp/")
-;; (add-to-list 'load-path "/usr/local/emacs/share/emacs/27.1/lisp/")
+;; (add-to-list 'load-path "/usr/local/emacs/share/emacs/29.4/lisp/")
 ;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
@@ -29,19 +29,13 @@
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-safe-themes
    '("bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
- '(helm-boring-buffer-regexp-list
-   '("\\Minibuf.+\\*" "\\` " "\\*.+\\*" "^TAGS$" "\\*magit*" "\\*helm*"))
- '(helm-boring-file-regexp-list
-   '("\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/?$" "\\.hg/?$" "\\.git/?$" "\\.bzr/?$" "CVS/?$" "_darcs/?$" "_MTN/?$" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "^TAGS$"))
  '(initial-frame-alist '((fullscreen . maximized)))
  '(js-enabled-frameworks '(javascript))
  '(js-indent-level 4)
  '(mode-require-final-newline nil)
- '(package-archives
-   '(("gnu" . "https://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/")))
+ '(package-archives '(("melpa" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(highlight-indent-guides dashboard fish-mode company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons helm-core web-beautify js2-mode restart-emacs pacmacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper helm python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode racer rust-mode csv-mode toml-mode docker-compose-mode dockerfile-mode helm-ag jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi ido-vertical-mode helm-projectile helm-ispell epic))
+   '(consult-projectile consult-ag orderless consult marginalia vertico highlight-indent-guides dashboard company-go lsp-docker xref go-complete lsp-ui dap-mode lsp-jedi lsp-mode go-mode cider undo-tree all-the-icons web-beautify js2-mode restart-emacs iedit isortify jq-format flycheck-aspell scss-mode magit-filenotify projectile virtualenvwrapper python-black flycheck restclient dired-subtree dired-toggle dired-single gitlab-ci-mode gitlab-ci-mode-flycheck tide typescript-mode w3 python-mode csv-mode toml-mode docker-compose-mode dockerfile-mode jedi-core json-reformat less-css-mode yapfify imenu-list dired tern rainbow-delimiters use-package web-mode elisp-format yaml-mode handlebars-mode jinja2-mode mustache pyimpsort neotree dired-narrow sql-indent ac-ispell sphinx-doc sphinx-mode markdown-mode auto-complete-nxml auto-complete-rst pydoc magit json-mode jedi))
  '(projectile-indexing-method 'hybrid)
  '(require-final-newline nil)
  '(vc-follow-symlinks t))
@@ -50,6 +44,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cursor ((t (:background "brightwhite"))))
  '(error ((t (:foreground "salmon" :weight bold))))
  '(font-lock-builtin-face ((t (:foreground "steelblue"))))
  '(font-lock-comment-delimiter-face ((t (:foreground "DimGray"))))
@@ -60,12 +55,17 @@
  '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
- '(highlight-indent-guides-character-face ((t (:foreground "color-234"))))
+ '(highlight-indent-guides-character-face ((t (:foreground "color-236"))))
  '(lsp-ui-doc-background ((t (:background "black"))))
  '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
  '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
  '(success ((t (:foreground "Green4" :weight bold)))))
 
+
+(require 'package)
+(package-initialize)
+;;(unless package-archive-contents (package-refresh-contents))
+;;(package-install-selected-packages)
 
 
 ;; js autocompletion
@@ -158,8 +158,10 @@
   (kill-line)
   (yank)
   (open-line 1)
-  (next-line 1)
-  (yank))
+  (forward-line 1)
+  (yank)
+  (move-beginning-of-line 1)
+  )
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name) 
@@ -238,24 +240,37 @@
       scroll-step           1 scroll-conservatively  10000)
 (which-function-mode 1)
 
+
+(defun rst-custom()
+  (visual-line-mode +1)
+  )
+;;(add-hook 'rst-mode-hook 'rst-custom)
+(add-hook 'view-mode-hook 'rst-custom)
+
+
+(global-set-key (kbd "C-s") 'isearch-forward)
+(global-set-key (kbd "C-r") 'isearch-backward)
 ;; when searching place highlited text in the middle of the screen - recenter
 ;;(add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
 ;;(defadvice
 ;;  isearch-repeat-forward
 ;;  (after isearch-repeat-forward-recenter activate)
 ;;  (recenter-top-bottom))
-;;
+;;(ad-activate 'isearch-repeat-forward)
+
 ;;(defadvice
 ;;  isearch-repeat-backward
 ;;  (after isearch-repeat-backward-recenter activate)
 ;;  (recenter-top-bottom))
-;;
-;;(ad-activate 'isearch-repeat-forward)
 ;;(ad-activate 'isearch-repeat-backward)
 
-                                        ;(require 'dired)
-                                        ;(setq dired-use-ls-dired nil)
-;;(require 'dired-single)
+;;(require 'dired)
+;;(setq dired-use-ls-dired nil)
+;;(use-package dired-single
+;;  :ensure t
+;;  :after dired
+;;  )
+;;
 ;;(require 'dired+)
 ;;(setq diredp-bind-problematic-terminal-keys nil)
                                         ;(defun dired-custom()
@@ -314,43 +329,81 @@
 ;;("Dired" (mode . "\*Dired\*"))
 ;;("Temporary" (name . "\*.*\*")))))
 
-(require 'package)
-(package-initialize)
-(unless package-archive-contents (package-refresh-contents))
-(package-install-selected-packages)
 
-(require 'projectile)
-(projectile-mode +1)
-(setq projectile-enable-caching t
-      projectile-files-cache-expire 432000
-      projectile-globally-ignored-file-suffixes (quote (".pyc")))
-;;(setq projectile-switch-project-action (quote helm-projectile-find-file))
-;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
+(use-package projectile
+  :defer nil
+  :ensure t
+  :bind (
+         ("C-x C-p" . projectile-find-file)
+         )
+  :config (progn
+            (projectile-mode +1)
+            (setq projectile-enable-caching t
+                  projectile-files-cache-expire 432000
+                  projectile-globally-ignored-file-suffixes (quote (".pyc")))
+            ;;(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)                                                                                        
+            )
+  )
 
-(require 'helm)
-;;(require 'helm-config)
-(setq helm-ff-skip-boring-files t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
 
-;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
-;;(require 'popwin)
-;;(popwin-mode 1)
-;;(setq display-buffer-function 'popwin:display-buffer)
-;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
+(use-package vertico
+  :ensure t
+  ;;:bind (
+         ;; TODO fix up vertico-directory-up to go to parent dir when wrong file is on the end in `find-file`                                                         
+         ;;:map vertico-map                                                                                                                                           
+         ;;     ("C-<backspace>" . vertico-directory-up)                                                                                                              
+              ;;("C-j" . vertico-next)                                                                                                                                
+              ;;("C-k" . vertico-previous)                                                                                                                            
+              ;;("C-f" . vertico-exit)                                                                                                                                
+         ;;:map minibuffer-local-map                                                                                                                                  
+         ;;     ("C-<backspace>" . vertico-directory-up)                                                                                                              
+         ;;     ("M-<backspace>" . backward-kill-word)                                                                                                                
+  ;;)
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
 
-(require 'helm-projectile)
-(helm-projectile-on)
-(global-set-key (kbd "C-c C-p") 'helm-projectile-switch-project)
+(use-package savehist
+  :ensure t
+  :init
+  (savehist-mode))
+
+(use-package marginalia
+  :ensure t
+  :after vertico
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+(use-package consult
+  :ensure t
+  :bind (("C-x p" . consult-projectile-switch-project)
+         ("C-x s" . consult-line)
+         ("C-x b" . consult-buffer)
+         ("M-g g" . consult-goto-line)
+         )
+  )
+
+(use-package consult-projectile
+  :ensure t
+  :after consult
+  )
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 
 (use-package undo-tree
+  :defer t
+  :hook ((prog-mode text-mode conf-mode) . undo-tree-mode)
   :config
   (progn
-    (global-undo-tree-mode)
+    (global-undo-tree-mode +1)
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/backups/undo-tree")))
     ;;(define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
@@ -401,46 +454,50 @@
 
 
 (use-package auto-complete-nxml
-  :ensure t
+  :defer t
   :config (setq auto-complete-nxml-automatic-p nil))
 
 (use-package jinja2-mode
-  :ensure t)
-
-(use-package fish-mode
-  :ensure t)
+  :defer t
+  )
 
 (use-package markdown-mode
-  :ensure t)
+  :defer t
+  )
 
 (use-package yaml-mode
-  :ensure t)
+  :defer t
+  )
 
 (use-package python-black
-  :demand t
+  :defer t
   :after python
   :hook (python-mode . python-black-on-save-mode-enable-dwim)
   :config (setq python-black-command "/home/pgb/bin/black"))
 
-;;(use-package web-mode :ensure t)
-(defun my-web-mode-hook () 
-  "Hooks for Web mode." 
-  (setq web-mode-markup-indent-offset 2
+(use-package web-mode
+  :defer t
+  :hook (web-mode)
+  :config (setq web-mode-markup-indent-offset 2
         web-mode-enable-current-element-highlight 1)
-)
-(add-hook 'web-mode-hook  'my-web-mode-hook)
-
+  )
 
 (use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status) ;; Display the main magit popup
-		 ("C-x M-g" . magit-dispatch-popup))) ;; Display keybinds for magit
+  :defer t
+  :bind (
+         ;;:map magit-mode-map
+         ("C-x g" . magit-status) ;; Display the main magit popup
+		 ("C-x M-g" . magit-dispatch) ;; Display keybinds for magit
+         )
+  )
 
 ;; jedi:start-dedicated-server
 (use-package jedi
+  :defer t
   :ensure t
+  :after python
+  :hook (python-mode . jedi:setup)
   :config
-  (add-hook 'python-mode-hook 'jedi:setup)
   ;; this calls jedi:ac-setup and sets ac-sources
   ;;(add-to-list 'ac-sources 'ac-source-jedi-direct)
 
@@ -467,7 +524,7 @@
   ;;(setq-default jedi:setup-keys t)
   ;;(setq python-environment-directory "/home/pgb/.local")
   ;;python-environment-default-root-name
-  (setq-default jedi:complete-on-dot nil))
+  (setq jedi:complete-on-dot nil))
 
 ;;(use-package lsp-jedi
 ;;  :ensure t
@@ -484,13 +541,11 @@
 (show-paren-mode t)
 (setq visible-bell nil)
 
-(require 'ido-vertical-mode)
-(ido-mode 1)
-(ido-vertical-mode 1)
-(setq ido-default-buffer-method 'selected-window)
-
-;;(load-file "~/.emacs.d/lisp/move-lines.el")
+(load-file "~/.emacs.d/lisp/move-lines.el")
 (require 'move-lines)
+(add-hook 'prog-mode #'move-lines 100)
+(add-hook 'text-mode #'move-lines 100)
+(add-hook 'conf-mode #'move-lines 100)
 (move-lines-binding)
 
 ;; hs-minor-mode
@@ -506,11 +561,17 @@
   "Will indicate regions foldable with hideshow in the fringe." 'interactive)
 (hideshowvis-symbols)
 
-(require 'highlight-indent-guides)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method 'character)
-(set-face-foreground 'highlight-indent-guides-character-face "color-234")
 
+(use-package highlight-indent-guides
+  :defer t
+  :after python
+  :config
+  ;;(setq highlight-indent-guides-method 'bitmap)                                                                                                                     
+  (setq highlight-indent-guides-method 'character)
+  (set-face-foreground 'highlight-indent-guides-character-face "color-236")
+  (highlight-indent-guides-mode +1)
+  :hook python-mode
+)
 
 (require 'neotree)
 (setq neo-smart-open t
@@ -530,9 +591,11 @@
       (message "Could not find git project root."))))
 
 (use-package flycheck
+  :defer t
   :ensure t
   :config
   (flymake-mode -1)
+  (global-flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(mode-enabled save)
         flycheck-checker-error-threshold 600))
 
@@ -548,6 +611,7 @@
 		           (flyspell-mode -1))))
 
 ;; ispell/aspel
+(setq ispell-program-name "aspell")
 (setq ispell-list-command "--list") ;; aspel uzywa --list
 ;; ispell-valid-dictionary-list
 (setenv "DICTIONARY" "en_GB")
@@ -583,7 +647,6 @@
   ;;        :request "launch"
   ;;        :name "My App"))
 
-  (undo-tree-mode t)
   (hideshowvis-enable) 
   (flyspell-prog-mode) 
   (flycheck-mode +1)
@@ -610,44 +673,34 @@
 
   (python-black-on-save-mode +1)
 
-                                        ;(require 'py-autopep8)
 
-                                        ; 1) virtualenvwrapper
+  ;; 1) virtualenvwrapper
   (require 'virtualenvwrapper)
   (setq venv-dirlookup-names '())
   (setq venv-location "/home/pgb/.virtualenvs/")
-                                        ;  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
-                                        ;  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
-                                        ;  (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
+  ;;  (setq projectile-switch-project-action 'venv-projectile-auto-workon)
+  ;;  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
+  ;;  (setq-default mode-line-format (remove 'mode-line-buffer-identification mode-line-format))
   (add-hook 'venv-postactivate-hook 'jedi:stop-server)
   (add-hook 'venv-postdeactivate-hook 'jedi:stop-server)
 
-                                        ; or 2) pyenv-mode
-                                        ;(require 'pyenv-mode)
-                                        ;(defun projectile-pyenv-mode-set ()
-                                        ;"Set pyenv version matching project name."
-                                        ;(let ((project (projectile-project-name)))
-                                        ;  (if (member project (pyenv-mode-versions))
-                                        ;      (pyenv-mode-set project)
-                                        ;    (pyenv-mode-unset))))
-                                        ;(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
-
-                                        ; or 3) pyvenv used by elpy
-                                        ; (require 'pyvenv)
+  ;; M-/ = dabbrev-expand
+  ;; C-/ = auto-complete (ac-mode-map)
+  ;; C-c / = C-c / runs the command helm-jedi-related-names (jedi-mode-map)
   (local-unset-key (kbd "C-_"))
+  (local-unset-key (kbd "C-/"))  ;; clash with undo-tree
   (local-unset-key (kbd "C-c _"))
   (local-unset-key (kbd "C-c /"))
-  (local-set-key (kbd "C-_") 'jedi:complete)
+  (local-set-key (kbd "C-_") 'ac-complete)
   (local-set-key (kbd "C-c _") 'jedi:complete)
+  (local-set-key (kbd "C-/") 'ac-complete)
   (local-set-key (kbd "C-c /") 'jedi:complete)
-                                        ; M-/ = dabbrev-expand
-                                        ; C-/ = auto-complete (ac-mode-map)
-                                        ; C-c / = C-c / runs the command helm-jedi-related-names (jedi-mode-map)
-  (local-set-key (kbd "C-.") 'helm-ispell)
+
+  ;;(local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'jedi:goto-definition)
   (local-set-key (kbd "C-c ,") 'jedi:goto-definition-pop-marker)
   (local-set-key (kbd "C-,") 'jedi:goto-definition-pop-marker)
-  (local-set-key (kbd "C-h d") 'jedi:show-doc)
+  (local-set-key (kbd "C-h d") 'jedi:show-doc)  ;; default jedi's is C-?
   (local-set-key (kbd "C-h f") 'jedi:get-in-function-call)
   (global-set-key (kbd "<f12>") 'my-insert-pdb)
   (defun my-insert-pdb ()
@@ -659,7 +712,7 @@
   (setq-default tab-width 4)
   (setq tab-width 4)
 )
-(add-hook 'python-mode-hook 'python-custom)
+(add-hook 'python-mode-hook 'python-custom 100)
 (eval-after-load 'python '(define-key python-mode-map (kbd "C-c C-i") #'pyimpsort-buffer))
 
 
@@ -684,7 +737,7 @@
   (local-set-key (kbd "C-c _") 'tern-completion-at-point)
   (local-set-key (kbd "C-/") 'tern-completion-at-point)
   (local-set-key (kbd "C-_") 'tern-completion-at-point)
-  (local-set-key (kbd "C-.") 'helm-ispell)
+  ;;(local-set-key (kbd "C-.") 'helm-ispell)
   (local-set-key (kbd "C-c .") 'tern-find-definition)
   (local-set-key (kbd "C-,") 'tern-pop-find-definition)
   (local-set-key (kbd "C-c ,") 'tern-pop-find-definition)
@@ -747,7 +800,7 @@
 (defun markdown-custom() 
   "My custom markdown-mode."
   (local-set-key (kbd "C-d") nil)
-  (setq indent-tabs-mode f)
+  (setq indent-tabs-mode nil)
   (setq-default tab-width 4)
   (setq tab-width 4)
   (setq truncate-lines t)
@@ -892,7 +945,7 @@
 ;; to nie działa bo ESC jest jako meta
 ;;(define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
 
-(global-set-key (kbd "C-.") 'helm-ispell)
+;;(global-set-key (kbd "C-.") 'helm-ispell)
 (global-set-key (kbd "C-c .") 'xref-find-definitions)
 
 (global-set-key (kbd "C-<tab>") nil)
@@ -915,12 +968,33 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            ;;(load-theme 'pawcio t)
-            ;;(load-theme 'deeper-blue t)
-            (global-flycheck-mode t)
-            (global-undo-tree-mode t)
 			(desktop-read)
             ))
 
+(defun my-setup-client-frame()
+  "Setup emacsclient frame."
+  (if (display-graphic-p)
+      (progn
+        ;; running in X                                                                                                                                               
+        (setq neo-theme 'icons)
+        (add-to-list 'default-frame-alist '(foreground-color . "white"))
+        (add-to-list 'default-frame-alist '(background-color . "black"))
+        (add-to-list 'default-frame-alist '(cursor-color . "coral"))
+        ;;(load-theme 'pawcio t)                                                                                                                                      
+        (load-theme 'deeper-blue t)
+        ;;(require 'color-theme)                                                                                                                                      
+        ;;(color-theme-print)                                                                                                                                         
+        )
+    (progn
+      ;; running in console
+      (disable-theme 'deeper-blue)
+      (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
+      )
+    )
+  )
+(add-hook 'server-after-make-frame-hook 'my-setup-client-frame)
+
+
 (message "Hej ho, all done, %s%s" (user-login-name) ".")
 ;;; .emacs ends here
+(put 'narrow-to-region 'disabled nil)
