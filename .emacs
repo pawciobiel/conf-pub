@@ -4,7 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Code:
 
-(setenv "PATH" "/home/pgb/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pgb/.local/bin")
+;;(setenv "PATH" (getenv "PATH"))
 
 (defvar first-time t "Flag signifying this is the first time that .emacs has been evaled.")
 
@@ -28,6 +28,7 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ '(custom-enabled-themes '(deeper-blue))
  '(custom-safe-themes
    '("f162035f254dcf4f5e3116bbb9568ac9bbd06cc9b11f875068cc1ab43d78ad88" "55d762ff9b32ad03281e51125f790fdcb5971da39249bc731cc0b2bd5b536526" "bd67dc406ff6f984050b09c0e090e8da46ff355bd3011e158f65f0efdd9744f0" "5463a850f8bb316903f94b7f73409aa353381daf94fbfd3ec0ecbc737b68434c" default))
  '(initial-frame-alist '((fullscreen . maximized)))
@@ -57,8 +58,8 @@
  '(font-lock-keyword-face ((t (:foreground "mediumpurple"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
  '(font-lock-variable-name-face ((t (:foreground "white" :weight light))))
- '(lsp-ui-doc-background ((t (:background "black"))))
  '(highlight-indent-guides-character-face ((t (:foreground "color-236"))))
+ '(lsp-ui-doc-background ((t (:background "black"))))
  '(neo-dir-link-face ((t (:foreground "deep sky blue" :slant normal :weight bold :height 120 :family "Fantasque Sans Mono"))))
  '(neo-file-link-face ((t (:foreground "White" :weight normal :height 120 :family "Fantasque Sans Mono"))))
  '(success ((t (:foreground "Green4" :weight bold)))))
@@ -84,7 +85,6 @@
 (setq shell-file-name "/usr/bin/bash")
 
 ;;(load-file "~/.emacs.d/lisp/pdb-current.el")
-(load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
 
 (setq use-short-answers 1
       create-lockfiles nil
@@ -109,6 +109,7 @@
 (use-package dashboard
   :ensure t
   :config
+  (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "Witaj ponownie Pawciu!")
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-items '((recents   . 5)
@@ -118,7 +119,6 @@
                         (registers . 5)))
   (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
   (setq dashboard-display-icons-p t)
-  (dashboard-setup-startup-hook)
 )
 
 
@@ -225,8 +225,6 @@
 (global-set-key "\C-c$" 'toggle-truncate-lines)
 ;;(add-hook 'diff-mode-hook (lambda () (setq truncate-lines t)))
 
-(setq-default ediff-split-window-function 'split-window-horizontally)
-
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
@@ -245,6 +243,14 @@
       scroll-step           1 scroll-conservatively  10000)
 (which-function-mode 1)
 
+
+(defun rst-custom()
+  (visual-line-mode +1)
+  )
+;;(add-hook 'rst-mode-hook 'rst-custom)                                                                                                                               
+(add-hook 'view-mode-hook 'rst-custom)
+
+
 ;; when searching place highlited text in the middle of the screen - recenter
 ;;(add-hook 'isearch-mode-end-hook 'recenter-top-bottom)
 ;;(defadvice
@@ -262,7 +268,12 @@
 
 ;;(require 'dired)
 ;;(setq dired-use-ls-dired nil)
-;;(require 'dired-single)
+;;
+;;(use-package dired-single
+;;  :ensure t
+;;  :after dired
+;;  )
+;;
 ;;(require 'dired+)
 ;;(setq diredp-bind-problematic-terminal-keys nil)
                                         ;(defun dired-custom()
@@ -327,6 +338,7 @@
   :config
   (progn
     (projectile-mode +1)
+    (global-set-key (kbd "C-x C-p") 'projectile-find-file)
     (setq projectile-enable-caching t
           projectile-files-cache-expire 432000
           projectile-globally-ignored-file-suffixes (quote (".pyc")))
@@ -358,19 +370,29 @@
 ;;   (global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 ;;   (helm-projectile-on)
 ;;   )
+;;
+;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
+;;(require 'popwin)
+;;(popwin-mode 1)
+;;(setq display-buffer-function 'popwin:display-buffer)
+;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
+;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
 
-
-(global-set-key (kbd "C-x C-p") 'projectile-find-file)
 
 (use-package vertico
   :ensure t
-  ;;:bind (:map vertico-map
-  ;;("C-j" . vertico-next)
-  ;;("C-k" . vertico-previous)
-  ;;("C-f" . vertico-exit)
-  ;;:map minibuffer-local-map
-  ;;("M-h" . backward-kill-word)
-  ;;       )
+  :bind (
+         ;; TODO fix up vertico-directory-up to go up a level inside minibufer `find-file`
+         ;; TODO fix up vertico-directory-up to go to parent dir when wrong file is on the end in `find-file`
+         ;;:map vertico-map
+         ;;     ("C-<backspace>" . vertico-directory-up)
+              ;;("C-j" . vertico-next)
+              ;;("C-k" . vertico-previous)
+              ;;("C-f" . vertico-exit)
+         ;;:map minibuffer-local-map
+         ;;     ("C-<backspace>" . vertico-directory-up)
+         ;;     ("M-<backspace>" . backward-kill-word)
+  )
   :custom
   (vertico-cycle t)
   :init
@@ -398,23 +420,20 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-;; to mi duplikuje zmiane buffora a wole miec chyba helm-buffer
-;;(require 'popwin)
-;;(popwin-mode 1)
-;;(setq display-buffer-function 'popwin:display-buffer)
-;;(push '("^\*helm .+\*$" :regexp t) popwin:special-display-config)
-;;(push '("^\*helm-.+\*$" :regexp t) popwin:special-display-config)
-
 (use-package undo-tree
   :ensure t
   :defer t
+  :hook ((prog-mode text-mode conf-mode) . undo-tree-mode)
   :config
   ;;(global-undo-tree-mode)
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-history-directory-alist '(("." . "~/.config/emacs/backups/undo-tree")))
   ;;(define-key undo-tree-mode-map (kbd "C-x u") 'undo-tree-undo)  ;; C-x u is default undo
   ;;(local-set-key (kbd "C-x u") 'undo-tree-undo)  ;; undo-tree-visualize
-  :hook ((prog-mode text-mode conf-mode) . undo-tree-mode)
+  (local-unset-key "C-_")
+  (local-unset-key "C-/")
+  (local-unset-key "C-c /")
+  (local-unset-key "C-c _")
   )
 
 
@@ -449,7 +468,6 @@
 (global-set-key (kbd "C-_") 'auto-complete)
 (global-set-key (kbd "C-c /") 'auto-complete)
 (global-set-key (kbd "C-c _") 'auto-complete)
-
 
 (global-set-key (kbd "C-x <right>") 'my-next-user-buffer)
 (global-set-key (kbd "C-x <left>") 'my-prev-user-buffer)
@@ -509,6 +527,10 @@
 
 ;; move windows with shift+arrow
 (windmove-default-keybindings 'shift)
+(setq-default ediff-split-window-function 'split-window-horizontally)
+;;(setq split-width-threshold 30)
+;;(setq split-height-threshold nil)
+
 
 (put 'upcase-region 'disabled nil)
 
@@ -548,7 +570,7 @@
   :config
   (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
   (autoload 'hideshowvis-minor-mode "hideshowvis"
-    "Will indicate regions foldable with hideshow in the fringe." 'interactive)
+    "Will indicate regions foldable with hideshow in the fringe.(clickable + -)" 'interactive)
   (hideshowvis-symbols)
 )
 
@@ -807,6 +829,15 @@
   ;;                                   :args '("--flavor" "customer_a")))
 )
 
+;;(defun lsp-ui-imenu-toggle ()
+;;  "my way to toggle lsp-ui-imenu"
+;;  (interactive)
+;;  (if (my-lsp-ui-window-exists)
+;;     ;; go to lsp-ui-imenu buffer first!
+;;      (lsp-ui-imenu--kill)
+;;    (lsp-ui-imen)))
+
+
 (defun go-custom() 
   "My custom golang go-mode."
 ;; nie chce complte-at-point tylko complete via gopls mode
@@ -815,6 +846,7 @@
   (require 'dap-mode)
   (require 'dap-dlv-go)
   (require 'lsp-ui)
+  (require 'lsp-ui-doc)
 
   (setq tab-width 4)
 
@@ -823,13 +855,16 @@
      '(("gopls.completeUnimported" t t)
        ("gopls.staticcheck" t t)))
     (add-to-list 'lsp-enabled-clients 'gopls)
-  )
-  (setq lsp-ui-peek-always-show t)  ;; peek in popup, it can "go to definition" when set to nil
-  (setq lsp-ui-doc-position 'at-point)
-  (setq lsp-ui-doc-show-with-cursor t)
-  
-  (setq dap-dlv-go-extra-args "--check-go-version=false")
- 
+    )
+  (setq lsp-ui-peek-always-show nil  ;; peek in popup, it can "go to definition" when set to nil
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-side 'right
+        lsp-ui-doc-delay 0
+        lsp-ui-doc-show-with-cursor nil
+        lsp-ui-doc-show-with-mouse nil
+        dap-dlv-go-extra-args "--check-go-version=false")
+  (local-set-key (kbd "C-c ?") 'lsp-ui-doc-toggle)
+  (local-set-key (kbd "C-h d") 'lsp-ui-doc-toggle)
   (local-set-key (kbd "C-/") 'auto-complete)
   (local-set-key (kbd "C-_") 'auto-complete)
   (local-set-key (kbd "C-c /") 'auto-complete)
@@ -838,15 +873,17 @@
   (local-set-key (kbd "C-c .") 'xref-find-definitions)
   ;;(local-set-key (kbd "C-c ,") 'xref-pop-marker-stack)
   (local-set-key (kbd "C-c ,") 'xref-go-back)
-  (local-set-key (kbd "<f9>") 'lsp-ui-imenu)
+  (local-set-key (kbd "<f9>") 'lsp-ui-imenu)  ;; exit is set to `q`
   
   ;;  (lsp-deferred)
   ;;  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   ;;  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
+
 )
 (add-hook 'go-mode-hook #'go-custom)
+(add-to-list 'auto-mode-alist '("\\.templ\\'" . go-mode))`
 
 ;; debugging
 (use-package dap-mode
@@ -1074,16 +1111,22 @@
 
 (defun my-setup-client-frame()
   "Setup emacsclient frame."
-  (when (display-graphic-p)
-    ;; running in X
-    (setq neo-theme 'icons)
-    (add-to-list 'default-frame-alist '(foreground-color . "white"))
-    (add-to-list 'default-frame-alist '(background-color . "black"))
-    (add-to-list 'default-frame-alist '(cursor-color . "coral"))
-    ;;(load-theme 'pawcio t)
-    (load-theme 'deeper-blue t)
-    ;;(require 'color-theme)
-    ;;(color-theme-print)
+  (if (display-graphic-p)
+      (progn
+        ;; running in X
+        (setq neo-theme 'icons)
+        (add-to-list 'default-frame-alist '(foreground-color . "white"))
+        (add-to-list 'default-frame-alist '(background-color . "black"))
+        (add-to-list 'default-frame-alist '(cursor-color . "coral"))
+        ;;(load-theme 'pawcio t)
+        (load-theme 'deeper-blue t)
+        ;;(require 'color-theme)
+        ;;(color-theme-print)
+        )
+    (progn
+      (load-file "~/.emacs.d/lisp/tophead-line-buffer-name.el")
+      (disable-theme 'deeper-blue)
+      )
     )
   )
 (add-hook 'server-after-make-frame-hook 'my-setup-client-frame)
